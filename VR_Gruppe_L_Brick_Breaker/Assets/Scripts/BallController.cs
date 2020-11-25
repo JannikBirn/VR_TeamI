@@ -27,15 +27,22 @@ public class BallController : MonoBehaviour
 
             if (collision.collider.CompareTag("Platform"))
             {
-                // TODO When colliding with the player, the normal vector might be different.
-                // Depending on the angle, change the normal so that the ball is reflected differently at the edges of the platform.
-                // Also, take the player's velocity into account (head movement forward -> higher impact)
+                // When colliding with the player, the reflection axis depends
+                // on where the ball hits the platform. The further away from the center,
+                // the more this axis is twisted
+                Vector3 platformCenterPosition = collision.transform.position;
+                Vector3 centerNormal = contactPoint.normal;
+                Vector3 contactPosition = contactPoint.point;
+
+                // From the contact position, move along the platform's normal vector
+                // and use the end point of that vector to create the reflection axis from the center point
+                Vector3 reflectionAxis = (contactPosition + centerNormal) - platformCenterPosition;
+                Vector3 normal = reflectionAxis.normalized;
 
                 // When the ball collides with the platform,
                 // change its direction using accurate physics
                 // (https://math.stackexchange.com/a/13263)
                 // Calculate reflection vector and ball's new direction
-                Vector3 normal = contactPoint.normal;
                 Vector3 reflection = direction - 2 * (Vector3.Dot(direction, normal)) * normal;
                 this.direction = reflection;
             }
