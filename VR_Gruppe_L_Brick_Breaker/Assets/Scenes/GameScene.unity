@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 786518491}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -445,7 +445,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029276438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 2.044}
+  m_LocalPosition: {x: 0, y: 0, z: 3.254}
   m_LocalScale: {x: 1.5, y: 1.5, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
@@ -555,6 +555,11 @@ PrefabInstance:
       value: Sphere
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2482b32bf00014a7a824e3787e00992c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 2482b32bf00014a7a824e3787e00992c,
         type: 3}
       propertyPath: m_TagString
       value: Brick
@@ -1064,7 +1069,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999091560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 4.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1098,7 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79e54112b57d432a917d725f429cad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 8}
+  direction: {x: 0, y: 0, z: 2.5}
 --- !u!1 &2120131429
 GameObject:
   m_ObjectHideFlags: 0
