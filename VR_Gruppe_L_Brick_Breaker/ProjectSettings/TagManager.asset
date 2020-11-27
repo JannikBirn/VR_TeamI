@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Platform
   - Brick
+  - Camera
   layers:
   - Default
   - TransparentFX
