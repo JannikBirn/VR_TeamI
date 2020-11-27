@@ -7,17 +7,22 @@ public class PlatformController : MonoBehaviour
 
     // Scale platform in X direction (width)
     private float scaleX;
+    public Material regularMaterial;
+    public Material hitMaterial;
 
-    public Camera cam;
-    public Transform cameraTransform;
-
+    private Camera cam;
+    private Transform cameraTransform;
     private float distance = 15;
+    private bool hit = false;
 
     // Start is called before the first frame update
     void Start()
     {   
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         cameraTransform = cam.transform;
-        //cam = GameObject.FindGameObjectWithTag("Camera").GetComponent<Camera>();
+
+        // Set material
+        GetComponent<Renderer>().material = regularMaterial;
     }
 
     // Update is called once per frame
@@ -26,6 +31,12 @@ public class PlatformController : MonoBehaviour
         keyboardInput();
         followGaze();
     }
+
+    void followGaze() {
+        transform.position = cameraTransform.position + cameraTransform.forward * distance;
+        transform.rotation = cameraTransform.rotation;
+    }
+
 
     // Change the platform's scale
     public void setScale(float scaleX,float scaleY) {
@@ -40,11 +51,32 @@ public class PlatformController : MonoBehaviour
             Debug.Log("Changing Size!");
             setScale(2, 1);
         }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            switchMaterial();
+        }
+
     }
 
 
-    void followGaze() {
-        transform.position = cameraTransform.position + cameraTransform.forward * distance;
-        transform.rotation = cameraTransform.rotation;
+
+    private void OnCollisionEnter(Collision other) {
+        Debug.Log("Platform was hit");
+
+        if (other.collider.gameObject.tag == "Player") {
+            Debug.Log("Player hit the platform");
+            switchMaterial();
+        }
+    }
+
+    public void switchMaterial() {
+        Debug.Log("Switching Material");
+        if (hit) {
+            GetComponent<Renderer>().material = hitMaterial;
+            hit = false;
+        } else {
+            GetComponent<Renderer>().material = regularMaterial;
+            hit = true;
+        }
     }
 }
