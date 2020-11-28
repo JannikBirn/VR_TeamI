@@ -45,7 +45,7 @@ public class BrickController : MonoBehaviour
         }
     }
 
-    private void DestroyBrick()
+    public void DestroyBrick()
     {
         // Play interaction effect (if any), then destroy yourself
         if (destroyEffectPrefab != null)

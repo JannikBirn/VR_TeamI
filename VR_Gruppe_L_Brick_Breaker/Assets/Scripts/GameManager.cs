@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("You have lost");
         reloadLevel();
     }
+
     public void toggleMusic() {
 
     }
@@ -52,7 +53,19 @@ public class GameManager : MonoBehaviour
     public float getGameSpeed() {
         return gameSpeed;
     }
+
     public void setGameSpeed(float gameSpeed) {
         this.gameSpeed = gameSpeed;
+    }
+
+    // This method is connected to the OnDestroyed event of a BrickController
+    // generated in the game. When called, it will schedule all of the provided
+    // effects of that brick to be played
+    public void OnBrickDestroyed(BrickEffect[] effects)
+    {
+        foreach (BrickEffect effect in effects)
+        {
+            StartCoroutine(effect.Apply());
+        }
     }
 }
