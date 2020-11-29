@@ -15,7 +15,15 @@ public class PlatformController : MonoBehaviour
     private float distance = 15;
     private bool hit = false;
 
-    // Start is called before the first frame update
+    private Transform startTransform;
+
+
+    // Smooth follow gaze
+    //public Transform target;
+    public float smoothTime = 0.1F;
+    private Vector3 velocity = Vector3.zero;
+
+
     void Start()
     {   
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -23,6 +31,8 @@ public class PlatformController : MonoBehaviour
 
         // Set material
         GetComponent<Renderer>().material = regularMaterial;
+
+        startTransform = transform;
     }
 
     // Update is called once per frame
@@ -31,17 +41,28 @@ public class PlatformController : MonoBehaviour
         keyboardInput();
         followGaze();
     }
-
     void followGaze() {
-        transform.position = cameraTransform.position + cameraTransform.forward * distance;
+        Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.rotation = cameraTransform.rotation;
+
+        if(cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25) {
+            setScale(0,0);
+        } else {
+            setScale(1,1);
+        }
+
+        // apply movement
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity,  smoothTime);        
     }
 
 
     // Change the platform's scale
     public void setScale(float scaleX,float scaleY) {
         Debug.Log("Changing Size!");
-        transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
+
+        //transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
+        //transform.localScale = Vector3.Scale(startTransform.localScale, new Vector3(scaleX,scaleY,1));
+        transform.localScale = new Vector3(scaleX,scaleY,1);
     } 
 
     // Keyboard inputs for debugging use only
