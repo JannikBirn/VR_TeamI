@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026a5cff934bdfe47a64029d4fe37aec, type: 3}
   m_Name: BlockGeneratorSettingsDefault
   m_EditorClassIdentifier: 
-  blockCount: {x: 40, y: 1, z: 40}
+  blockCount: 400
+  scale: {x: 100, y: 100, z: 100}
+  clampX: {x: 0, y: 1}
+  clampY: {x: 0, y: 1}
+  clampZ: {x: 0.09534857, y: 0.7953485}
+  blockPrefab: {fileID: 7269633384674413012, guid: ae96b8716e7f1584ba49d4d61f0f747e,
+    type: 3}
