@@ -150,9 +150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1494f60008d954297833b2ae8dcc3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockGeneratorSettings: {fileID: 11400000, guid: 851eaef2e97e27a419a5eb839ee66ae5,
-    type: 2}
+  sphereSettings:
+  - {fileID: 11400000, guid: 851eaef2e97e27a419a5eb839ee66ae5, type: 2}
+  - {fileID: 11400000, guid: 2b08a9322c08fff4c8699168b7c30aae, type: 2}
+  - {fileID: 11400000, guid: f81ef4a45925e2c4d95d857bb3a5d7d6, type: 2}
   gizmosDrawClamps: 1
+  gizmosDrawBlocks: 1
 --- !u!4 &472436820
 Transform:
   m_ObjectHideFlags: 0
