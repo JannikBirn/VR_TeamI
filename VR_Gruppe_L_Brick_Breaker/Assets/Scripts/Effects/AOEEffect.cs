@@ -11,7 +11,7 @@ public class AOEEffect : BrickEffect
         // Perform a sphere cast around the center of this effect's object.
         // Any other BrickController in this sphere will be obliterated
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, effectRadius, transform.forward);
-        foreach(RaycastHit hit in hits)
+        foreach (RaycastHit hit in hits)
         {
             // Make sure that this object is actually inside the sphere
             // (its "distance" is set to 0 if that's the case)
