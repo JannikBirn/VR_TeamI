@@ -58,7 +58,7 @@ public class PlatformController : MonoBehaviour
 
     // Change the platform's scale
     public void setScale(float scaleX,float scaleY) {
-        Debug.Log("Changing Size!");
+        //Debug.Log("Changing Size!");
 
         //transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
         //transform.localScale = Vector3.Scale(startTransform.localScale, new Vector3(scaleX,scaleY,1));
@@ -69,7 +69,7 @@ public class PlatformController : MonoBehaviour
     private void keyboardInput() {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Changing Size!");
+            //Debug.Log("Changing Size!");
             setScale(2, 1);
         }
         if (Input.GetKeyDown(KeyCode.M))
