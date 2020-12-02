@@ -9,6 +9,10 @@ public class BlockGeneratorScript : MonoBehaviour
     [Header("Setting for each Spherelayer")]
     public SphereSettings[] sphereSettings;
 
+    // The prefab of the spherical hull draped around the blocks
+    // (this will be scaled up, so its original form should have size 1)
+    public GameObject hullPrefab;
+
 
     [Header("Gizmos Settings")]
     public bool gizmosDrawClamps = true;
@@ -90,9 +94,17 @@ public class BlockGeneratorScript : MonoBehaviour
     //Private Method for instantiating the prefabs of each sphereLayer
     private void instantiatePrefabs()
     {
+        // Keep track of the largest layer's radius, as the hull needs to be wrapped around that layer
+        float largestRadius = 0;
+
         for (int sphereIndex = 0; sphereIndex < sphereSettings.Length; sphereIndex++)
         {
             SphereSettings currentSettings = sphereSettings[sphereIndex];
+
+            if (currentSettings.radius > largestRadius)
+            {
+                largestRadius = currentSettings.radius;
+            }
 
             for (int x = 0; x < currentSettings.blockCount; x++)
             {
@@ -120,6 +132,10 @@ public class BlockGeneratorScript : MonoBehaviour
                 }
             }
         }
+
+        // Instantiate the outer hull and scale it up to be as large as the largest layer
+        GameObject hull = Instantiate(hullPrefab, this.transform.position, this.transform.rotation, this.transform);
+        hull.transform.localScale = new Vector3(largestRadius, largestRadius, largestRadius);
     }
 
 
