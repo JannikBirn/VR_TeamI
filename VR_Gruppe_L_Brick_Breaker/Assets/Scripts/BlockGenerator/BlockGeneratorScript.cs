@@ -31,6 +31,8 @@ public class BlockGeneratorScript : MonoBehaviour
     // Size of the block prefab, just for drawing the Gizmos
     private Vector3 blockSize;
 
+    // This event is sent when a block is destroyed by the ball
+    public BrickDestroyedEvent OnBlockDestroyed;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,8 @@ public class BlockGeneratorScript : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
+
+        OnBlockDestroyed.RemoveAllListeners();
     }
 
     //Generating some values for calculation and for the gizmos,
@@ -125,10 +129,8 @@ public class BlockGeneratorScript : MonoBehaviour
                         }
                     }
 
-
                     //Instantiateing the block and rotating at towards the generator 
-                    GameObject block = Instantiate(randomBlock, applyMatrix(v, sphereIndex), Quaternion.identity, this.transform) as GameObject;
-                    block.transform.LookAt(this.transform, Vector3.up);
+                    InstantiateBlock(randomBlock, applyMatrix(v, sphereIndex));
                 }
             }
         }
@@ -138,6 +140,20 @@ public class BlockGeneratorScript : MonoBehaviour
         hull.transform.localScale = new Vector3(largestRadius, largestRadius, largestRadius);
     }
 
+    private void InstantiateBlock(GameObject prefab, Vector3 position)
+    {
+        GameObject block = Instantiate(prefab, position, Quaternion.identity, this.transform) as GameObject;
+        block.transform.LookAt(this.transform, Vector3.up);
+
+        // When the block is destroyed, notify the generator about it
+        BrickController controller = block.GetComponent<BrickController>();
+        if (controller != null)
+        {
+            // Forward the event to the generator's own "OnBlockDestroyed" event
+            // (the GameManager will listen to it)
+            controller.OnDestroyed.AddListener(effects => OnBlockDestroyed.Invoke(effects));
+        }
+    }
 
     //return will be between 1 and -1 coordinates
     private Vector3 getPointPosition(int index, int sphereIndex)
