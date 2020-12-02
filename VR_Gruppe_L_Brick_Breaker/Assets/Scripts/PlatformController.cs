@@ -79,24 +79,34 @@ public class PlatformController : MonoBehaviour
 
     }
 
-
-
-    private void OnCollisionEnter(Collision other) {
+    private void OnCollisionEnter(Collision other)
+    {
         Debug.Log("Platform was hit");
 
-        if (other.collider.gameObject.tag == "Player") {
+        if (other.collider.gameObject.tag == "Ball")
+        {
             Debug.Log("Player hit the platform");
-            switchMaterial();
+            StartCoroutine(OnPlatformHit());
         }
     }
 
-    public void switchMaterial() {
-        Debug.Log("Switching Material");
-        if (hit) {
-            GetComponent<Renderer>().material = hitMaterial;
-            hit = false;
-        } else {
+    private IEnumerator OnPlatformHit()
+    {
+        switchMaterial();
+        yield return new WaitForSeconds(0.1f);
+        switchMaterial();
+    }
+
+    public void switchMaterial()
+    {
+        if (hit)
+        {
             GetComponent<Renderer>().material = regularMaterial;
+            hit = false;
+        }
+        else
+        {
+            GetComponent<Renderer>().material = hitMaterial;
             hit = true;
         }
     }
