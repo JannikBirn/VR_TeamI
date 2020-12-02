@@ -13,12 +13,10 @@ public class BrickController : MonoBehaviour
     // The effect to play when the brick is destroyed
     public GameObject destroyEffectPrefab;
 
-    // List of effects to trigger when the brick is destroyed
-    //public List<BrickEffect> effects;
-
     // This event is sent when the brick is destroyed by the ball
     public BrickDestroyedEvent OnDestroyed;
 
+    // List of effects to trigger when the brick is destroyed
     private BrickEffect[] effects;
 
     void Start()
@@ -41,11 +39,11 @@ public class BrickController : MonoBehaviour
             OnDestroyed.Invoke(effects);
 
             // Destroy the brick
-            DestroyBrick();
+            DestroyBlock();
         }
     }
 
-    public void DestroyBrick()
+    public void DestroyBlock()
     {
         // Play interaction effect (if any), then destroy yourself
         if (destroyEffectPrefab != null)
