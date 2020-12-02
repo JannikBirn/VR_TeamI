@@ -23,9 +23,11 @@ public class PlatformController : MonoBehaviour
     public float smoothTime = 0.1F;
     private Vector3 velocity = Vector3.zero;
 
+    private float currentScaleX = 1f;
+    private float currentScaleY = 1f;
 
     void Start()
-    {   
+    {
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         cameraTransform = cam.transform;
 
@@ -37,36 +39,43 @@ public class PlatformController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {  
+    {
         keyboardInput();
         followGaze();
     }
-    void followGaze() {
+    void followGaze()
+    {
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.rotation = cameraTransform.rotation;
 
-        if(cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25) {
-            setScale(0,0);
-        } else {
-            setScale(1,1);
+        if (cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25)
+        {
+            currentScaleX = 0f;
+            currentScaleY = 0f;
         }
 
+        setScale(currentScaleX, currentScaleY);
+
         // apply movement
-        transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity,  smoothTime);        
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
     }
 
-
     // Change the platform's scale
-    public void setScale(float scaleX,float scaleY) {
+    public void setScale(float scaleX, float scaleY)
+    {
+        this.currentScaleX = scaleX;
+        this.currentScaleY = scaleY;
+
         //Debug.Log("Changing Size!");
 
         //transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
         //transform.localScale = Vector3.Scale(startTransform.localScale, new Vector3(scaleX,scaleY,1));
-        transform.localScale = new Vector3(scaleX,scaleY,1);
-    } 
+        transform.localScale = new Vector3(scaleX, scaleY, 1);
+    }
 
     // Keyboard inputs for debugging use only
-    private void keyboardInput() {
+    private void keyboardInput()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //Debug.Log("Changing Size!");
