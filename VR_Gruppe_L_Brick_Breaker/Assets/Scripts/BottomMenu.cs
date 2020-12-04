@@ -54,15 +54,15 @@ public class BottomMenu : MonoBehaviour
 
         menuIsShowing = !menuIsShowing;
         menu.SetActive(true);
+        manager.setGameSpeed(0.5f);
         
-        
-
     }
     public void Off() {
         GetComponent<Renderer>().material.color = offColor;
 
         menuIsShowing = !menuIsShowing;
         menu.SetActive(false);
+        manager.setGameSpeed(1f);
 
         if(gaze) {
             gaze = false;

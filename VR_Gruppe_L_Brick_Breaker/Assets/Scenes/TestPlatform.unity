@@ -1520,6 +1520,11 @@ PrefabInstance:
       propertyPath: label
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 1424439376299166537, guid: 6fa82081ac17c8040b023f095319545a,
+        type: 3}
+      propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: quitGame
+      objectReference: {fileID: 0}
     - target: {fileID: 1424439376299226291, guid: 6fa82081ac17c8040b023f095319545a,
         type: 3}
       propertyPath: m_Name
@@ -1952,14 +1957,13 @@ GameObject:
   - component: {fileID: 1757447002}
   - component: {fileID: 1757447001}
   - component: {fileID: 1757447000}
-  - component: {fileID: 1757447004}
   m_Layer: 5
   m_Name: Leaderboards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1757447000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2041,18 +2045,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1757447004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757446999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a763b74c6641049a95a71db7f110fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1804444108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2737,7 +2729,7 @@ PrefabInstance:
     - target: {fileID: 1424439376299166537, guid: 6fa82081ac17c8040b023f095319545a,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: quitGame
+      value: reloadLevel
       objectReference: {fileID: 0}
     - target: {fileID: 1424439376299226291, guid: 6fa82081ac17c8040b023f095319545a,
         type: 3}

@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
         if(hits > 3) {
             plattform.setScale(0.75F, 0.75F);
         }
+
+        Time.timeScale = gameSpeed;
     }
 
     // This function resets all level elements within a game session
