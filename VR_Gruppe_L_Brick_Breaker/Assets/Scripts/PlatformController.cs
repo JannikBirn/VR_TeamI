@@ -10,8 +10,8 @@ public class PlatformController : MonoBehaviour
     public Material regularMaterial;
     public Material hitMaterial;
 
-    private Camera cam;
-    private Transform cameraTransform;
+    //public Camera cam;
+    public Transform cameraTransform;
     private float distance = 15;
     private bool hit = false;
 
@@ -27,14 +27,22 @@ public class PlatformController : MonoBehaviour
     private float currentScaleY = 1f;
 
     void Start()
-    {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        cameraTransform = cam.transform;
+    {   
+        //cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        //cameraTransform = cam.transform;
 
         // Set material
         GetComponent<Renderer>().material = regularMaterial;
 
         startTransform = transform;
+
+        Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
+        transform.position = target;
+        
+    }
+
+    private void OnBecameVisible() {
+
     }
 
     // Update is called once per frame

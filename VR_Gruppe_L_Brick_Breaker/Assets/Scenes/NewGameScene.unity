@@ -150,6 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb9648eb74634ebeb6bae910f0a402a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plattform: {fileID: 0}
+  leaderboards: {fileID: 0}
 --- !u!4 &516857836
 Transform:
   m_ObjectHideFlags: 0
@@ -201,7 +203,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21530
+  m_Name: pb_Mesh18474
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -548,6 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   regularMaterial: {fileID: 2100000, guid: 26377afb5fa1b4d0c9a6b2ec7e6527e4, type: 2}
   hitMaterial: {fileID: 2100000, guid: 673f1a945ee753843a07a34ae0cbe498, type: 2}
+  cameraTransform: {fileID: 1616529390}
   smoothTime: 0.1
 --- !u!64 &1363900183
 MeshCollider:
@@ -1373,7 +1376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363900181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 16.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1393,7 +1396,6 @@ GameObject:
   - component: {fileID: 1616529393}
   - component: {fileID: 1616529392}
   - component: {fileID: 1616529391}
-  - component: {fileID: 1616529396}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -1555,20 +1557,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1616529396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616529389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d90baf5b135ad4f9f1396d1295a92d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedH: 2
-  speedV: 2
 --- !u!1001 &2618111667019599128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1589,7 +1577,7 @@ PrefabInstance:
     - target: {fileID: 2618111668103957108, guid: 17a17c167c13d4d6f8c7edb67e2d1776,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15
+      value: 22.14
       objectReference: {fileID: 0}
     - target: {fileID: 2618111668103957108, guid: 17a17c167c13d4d6f8c7edb67e2d1776,
         type: 3}
