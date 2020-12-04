@@ -12,12 +12,18 @@ public class ScoreController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mesh.text = text + score;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        mesh.text = text + score;
     }
+
+    public void AddScore(int toAdd)
+    {
+        score += toAdd;
+    }
+
 }
