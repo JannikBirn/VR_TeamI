@@ -127,7 +127,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23928
+  m_Name: pb_Mesh25636
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1416,13 +1416,13 @@ GameObject:
   - component: {fileID: 753336499}
   - component: {fileID: 753336504}
   - component: {fileID: 753336503}
-  - component: {fileID: 753336502}
-  - component: {fileID: 753336501}
   - component: {fileID: 753336500}
+  - component: {fileID: 753336501}
   - component: {fileID: 753336506}
   - component: {fileID: 753336505}
+  - component: {fileID: 753336502}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
