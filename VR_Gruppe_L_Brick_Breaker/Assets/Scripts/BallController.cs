@@ -31,12 +31,12 @@ public class BallController : MonoBehaviour
                 Vector3 platformCenterPosition = collision.transform.position;
                 HandlePlatformCollision(platformCenterPosition, contactPoint);
             }
-            else if (collision.collider.CompareTag("Brick"))
+            else
             {
                 // When colliding with a brick, check if there is an auto-pilot effect
                 // attached to that brick. If this is the case, immediately switch
                 // on the auto pilot mode
-                if (collision.collider.GetComponent<AutoPilotEffect>() != null)
+                if (collision.collider.CompareTag("Brick") && collision.collider.GetComponent<AutoPilotEffect>() != null)
                 {
                     this.isAutoPilot = true;
                 }

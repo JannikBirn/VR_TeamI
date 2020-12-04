@@ -13,15 +13,21 @@ MonoBehaviour:
   m_Name: SphereSettingsLayer0
   m_EditorClassIdentifier: 
   blockCount: 400
-  radius: 100
+  radius: 40
   clampX: {x: 0, y: 1}
   clampY: {x: 0, y: 1}
   clampZ: {x: 0, y: 1}
   defaultPrefabs:
-  - {fileID: 7269633384674413012, guid: ae96b8716e7f1584ba49d4d61f0f747e, type: 3}
+  - {fileID: 2684789179112888946, guid: 2b1549ed9d9034d6f94c2d04d61658c8, type: 3}
   specialPrefabs:
-  - {fileID: 1153672984805292772, guid: b2699e96fee37814fa4b50439b7fbcc2, type: 3}
-  - {fileID: 3031339667529630253, guid: f4822d833e1814d4496376f44464e35e, type: 3}
+  - {fileID: 2712912626056591230, guid: 07530957fa793499faef288400f43d57, type: 3}
+  - {fileID: 1803680641847759349, guid: 7a7d033b0de2f437c93058101b394684, type: 3}
+  - {fileID: 8781276033422191680, guid: 2990d7184bd124327a4e67f4ff727126, type: 3}
+  - {fileID: 2524844964808648694, guid: 36cf04704e92a489da62689a296e3d68, type: 3}
+  - {fileID: 3735354481791165590, guid: 943991d6e6ace4ce8af9ffa5974e236e, type: 3}
   specialChance:
-  - 0
-  - 0
+  - 0.01
+  - 0.05
+  - 0.05
+  - 0.1
+  - 0.05

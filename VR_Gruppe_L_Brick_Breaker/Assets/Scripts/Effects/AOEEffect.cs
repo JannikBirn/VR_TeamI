@@ -20,7 +20,7 @@ public class AOEEffect : BrickEffect
                 BrickController otherBrick = hit.collider.gameObject.GetComponent<BrickController>();
                 if (otherBrick != null)
                 {
-                    otherBrick.DestroyBrick();
+                    otherBrick.DestroyBlock();
                 }
             }
         }

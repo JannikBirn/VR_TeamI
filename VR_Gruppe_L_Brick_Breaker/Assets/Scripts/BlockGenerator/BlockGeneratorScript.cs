@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class BlockGeneratorScript : MonoBehaviour
 {
+    private static readonly Color SPHERE_COLOR = new Color(1f, 1f, 1f, 0.3f);
 
     [Header("Setting for each Spherelayer")]
     public SphereSettings[] sphereSettings;
+
+    // The prefab of the spherical hull draped around the blocks
+    // (this will be scaled up, so its original form should have size 1)
+    public GameObject hullPrefab;
 
 
     [Header("Gizmos Settings")]
@@ -26,6 +31,8 @@ public class BlockGeneratorScript : MonoBehaviour
     // Size of the block prefab, just for drawing the Gizmos
     private Vector3 blockSize;
 
+    // This event is sent when a block is destroyed by the ball
+    public BrickDestroyedEvent OnBlockDestroyed;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +57,8 @@ public class BlockGeneratorScript : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
+
+        OnBlockDestroyed.RemoveAllListeners();
     }
 
     //Generating some values for calculation and for the gizmos,
@@ -89,9 +98,17 @@ public class BlockGeneratorScript : MonoBehaviour
     //Private Method for instantiating the prefabs of each sphereLayer
     private void instantiatePrefabs()
     {
+        // Keep track of the largest layer's radius, as the hull needs to be wrapped around that layer
+        float largestRadius = 0;
+
         for (int sphereIndex = 0; sphereIndex < sphereSettings.Length; sphereIndex++)
         {
             SphereSettings currentSettings = sphereSettings[sphereIndex];
+
+            if (currentSettings.radius > largestRadius)
+            {
+                largestRadius = currentSettings.radius;
+            }
 
             for (int x = 0; x < currentSettings.blockCount; x++)
             {
@@ -112,15 +129,31 @@ public class BlockGeneratorScript : MonoBehaviour
                         }
                     }
 
-
                     //Instantiateing the block and rotating at towards the generator 
-                    GameObject block = Instantiate(randomBlock, applyMatrix(v, sphereIndex), Quaternion.identity, this.transform) as GameObject;
-                    block.transform.LookAt(this.transform, Vector3.up);
+                    InstantiateBlock(randomBlock, applyMatrix(v, sphereIndex));
                 }
             }
         }
+
+        // Instantiate the outer hull and scale it up to be as large as the largest layer
+        GameObject hull = Instantiate(hullPrefab, this.transform.position, this.transform.rotation, this.transform);
+        hull.transform.localScale = new Vector3(largestRadius, largestRadius, largestRadius);
     }
 
+    private void InstantiateBlock(GameObject prefab, Vector3 position)
+    {
+        GameObject block = Instantiate(prefab, position, Quaternion.identity, this.transform) as GameObject;
+        block.transform.LookAt(this.transform, Vector3.up);
+
+        // When the block is destroyed, notify the generator about it
+        BrickController controller = block.GetComponent<BrickController>();
+        if (controller != null)
+        {
+            // Forward the event to the generator's own "OnBlockDestroyed" event
+            // (the GameManager will listen to it)
+            controller.OnDestroyed.AddListener(effects => OnBlockDestroyed.Invoke(effects));
+        }
+    }
 
     //return will be between 1 and -1 coordinates
     private Vector3 getPointPosition(int index, int sphereIndex)
@@ -255,7 +288,7 @@ public class BlockGeneratorScript : MonoBehaviour
         }
 
         //Drawing a green sphere in the center
-        Gizmos.color = Color.white;
+        Gizmos.color = SPHERE_COLOR;
         Gizmos.DrawSphere(this.transform.position, blockSize.x * 2);
     }
 
