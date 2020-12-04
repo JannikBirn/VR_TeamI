@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
     private float gameSpeed;
     private int lives;
 
+    private enum gameState
+    {
+        inLevel,
+        inMenu
+    };
+
     // Start is called before the first frame update
     void Start()
     {
