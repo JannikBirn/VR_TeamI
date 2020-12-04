@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7240004713187723616
+--- !u!1 &8781276033422191680
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7240004713187723620}
-  - component: {fileID: 7240004713187723623}
-  - component: {fileID: 7240004713187723622}
-  - component: {fileID: 7240004713187723617}
-  - component: {fileID: 7240004713187723621}
-  - component: {fileID: 4700597364081671659}
+  - component: {fileID: 8781276033422191684}
+  - component: {fileID: 8781276033422191687}
+  - component: {fileID: 8781276033422191686}
+  - component: {fileID: 8781276033422191681}
+  - component: {fileID: 8781276033422191685}
+  - component: {fileID: 6674076873920398766}
   m_Layer: 0
-  m_Name: Slow Speed Brick
+  m_Name: Platform Shrink Block
   m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7240004713187723620
+--- !u!4 &8781276033422191684
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7240004713187723616}
+  m_GameObject: {fileID: 8781276033422191680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.88, y: 1.14, z: -5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7240004713187723623
+--- !u!33 &8781276033422191687
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7240004713187723616}
+  m_GameObject: {fileID: 8781276033422191680}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &7240004713187723622
+--- !u!23 &8781276033422191686
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7240004713187723616}
+  m_GameObject: {fileID: 8781276033422191680}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7b0a13fc31ffe4bf486008bd087f6eed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,26 +82,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7240004713187723617
+--- !u!65 &8781276033422191681
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7240004713187723616}
+  m_GameObject: {fileID: 8781276033422191680}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7240004713187723621
+--- !u!114 &8781276033422191685
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7240004713187723616}
+  m_GameObject: {fileID: 8781276033422191680}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ddf49b6725bb4bb4abdad332ea84fc6, type: 3}
@@ -111,18 +111,29 @@ MonoBehaviour:
   destroyEffectPrefab: {fileID: 0}
   OnDestroyed:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &4700597364081671659
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnBrickDestroyed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6674076873920398766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7240004713187723616}
+  m_GameObject: {fileID: 8781276033422191680}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1626f52ff3fff42a6a261113621f3260, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f62909bf59e04f8d98999a90138d95d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedFactor: 0.5
+  sizeFactor: 0.5
   duration: 10

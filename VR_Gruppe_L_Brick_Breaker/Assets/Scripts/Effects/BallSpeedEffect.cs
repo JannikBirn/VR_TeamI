@@ -25,12 +25,13 @@ public class BallSpeedEffect : BrickEffect
     public override IEnumerator Apply()
     {
         // Scale the ball's direction vector by the given amount to change its speed
+        float normalSpeed = ballController.direction.magnitude;
         ballController.direction = ballController.direction * speedFactor;
 
         // Wait for the effect to stop
         yield return new WaitForSeconds(duration);
 
         // Restore the original speed
-        ballController.direction = ballController.direction / speedFactor;
+        ballController.direction = ballController.direction.normalized * normalSpeed;
     }
 }
