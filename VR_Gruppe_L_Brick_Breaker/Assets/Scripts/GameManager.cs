@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
     private int hits;
     private float gameSpeed;
     private int lifes;
+    private bool menu;
+    public PlatformController plattform;
+    public GameObject leaderboards;
+    private bool showLeaderboards = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +19,16 @@ public class GameManager : MonoBehaviour
         hits = 0;
         gameSpeed = 1;
         lifes = 3;
+        menu = false;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {   
+        // Plattform shrinks in size after some hits
+        if(hits > 3) {
+            plattform.setScale(0.75F, 0.75F);
+        }
     }
 
     // This function resets all level elements within a game session
@@ -48,7 +56,28 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void toggleMenu() {
+
+    }
+
+    public void quitGame() {
+        // Quit Game and open main menu scene
+    }
+
+    public void toggleLeaderboards() {
+        leaderboards.SetActive(!leaderboards.activeSelf);
+    }
+    
+
     // Getters & Setters
+    public int getHits() {
+        return hits;
+    }
+
+    // Call this when the player hit another brick
+    public void hit() {
+        hits ++;
+    }
 
     public float getGameSpeed() {
         return gameSpeed;
