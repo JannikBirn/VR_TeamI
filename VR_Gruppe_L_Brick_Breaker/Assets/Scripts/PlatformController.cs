@@ -27,7 +27,7 @@ public class PlatformController : MonoBehaviour
     private float currentScaleY = 1f;
 
     void Start()
-    {   
+    {
         //cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         //cameraTransform = cam.transform;
 
@@ -38,10 +38,11 @@ public class PlatformController : MonoBehaviour
 
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.position = target;
-        
+
     }
 
-    private void OnBecameVisible() {
+    private void OnBecameVisible()
+    {
 
     }
 
@@ -60,6 +61,11 @@ public class PlatformController : MonoBehaviour
         {
             currentScaleX = 0f;
             currentScaleY = 0f;
+        }
+        else
+        {
+            currentScaleX = 1f;
+            currentScaleY = 1f;
         }
 
         setScale(currentScaleX, currentScaleY);
