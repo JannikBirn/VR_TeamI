@@ -30,6 +30,8 @@ public class GazeButton : MonoBehaviour
         //TextMesh textObject = GameObject.Find("object2").GetComponent<TextMesh>();
         myTextMesh = GetComponentInChildren<TextMesh>();
         myTextMesh.text = label;
+        GetComponent<Renderer>().material.color = offColor;
+        
     }
 
     // Update is called once per frame

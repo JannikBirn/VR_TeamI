@@ -28,8 +28,6 @@ public class PlatformController : MonoBehaviour
 
     void Start()
     {
-        //cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        //cameraTransform = cam.transform;
 
         // Set material
         GetComponent<Renderer>().material = regularMaterial;
@@ -68,7 +66,7 @@ public class PlatformController : MonoBehaviour
             currentScaleY = 1f;
         }
 
-        setScale(currentScaleX, currentScaleY);
+        //setScale(currentScaleX, currentScaleY);
 
         // apply movement
         transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);

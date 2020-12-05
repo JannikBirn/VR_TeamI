@@ -18,6 +18,7 @@ public class BottomMenu : MonoBehaviour
     public GameObject menu;
     private bool menuIsShowing = false;
     public GameManager manager;
+        public UnityEvent myEvent;
      
     
 
@@ -35,13 +36,7 @@ public class BottomMenu : MonoBehaviour
                 timer += Time.deltaTime;
                 gazeImg.fillAmount = timer/duration;
             } else {
-                timer = 0;
-                if(menuIsShowing) {
-                    Off();
-                } else {
-                    On();
-                }
-                
+                On();
                 gaze = false;
                 gazeImg.fillAmount = 0;
             }
@@ -51,18 +46,10 @@ public class BottomMenu : MonoBehaviour
 
     public void On() {
         GetComponent<Renderer>().material.color = onColor;
-
-        menuIsShowing = !menuIsShowing;
-        menu.SetActive(true);
-        manager.setGameSpeed(0.5f);
-        
+        myEvent.Invoke();
     }
     public void Off() {
         GetComponent<Renderer>().material.color = offColor;
-
-        menuIsShowing = !menuIsShowing;
-        menu.SetActive(false);
-        manager.setGameSpeed(1f);
 
         if(gaze) {
             gaze = false;
@@ -73,9 +60,5 @@ public class BottomMenu : MonoBehaviour
         timer = 0;
         gaze = true;
         gameObject.GetComponent<Renderer>().material.color = waitColor;
-    }
-
-    public void hoverQuitButton() {
-        Debug.Log("You have hovered the quit Button");
     }
 }
