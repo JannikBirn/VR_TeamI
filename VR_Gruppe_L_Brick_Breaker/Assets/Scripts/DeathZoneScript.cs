@@ -15,9 +15,9 @@ public class DeathZoneScript : MonoBehaviour
             //Ball entered the death zone -> delete ball
             GameObject.Destroy(other.gameObject);
 
-
+            Debug.Log(GameObject.FindGameObjectsWithTag("Ball").Length);
             //TODO fancier way of cheking if there is a ball left
-            if (!GameObject.FindGameObjectWithTag("Ball"))
+            if (GameObject.FindGameObjectsWithTag("Ball").Length <= 1)
             {
                 //All balls are dead, call dead event in game manager
                 gameManager.gameStop();

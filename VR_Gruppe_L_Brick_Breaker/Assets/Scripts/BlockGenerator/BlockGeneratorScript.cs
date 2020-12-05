@@ -159,7 +159,7 @@ public class BlockGeneratorScript : MonoBehaviour
         {
             // Forward the event to the generator's own "OnBlockDestroyed" event
             // (the GameManager will listen to it)
-            controller.OnDestroyed.AddListener(effects => OnBlockDestroyed.Invoke(effects));
+            controller.OnDestroyed.AddListener((effects, ballController) => OnBlockDestroyed.Invoke(effects, ballController));
         }
     }
 

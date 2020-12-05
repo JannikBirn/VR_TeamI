@@ -5,5 +5,5 @@ using UnityEngine;
 public abstract class BrickEffect : MonoBehaviour
 {
     // Apply the effect. This returns an "IEnumerator" so that it can be started asynchronously in a coroutine
-    public abstract IEnumerator Apply();
+    public abstract IEnumerator Apply(BallController ballController);
 }

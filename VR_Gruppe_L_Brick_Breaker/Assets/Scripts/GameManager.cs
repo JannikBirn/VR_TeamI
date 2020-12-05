@@ -134,6 +134,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("gameStart()")]
     public void gameStart()
     {
+        Debug.Log("GameManager : gameStart()");
         //resetting all the objects so the player can play again
         //BlockMeshGen is will reset in the BLockGeneratorScript
         onLevelEvent.Invoke(LevelEvent.LEVEL_START);
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("gamePlay()")]
     public void gamePlay()
     {
+        Debug.Log("GameManager : gamePlay()");
         //unpausing the gampleay if it is paused
         onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
 
@@ -151,6 +153,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("gamePause()")]
     public void gamePause()
     {
+        Debug.Log("GameManager : gamePause()");
         //Pausing the current gameplay
         onLevelEvent.Invoke(LevelEvent.LEVEL_PAUSE);
 
@@ -160,6 +163,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("gameStop()")]
     public void gameStop()
     {
+        Debug.Log("GameManager : gameStop()");
         //stopping the gamplay and opening the scoreboard/menu
         onLevelEvent.Invoke(LevelEvent.LEVEL_STOP);
     }
@@ -168,19 +172,19 @@ public class GameManager : MonoBehaviour
     // This method is connected to the OnDestroyed event of a BrickController
     // generated in the game. When called, it will schedule all of the provided
     // effects of that brick to be played
-    public void OnBlockDestroyed(BrickEffect[] effects)
+    public void OnBlockDestroyed(BrickEffect[] effects, BallController ballController)
     {
         foreach (BrickEffect effect in effects)
         {
-            StartCoroutine(ExecuteBlockEffect(effect));
+            StartCoroutine(ExecuteBlockEffect(effect, ballController));
         }
     }
 
-    private IEnumerator ExecuteBlockEffect(BrickEffect effect)
+    private IEnumerator ExecuteBlockEffect(BrickEffect effect, BallController ballController)
     {
         // TODO Update UI (show icon for the effect)
 
-        yield return effect.Apply();
+        yield return effect.Apply(ballController);
 
         // TODO Update UI (remove icon for the effect)
     }
