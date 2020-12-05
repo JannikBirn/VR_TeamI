@@ -29,18 +29,29 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        if (LevelEvent.state == LevelEvent.STATE_PLAYING)
+        {
+            //Adding time to the timer if player is playing
+            timer += Time.deltaTime;
+        }
     }
 
-    //TODO needs to be called when level starts
-    private void OnLevelStarted()
+    public void onLevelEvent(int levelEvent)
     {
-        //TODO start timer, reset score
-        currentScore = 0;
+        if (levelEvent == LevelEvent.LEVEL_START)
+        {
+            currentScore = 0;
+            timer = 0;
+        }
+        else if (levelEvent == LevelEvent.LEVEL_STOP)
+        {
+            OnLevelFinished();
+        }
     }
+
 
     //Gets called by the BlockGeneratorScript Event when a block is destroyed
-    private void OnBlockDestroyed(BrickEffect[] effects)
+    public void OnBlockDestroyed(BrickEffect[] effects)
     {
         Debug.Log("ScoreManager : OnBlockDestroyed() Event call");
         currentScore += scoreOfABlock;

@@ -26,22 +26,28 @@ public class PlatformController : MonoBehaviour
     private float currentScaleX = 1f;
     private float currentScaleY = 1f;
 
+    private Renderer myRenderer;
+
     void Start()
-    {   
+    {
         //cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         //cameraTransform = cam.transform;
 
         // Set material
-        GetComponent<Renderer>().material = regularMaterial;
+        myRenderer = GetComponent<Renderer>();
+        myRenderer.material = regularMaterial;
 
         startTransform = transform;
 
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.position = target;
-        
+
+        //Hiding this Platform, Showing when level starts
+        myRenderer.enabled = false;
     }
 
-    private void OnBecameVisible() {
+    private void OnBecameVisible()
+    {
 
     }
 
@@ -118,13 +124,33 @@ public class PlatformController : MonoBehaviour
     {
         if (hit)
         {
-            GetComponent<Renderer>().material = regularMaterial;
+            myRenderer.material = regularMaterial;
             hit = false;
         }
         else
         {
-            GetComponent<Renderer>().material = hitMaterial;
+            myRenderer.material = hitMaterial;
             hit = true;
+        }
+    }
+
+
+    public void onLevelEvent(int levelEvent)
+    {
+        switch (levelEvent)
+        {
+            case LevelEvent.LEVEL_START:
+                myRenderer.enabled = true;
+                break;
+            case LevelEvent.LEVEL_PLAY:
+                myRenderer.enabled = true;
+                break;
+            case LevelEvent.LEVEL_PAUSE:
+                myRenderer.enabled = false;
+                break;
+            case LevelEvent.LEVEL_STOP:
+                myRenderer.enabled = false;
+                break;
         }
     }
 }
