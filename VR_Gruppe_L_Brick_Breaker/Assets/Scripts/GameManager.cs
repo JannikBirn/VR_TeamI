@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     private int hits;
     private float gameSpeed;
     private int lives;
-    private bool menu;
     public PlatformController plattform;
     public GameObject leaderboards;
-    private bool showLeaderboards = false;
+    public GameObject menu;
+    public GameObject startMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
         hits = 0;
         gameSpeed = 1;
         lives = 3;
-        menu = false;
     }
 
     // Update is called once per frame
@@ -60,11 +59,15 @@ public class GameManager : MonoBehaviour
 
     public void toggleMusic()
     {
-
+        
     }
 
     public void toggleMenu() {
+        menu.SetActive(!menu.activeSelf);
+    }
 
+    public void toggleStartMenu() {
+        startMenu.SetActive(!startMenu.activeSelf);
     }
 
     public void quitGame() {

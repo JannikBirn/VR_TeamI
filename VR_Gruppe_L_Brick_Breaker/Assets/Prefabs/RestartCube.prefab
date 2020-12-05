@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1424439376299226291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: -34.58}
+  m_LocalScale: {x: 100.000015, y: 100, z: 30}
   m_Children:
   - {fileID: 2220202756879736037}
   m_Father: {fileID: 0}
@@ -154,11 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b615ffc78d86166489bebfd79a56e2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onColor: {r: 0.3484336, g: 0.8490566, b: 0.37430158, a: 0}
-  offColor: {r: 0.7924528, g: 0.62054497, b: 0.20558919, a: 0}
-  waitColor: {r: 0.1735938, g: 0.48593625, b: 0.7830189, a: 0}
+  onColor: {r: 0.25098038, g: 1, b: 0.59610856, a: 0}
+  offColor: {r: 0.19215684, g: 0.58230734, b: 0.90588236, a: 0}
+  waitColor: {r: 0.8116375, g: 0.22352937, b: 0.8862745, a: 0}
   gazeImg: {fileID: 0}
-  duration: 2
+  duration: 1
   manager: {fileID: 0}
   myEvent:
     m_PersistentCalls:
@@ -174,6 +174,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  label: 
 --- !u!1 &8402142084422691198
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8402142084422691198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.654}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 1424439376299226294}
