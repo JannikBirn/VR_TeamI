@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SphereSettingsLayer1
   m_EditorClassIdentifier: 
   blockCount: 450
-  radius: 55
+  radius: 60
   clampX: {x: 0, y: 1}
   clampY: {x: 0, y: 1}
-  clampZ: {x: 0.3, y: 0.7}
+  clampZ: {x: 0.4047134, y: 0.6}
   defaultPrefabs:
   - {fileID: 7269633384674413012, guid: ae96b8716e7f1584ba49d4d61f0f747e, type: 3}
   specialPrefabs:
