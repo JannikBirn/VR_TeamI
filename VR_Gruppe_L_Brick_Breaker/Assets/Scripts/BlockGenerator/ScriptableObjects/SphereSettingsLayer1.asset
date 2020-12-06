@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026a5cff934bdfe47a64029d4fe37aec, type: 3}
   m_Name: SphereSettingsLayer1
   m_EditorClassIdentifier: 
-  blockCount: 450
+  blockCount: 500
   radius: 60
   clampX: {x: 0, y: 1}
-  clampY: {x: 0, y: 1}
-  clampZ: {x: 0.4047134, y: 0.6}
+  clampY: {x: 0.3, y: 0.7}
+  clampZ: {x: 0, y: 1}
   defaultPrefabs:
-  - {fileID: 7269633384674413012, guid: ae96b8716e7f1584ba49d4d61f0f747e, type: 3}
+  - {fileID: 2684789179112888946, guid: 2b1549ed9d9034d6f94c2d04d61658c8, type: 3}
   specialPrefabs:
-  - {fileID: 1153672984805292772, guid: b2699e96fee37814fa4b50439b7fbcc2, type: 3}
-  - {fileID: 3031339667529630253, guid: f4822d833e1814d4496376f44464e35e, type: 3}
+  - {fileID: 1803680641847759349, guid: 7a7d033b0de2f437c93058101b394684, type: 3}
+  - {fileID: 8781276033422191680, guid: 2990d7184bd124327a4e67f4ff727126, type: 3}
   specialChance:
   - 0.15
   - 0.15

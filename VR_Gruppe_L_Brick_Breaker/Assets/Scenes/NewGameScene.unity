@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 391989250}
   m_Layer: 0
   m_Name: BallSpawn
-  m_TagString: Untagged
+  m_TagString: BallSpawn
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -404,6 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereSettings:
   - {fileID: 11400000, guid: 851eaef2e97e27a419a5eb839ee66ae5, type: 2}
+  - {fileID: 11400000, guid: 2b08a9322c08fff4c8699168b7c30aae, type: 2}
   hullPrefab: {fileID: 6409336482828560441, guid: e48850bcad1bb46edb1d632f3b14acd9,
     type: 3}
   gizmosDrawClamps: 1
@@ -422,6 +423,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 516857835}
+        m_MethodName: hit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &828474726
 Transform:
   m_ObjectHideFlags: 0
@@ -429,13 +441,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828474724}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.109999895, z: -6.7759}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1026059871}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1026059870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,7 +1283,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-90542
+  m_Name: pb_Mesh-234510
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
