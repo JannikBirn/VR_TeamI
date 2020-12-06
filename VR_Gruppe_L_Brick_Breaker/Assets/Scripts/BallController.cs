@@ -29,8 +29,7 @@ public class BallController : MonoBehaviour
 
             if (collision.collider.CompareTag("Platform"))
             {
-                Vector3 platformCenterPosition = collision.transform.position;
-                HandlePlatformCollision(platformCenterPosition, contactPoint);
+                HandlePlatformCollision(collision.collider, contactPoint);
             }
             else
             {
@@ -76,8 +75,10 @@ public class BallController : MonoBehaviour
         }
     }
 
-    private void HandlePlatformCollision(Vector3 platformCenterPosition, ContactPoint contactPoint)
+    private void HandlePlatformCollisionOld(Collider collider, ContactPoint contactPoint)
     {
+        Vector3 platformCenterPosition = collider.transform.position;
+
         // When colliding with the player, the reflection axis depends
         // on where the ball hits the platform. The further away from the center,
         // the more this axis is twisted
@@ -87,6 +88,27 @@ public class BallController : MonoBehaviour
         // From the contact position, move along the platform's normal vector
         // and use the end point of that vector to create the reflection axis from the center point
         Vector3 reflectionAxis = (contactPosition + centerNormal) - platformCenterPosition;
+        Vector3 normal = reflectionAxis.normalized;
+
+        // When the ball collides with the platform,
+        // change its direction using accurate physics
+        // (https://math.stackexchange.com/a/13263)
+        // Calculate reflection vector and ball's new direction
+        Vector3 reflection = direction - 2 * (Vector3.Dot(direction, normal)) * normal;
+        this.direction = reflection;
+    }
+
+    private void HandlePlatformCollision(Collider collider, ContactPoint contactPoint)
+    {
+        // The more off-center the collision with the platform,
+        // the more twisted the normal vector of the reflection becomes.
+        // The new normal vector is calculated relative to the platform's size
+        // and how far away from the center the collision occurred.
+        float platformWidth = collider.bounds.extents.x;
+        Vector3 platformCenterPosition = collider.transform.position;
+        Vector3 contactPosition = contactPoint.point;
+        Vector3 centerNormal = contactPoint.normal.normalized * platformWidth * 2f;
+        Vector3 reflectionAxis = (platformCenterPosition + centerNormal) - contactPosition;
         Vector3 normal = reflectionAxis.normalized;
 
         // When the ball collides with the platform,
