@@ -15,8 +15,8 @@ MonoBehaviour:
   blockCount: 400
   radius: 40
   clampX: {x: 0, y: 1}
-  clampY: {x: 0, y: 1}
-  clampZ: {x: 0.2, y: 0.80257887}
+  clampY: {x: 0.2, y: 0.8}
+  clampZ: {x: 0, y: 1}
   defaultPrefabs:
   - {fileID: 2684789179112888946, guid: 2b1549ed9d9034d6f94c2d04d61658c8, type: 3}
   specialPrefabs:
