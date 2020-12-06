@@ -26,7 +26,9 @@ MonoBehaviour:
   - {fileID: 2524844964808648694, guid: 36cf04704e92a489da62689a296e3d68, type: 3}
   - {fileID: 3735354481791165590, guid: 943991d6e6ace4ce8af9ffa5974e236e, type: 3}
   - {fileID: 2918140400302817272, guid: 8c9d916be539b431389023fccf067ec9, type: 3}
+  - {fileID: 9111367089653195665, guid: 0fe1be5b2aba24fa4ad5d7b96451bdfe, type: 3}
   specialChance:
+  - 0.05
   - 0.05
   - 0.05
   - 0.05

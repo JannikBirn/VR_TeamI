@@ -404,6 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereSettings:
   - {fileID: 11400000, guid: 851eaef2e97e27a419a5eb839ee66ae5, type: 2}
+  - {fileID: 11400000, guid: 2b08a9322c08fff4c8699168b7c30aae, type: 2}
   hullPrefab: {fileID: 6409336482828560441, guid: e48850bcad1bb46edb1d632f3b14acd9,
     type: 3}
   gizmosDrawClamps: 1
