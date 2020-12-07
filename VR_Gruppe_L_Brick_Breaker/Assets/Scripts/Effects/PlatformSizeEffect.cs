@@ -22,7 +22,7 @@ public class PlatformSizeEffect : BrickEffect
         platformController = platform.GetComponent<PlatformController>();
     }
 
-    public override IEnumerator Apply()
+    public override IEnumerator Apply(BallController ballController)
     {
         // Update the platform's size
         platformController.setScale(sizeFactor, sizeFactor);

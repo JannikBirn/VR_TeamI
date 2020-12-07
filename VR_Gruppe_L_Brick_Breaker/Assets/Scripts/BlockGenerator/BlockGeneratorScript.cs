@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BlockGeneratorScript : MonoBehaviour
 {
-    private static readonly Color SPHERE_COLOR = new Color(1f, 1f, 1f, 0.3f);
-
     [Header("Setting for each Spherelayer")]
     public SphereSettings[] sphereSettings;
 
@@ -37,7 +35,17 @@ public class BlockGeneratorScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        generateSphere();
+        // generateSphere();
+    }
+
+    //Event is called by the LevelEvent 
+    public void onLevelEvent(int levelEvent)
+    {
+        if (levelEvent == LevelEvent.LEVEL_START)
+        {
+            //Generatting the sphere when the level starts
+            generateSphere();
+        }
     }
 
     //Public Method to generate the sphere
@@ -151,7 +159,7 @@ public class BlockGeneratorScript : MonoBehaviour
         {
             // Forward the event to the generator's own "OnBlockDestroyed" event
             // (the GameManager will listen to it)
-            controller.OnDestroyed.AddListener(effects => OnBlockDestroyed.Invoke(effects));
+            controller.OnDestroyed.AddListener((effects, ballController) => OnBlockDestroyed.Invoke(effects, ballController));
         }
     }
 
@@ -287,9 +295,6 @@ public class BlockGeneratorScript : MonoBehaviour
             }
         }
 
-        //Drawing a green sphere in the center
-        Gizmos.color = SPHERE_COLOR;
-        Gizmos.DrawSphere(this.transform.position, blockSize.x * 2);
     }
 
 

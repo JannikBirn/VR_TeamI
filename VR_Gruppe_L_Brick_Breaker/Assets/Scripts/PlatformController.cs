@@ -15,8 +15,6 @@ public class PlatformController : MonoBehaviour
     private float distance = 15;
     private bool hit = false;
 
-    private bool isVisible = false;
-
     private Transform startTransform;
 
 
@@ -28,17 +26,22 @@ public class PlatformController : MonoBehaviour
     private float currentScaleX = 1f;
     private float currentScaleY = 1f;
 
+    private Renderer myRenderer;
+
     void Start()
     {
 
         // Set material
-        GetComponent<Renderer>().material = regularMaterial;
+        myRenderer = GetComponent<Renderer>();
+        myRenderer.material = regularMaterial;
 
         startTransform = transform;
 
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.position = target;
 
+        //Hiding this Platform, Showing when level starts
+        myRenderer.enabled = false;
     }
 
     private void OnBecameVisible()
@@ -57,18 +60,21 @@ public class PlatformController : MonoBehaviour
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.rotation = cameraTransform.rotation;
 
-        Vector3 hideVector = new Vector3(0 ,30,-10);
-
-        if (cameraTransform.rotation.x >= 0.30 || cameraTransform.rotation.x <= -0.30 || !isVisible)
+        if (cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25)
         {
-            // hide plattform
-            transform.position = Vector3.SmoothDamp(transform.position, hideVector, ref velocity, smoothTime);
+            currentScaleX = 0f;
+            currentScaleY = 0f;
         }
         else
         {
-            // Follow players gaze
-            transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
-        }        
+            currentScaleX = 1f;
+            currentScaleY = 1f;
+        }
+
+        //setScale(currentScaleX, currentScaleY);
+
+        // apply movement
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
     }
 
     // Change the platform's scale
@@ -78,6 +84,9 @@ public class PlatformController : MonoBehaviour
         this.currentScaleY = scaleY;
 
         //Debug.Log("Changing Size!");
+
+        //transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
+        //transform.localScale = Vector3.Scale(startTransform.localScale, new Vector3(scaleX,scaleY,1));
         transform.localScale = new Vector3(scaleX, scaleY, 1);
     }
 
@@ -118,21 +127,33 @@ public class PlatformController : MonoBehaviour
     {
         if (hit)
         {
-            GetComponent<Renderer>().material = regularMaterial;
+            myRenderer.material = regularMaterial;
             hit = false;
         }
         else
         {
-            GetComponent<Renderer>().material = hitMaterial;
+            myRenderer.material = hitMaterial;
             hit = true;
         }
     }
 
-    public void setIsVisible(bool value) {
-        isVisible = value;
-    }
 
-    public bool getIsVisible() {
-        return isVisible;
+    public void onLevelEvent(int levelEvent)
+    {
+        switch (levelEvent)
+        {
+            case LevelEvent.LEVEL_START:
+                myRenderer.enabled = true;
+                break;
+            case LevelEvent.LEVEL_PLAY:
+                myRenderer.enabled = true;
+                break;
+            case LevelEvent.LEVEL_PAUSE:
+                myRenderer.enabled = false;
+                break;
+            case LevelEvent.LEVEL_STOP:
+                myRenderer.enabled = false;
+                break;
+        }
     }
 }
