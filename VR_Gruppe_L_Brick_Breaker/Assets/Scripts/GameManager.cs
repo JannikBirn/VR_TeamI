@@ -75,12 +75,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = gameSpeed;
 
 
-        // Manage plattform visibiliy
-        if(bottomMenu.activeSelf == true || startMenu.activeSelf == true) {
-            plattform.setIsVisible(false);
-        } else {
-            plattform.setIsVisible(true);
-        }
+        // // Manage plattform visibiliy
+        // if(bottomMenu.activeSelf == true || startMenu.activeSelf == true) {
+        //     plattform.setIsVisible(false);
+        // } else {
+        //     plattform.setIsVisible(true);
+        // }
         
     }
 
