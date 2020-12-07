@@ -15,6 +15,8 @@ public class PlatformController : MonoBehaviour
     private float distance = 15;
     private bool hit = false;
 
+    private bool isVisible = false;
+
     private Transform startTransform;
 
 
@@ -55,21 +57,18 @@ public class PlatformController : MonoBehaviour
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.rotation = cameraTransform.rotation;
 
-        if (cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25)
+        Vector3 hideVector = new Vector3(0 ,30,-10);
+
+        if (cameraTransform.rotation.x >= 0.30 || cameraTransform.rotation.x <= -0.30)
         {
-            currentScaleX = 0f;
-            currentScaleY = 0f;
+            // hide plattform
+            transform.position = Vector3.SmoothDamp(transform.position, hideVector, ref velocity, smoothTime);
         }
         else
         {
-            currentScaleX = 1f;
-            currentScaleY = 1f;
-        }
-
-        //setScale(currentScaleX, currentScaleY);
-
-        // apply movement
-        transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
+            // Follow players gaze
+            transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
+        }        
     }
 
     // Change the platform's scale
@@ -79,9 +78,6 @@ public class PlatformController : MonoBehaviour
         this.currentScaleY = scaleY;
 
         //Debug.Log("Changing Size!");
-
-        //transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
-        //transform.localScale = Vector3.Scale(startTransform.localScale, new Vector3(scaleX,scaleY,1));
         transform.localScale = new Vector3(scaleX, scaleY, 1);
     }
 
@@ -130,5 +126,13 @@ public class PlatformController : MonoBehaviour
             GetComponent<Renderer>().material = hitMaterial;
             hit = true;
         }
+    }
+
+    public void setIsVisible() {
+        isVisible = !isVisible;
+    }
+
+    public bool getIsVisible() {
+        return isVisible;
     }
 }
