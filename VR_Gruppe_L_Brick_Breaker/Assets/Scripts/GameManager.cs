@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private int lives;
     public PlatformController plattform;
     public GameObject leaderboards;
-    public GameObject menu;
+    public GameObject bottomMenu;
     public GameObject startMenu;
 
     // Start is called before the first frame update
@@ -62,8 +62,19 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void toggleMenu() {
-        menu.SetActive(!menu.activeSelf);
+    public void toggleBottomMenu() {
+        
+        bottomMenu.SetActive(!bottomMenu.activeSelf);
+
+        // Hide startMenu if it was active
+        if(startMenu.activeSelf == true) {
+            startMenu.SetActive(false);
+        }
+        
+        // Hide leaderboards if it was active
+        if(leaderboards.activeSelf == true) {
+            leaderboards.SetActive(false);
+        }
     }
 
     public void toggleStartMenu() {
@@ -77,7 +88,7 @@ public class GameManager : MonoBehaviour
     public void toggleLeaderboards() {
         leaderboards.SetActive(!leaderboards.activeSelf);
     }
-    
+
 
     // Getters & Setters
     public int getHits() {
