@@ -15,7 +15,7 @@ public class XRCardboardController : MonoBehaviour
     public LayerMask interactablesLayers = -1;
 
     public UnityEvent OnTriggerPressed = new UnityEvent();
-    
+
     private Camera camera;
     private GameObject _gazedAtObject = null;
     //[SerializeField]private float MAX_DISTANCE = 10;
@@ -136,11 +136,11 @@ public class XRCardboardController : MonoBehaviour
         else
         {
             // No GameObject detected in front of the camera.
-            _gazedAtObject?.SendMessage("PointerExit");
+            // _gazedAtObject?.SendMessage("PointerExit");
             _gazedAtObject = null;
         }
     }
-    
+
     public bool IsTriggerPressed()
     {
 #if UNITY_EDITOR

@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour
         if (LevelEvent.state == LevelEvent.STATE_PLAYING)
         {
             //Adding time to the timer if player is playing
-            timer += Time.deltaTime;
+            timer += Time.unscaledTime;
         }
     }
 
