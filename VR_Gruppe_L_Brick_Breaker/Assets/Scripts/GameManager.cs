@@ -30,6 +30,15 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = gameSpeed;
+
+
+        // Manage plattform visibiliy
+        if(bottomMenu.activeSelf == true || startMenu.activeSelf == true) {
+            plattform.setIsVisible(false);
+        } else {
+            plattform.setIsVisible(true);
+        }
+        
     }
 
     // This function resets all level elements within a game session
@@ -69,6 +78,8 @@ public class GameManager : MonoBehaviour
         // Hide startMenu if it was active
         if(startMenu.activeSelf == true) {
             startMenu.SetActive(false);
+
+            
         }
         
         // Hide leaderboards if it was active

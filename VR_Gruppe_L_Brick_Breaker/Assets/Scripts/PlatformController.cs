@@ -59,7 +59,7 @@ public class PlatformController : MonoBehaviour
 
         Vector3 hideVector = new Vector3(0 ,30,-10);
 
-        if (cameraTransform.rotation.x >= 0.30 || cameraTransform.rotation.x <= -0.30)
+        if (cameraTransform.rotation.x >= 0.30 || cameraTransform.rotation.x <= -0.30 || !isVisible)
         {
             // hide plattform
             transform.position = Vector3.SmoothDamp(transform.position, hideVector, ref velocity, smoothTime);
@@ -128,8 +128,8 @@ public class PlatformController : MonoBehaviour
         }
     }
 
-    public void setIsVisible() {
-        isVisible = !isVisible;
+    public void setIsVisible(bool value) {
+        isVisible = value;
     }
 
     public bool getIsVisible() {
