@@ -136,7 +136,9 @@ public class XRCardboardController : MonoBehaviour
         else
         {
             // No GameObject detected in front of the camera.
-            // _gazedAtObject?.SendMessage("PointerExit");
+            // This line is necessary to cancel a pending gaze before it's complete
+            // (when looking at a button only briefly, this line will cancel the gaze)
+            _gazedAtObject?.SendMessage("PointerExit", SendMessageOptions.DontRequireReceiver);
             _gazedAtObject = null;
         }
     }
