@@ -12,7 +12,7 @@ public class PlatformController : MonoBehaviour
 
     //public Camera cam;
     public Transform cameraTransform;
-    private float distance = 15;
+    public float distance = 15;
     private bool hit = false;
 
     private Transform startTransform;
