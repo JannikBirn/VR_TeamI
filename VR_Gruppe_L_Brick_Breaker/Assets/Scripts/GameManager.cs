@@ -74,6 +74,17 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = gameSpeed;
 
+<<<<<<< HEAD
+=======
+
+        // Manage plattform visibiliy
+        if(bottomMenu.activeSelf == true || startMenu.activeSelf == true) {
+            plattform.setIsVisible(false);
+        } else {
+            plattform.setIsVisible(true);
+        }
+        
+>>>>>>> parent of a35bbce... delete setisvisible
     }
 
     // This function resets all level elements within a game session
