@@ -1280,6 +1280,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 2.5}
+  isAutoPilot: 0
+  isPiercing: 0
+  colorAuto: {r: 0.754717, g: 0.33819866, b: 0.33819866, a: 0}
+  colorPiercing: {r: 0.14538093, g: 0.1574032, b: 0.9339623, a: 0}
 --- !u!1 &2120131429
 GameObject:
   m_ObjectHideFlags: 0

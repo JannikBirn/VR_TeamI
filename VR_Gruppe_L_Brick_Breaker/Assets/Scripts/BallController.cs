@@ -6,18 +6,31 @@ public class BallController : MonoBehaviour
     public Vector3 direction = new Vector3(0f, 0f, 2.5f);
     public bool isAutoPilot = false;
 
+    public bool isPiercing = false;
+
+    public Color colorAuto;
+    public Color colorPiercing;
+
     private GameObject player;
+
+    private Material material;
+    private Color original;
 
     void Awake()
     {
         // Get the player object (so that we know their position at all times)
         player = GameObject.FindGameObjectWithTag("Player");
+
+        material = GetComponent<Renderer>().material;
+        original = material.color;
     }
 
     void FixedUpdate()
     {
         // Move along the current direction
         transform.position += direction * Time.deltaTime;
+
+        SetColor();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -83,5 +96,19 @@ public class BallController : MonoBehaviour
         // Calculate reflection vector and ball's new direction
         Vector3 reflection = direction - 2 * (Vector3.Dot(direction, normal)) * normal;
         this.direction = reflection;
+    }
+
+    private void SetColor(){
+        if (isAutoPilot)
+        {
+            material.color = colorAuto;
+        } else if (isPiercing)
+        {
+            material.color = colorPiercing;
+        }
+        else
+        {
+            material.color = original;
+        }
     }
 }
