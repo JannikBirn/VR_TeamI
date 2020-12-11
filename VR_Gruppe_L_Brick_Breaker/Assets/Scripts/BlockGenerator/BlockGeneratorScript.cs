@@ -32,10 +32,34 @@ public class BlockGeneratorScript : MonoBehaviour
     // This event is sent when a block is destroyed by the ball
     public BrickDestroyedEvent OnBlockDestroyed;
 
+    private GameObject hull;
+
+    //Representing the count of witch sphere layers should get spawned from inner to outer
+    // 0 is most inner sphere layer
+    private int initiatedSphereLayers;
+    private bool reachedLastLayer = false;
+
     // Start is called before the first frame update
     void Start()
     {
         // generateSphere();
+    }
+
+    public void updateSphereLayers(int newSphereLayer)
+    {
+        if (newSphereLayer > initiatedSphereLayers)
+        {
+            if (newSphereLayer < sphereSettings.Length)
+            {
+                instantiatePrefabs(initiatedSphereLayers + 1, newSphereLayer + 1);
+                initiatedSphereLayers = newSphereLayer;
+            }
+            else
+            {
+                reachedLastLayer = true;
+                Debug.LogWarning("Reached last Sphere layer, cant genarate a new one");
+            }
+        }
     }
 
     //Event is called by the LevelEvent 
@@ -54,7 +78,7 @@ public class BlockGeneratorScript : MonoBehaviour
     {
         deleteSphere();
         generateStartingValues();
-        instantiatePrefabs();
+        instantiatePrefabs(0, 1);
     }
 
     //Public Method to delete all generated Prefabs (transform.child's)
@@ -104,12 +128,13 @@ public class BlockGeneratorScript : MonoBehaviour
 
 
     //Private Method for instantiating the prefabs of each sphereLayer
-    private void instantiatePrefabs()
+    //startlayer is included and endLayer is excluded
+    private void instantiatePrefabs(int startLayer, int endLayer)
     {
         // Keep track of the largest layer's radius, as the hull needs to be wrapped around that layer
         float largestRadius = 0;
 
-        for (int sphereIndex = 0; sphereIndex < sphereSettings.Length; sphereIndex++)
+        for (int sphereIndex = startLayer; sphereIndex < endLayer; sphereIndex++)
         {
             SphereSettings currentSettings = sphereSettings[sphereIndex];
 
@@ -144,7 +169,10 @@ public class BlockGeneratorScript : MonoBehaviour
         }
 
         // Instantiate the outer hull and scale it up to be as large as the largest layer
-        GameObject hull = Instantiate(hullPrefab, this.transform.position, this.transform.rotation, this.transform);
+        if (!hull)
+        {
+            hull = Instantiate(hullPrefab, this.transform.position, this.transform.rotation, this.transform);
+        }
         hull.transform.localScale = new Vector3(largestRadius, largestRadius, largestRadius);
     }
 
@@ -294,7 +322,11 @@ public class BlockGeneratorScript : MonoBehaviour
                 }
             }
         }
+    }
 
+    public bool isReachedLastLayer()
+    {
+        return reachedLastLayer;
     }
 
 
@@ -320,5 +352,8 @@ public class BlockGeneratorScript : MonoBehaviour
             }
         }
     }
+
+
+
 
 }

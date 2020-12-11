@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour
         if (LevelEvent.state == LevelEvent.STATE_PLAYING)
         {
             //Adding time to the timer if player is playing
-            timer += Time.unscaledTime;
+            timer += Time.unscaledDeltaTime;
         }
     }
 
@@ -71,6 +71,11 @@ public class ScoreManager : MonoBehaviour
 
             SaveLoadManager.SaveObject(scoreSavestate);
         }
+    }
+
+    public float getTime()
+    {
+        return timer;
     }
 
     private void OnDisable()

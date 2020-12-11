@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 026a5cff934bdfe47a64029d4fe37aec, type: 3}
-  m_Name: SphereSettingsLayer0
+  m_Name: SphereSettingsLayer3
   m_EditorClassIdentifier: 
-  blockCount: 400
-  radius: 40
+  blockCount: 1000
+  radius: 100
   clampX: {x: 0, y: 1}
-  clampY: {x: 0.4, y: 0.5980583}
+  clampY: {x: 0.3, y: 0.6983819}
   clampZ: {x: 0, y: 1}
   defaultPrefabs:
   - {fileID: 2684789179112888946, guid: 2b1549ed9d9034d6f94c2d04d61658c8, type: 3}
@@ -28,10 +28,10 @@ MonoBehaviour:
   - {fileID: 2918140400302817272, guid: 8c9d916be539b431389023fccf067ec9, type: 3}
   - {fileID: 9111367089653195665, guid: 0fe1be5b2aba24fa4ad5d7b96451bdfe, type: 3}
   specialChance:
-  - 0.01
-  - 0.01
-  - 0.01
-  - 0.01
-  - 0.01
-  - 0.01
-  - 0.01
+  - 0.075
+  - 0.075
+  - 0.075
+  - 0.075
+  - 0.075
+  - 0.075
+  - 0.075
