@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
             speedIncrase.duration = timeToNextDifficulty / 10f;
             speedIncrase.speedFactor = speedOverTime.Evaluate(time) + 1;
 
-            //TODO get balls a smarter way
+            //TODO get balls a smarter way,
             GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
             foreach (GameObject ball in balls)
             {
