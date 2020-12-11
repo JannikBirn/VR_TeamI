@@ -196,6 +196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreOfABlock: 10
+  onScoreUpdateEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &236835505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1433,7 @@ PrefabInstance:
     - target: {fileID: 4250656183154512265, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15
+      value: 15.01
       objectReference: {fileID: 0}
     - target: {fileID: 4250656183154512265, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
@@ -2069,7 +2072,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2194402
+  m_Name: pb_Mesh-2384220
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

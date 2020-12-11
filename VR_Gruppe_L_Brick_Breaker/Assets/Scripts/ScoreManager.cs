@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
+[System.Serializable]
+public class ScoreUpdateEvent : UnityEvent<int> { }
 public class ScoreManager : MonoBehaviour
 {
     public int scoreOfABlock;
+
+    public ScoreUpdateEvent onScoreUpdateEvent;
 
     //Reference to the Score Savestate
     private ScoreSavestate scoreSavestate = new ScoreSavestate();
@@ -55,6 +60,7 @@ public class ScoreManager : MonoBehaviour
     {
         Debug.Log("ScoreManager : OnBlockDestroyed() Event call");
         currentScore += scoreOfABlock;
+        onScoreUpdateEvent.Invoke(currentScore);
     }
 
     //TODO needs to be called when a level finished
@@ -73,6 +79,10 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    public ScoreSavestate getHighscore()
+    {
+        return scoreSavestate;
+    }
     public float getTime()
     {
         return timer;
