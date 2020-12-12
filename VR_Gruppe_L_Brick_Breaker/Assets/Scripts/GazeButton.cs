@@ -47,14 +47,16 @@ public class GazeButton : MonoBehaviour
             else
             {
                 On();
-                gaze = false;
-                gazeImg.fillAmount = 0;
             }
         }
     }
 
     public void On()
     {
+
+        gaze = false;
+        gazeImg.fillAmount = 0;
+
         GetComponent<Renderer>().material.color = onColor;
         myEvent.Invoke();
     }
