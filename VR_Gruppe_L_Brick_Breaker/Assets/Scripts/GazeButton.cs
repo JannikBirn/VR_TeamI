@@ -26,22 +26,26 @@ public class GazeButton : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
         //TextMesh textObject = GameObject.Find("object2").GetComponent<TextMesh>();
         myTextMesh = GetComponentInChildren<TextMesh>();
         myTextMesh.text = label;
         GetComponent<Renderer>().material.color = offColor;
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(gaze) {
-            if(duration > timer) {
-                timer += Time.deltaTime;
-                gazeImg.fillAmount = timer/duration;
-            } else {
+        if (gaze)
+        {
+            if (duration > timer)
+            {
+                timer += Time.unscaledDeltaTime;
+                gazeImg.fillAmount = timer / duration;
+            }
+            else
+            {
                 On();
                 gaze = false;
                 gazeImg.fillAmount = 0;
@@ -49,19 +53,23 @@ public class GazeButton : MonoBehaviour
         }
     }
 
-    public void On() {
+    public void On()
+    {
         GetComponent<Renderer>().material.color = onColor;
         myEvent.Invoke();
     }
-    public void Off() {
+    public void Off()
+    {
         GetComponent<Renderer>().material.color = offColor;
 
-        if(gaze) {
+        if (gaze)
+        {
             gaze = false;
             gazeImg.fillAmount = 0;
         }
     }
-    public void StartCount() {
+    public void StartCount()
+    {
         timer = 0;
         gaze = true;
         gameObject.GetComponent<Renderer>().material.color = waitColor;

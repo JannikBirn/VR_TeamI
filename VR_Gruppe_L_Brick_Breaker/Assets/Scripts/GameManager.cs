@@ -50,10 +50,21 @@ public class GameManager : MonoBehaviour
     private float normalGameSpeed;
     private float gameSpeed;
 
-    public PlatformController plattform;
+    [Header("Difficulty Settings")]
+    [Tooltip("Time in seconds until the next sphere hull should spawn and ball gets faster")]
+    public float timeToNextDifficulty;
+    [Tooltip("The x-Axis is the time and the y-axis is the speed incrase")]
+    public AnimationCurve speedOverTime;
+
+    [Header("References")]
+    public PlatformController platform;
+    public ScoreManager score;
+    public BlockGeneratorScript blockGenerator;
     public GameObject leaderboards;
     public GameObject bottomMenu;
     public GameObject startMenu;
+
+    private bool isDifficultyCRRunning;
 
     // Start is called before the first frame update
     void Start()
@@ -69,21 +80,42 @@ public class GameManager : MonoBehaviour
         // Plattform shrinks in size after some hits
         if (hits > 3)
         {
-            plattform.setScale(0.75F, 0.75F);
+            platform.setScale(0.75F, 0.75F);
         }
 
         Time.timeScale = gameSpeed;
 
     }
 
-    // This function resets all level elements within a game session
-    // This is being used when a player looses a ball, but has not lost all of them yet
-    public void reloadLevel()
+    public IEnumerator updateDifficulty()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        isDifficultyCRRunning = true;
+        while (!blockGenerator.isReachedLastLayer() && LevelEvent.state == LevelEvent.STATE_PLAYING)
+        {
+            yield return new WaitForSecondsRealtime(timeToNextDifficulty / 10f);
+
+            float time = score.getTime();
+
+            int difficulty = (int)(time / timeToNextDifficulty);
+
+            Debug.Log("Current Time:" + time + " Current Difficulty:" + difficulty);
+
+            //Incrase Ball speed over time
+            BallSpeedEffect speedIncrase = new BallSpeedEffect();
+            speedIncrase.duration = timeToNextDifficulty / 10f;
+            speedIncrase.speedFactor = speedOverTime.Evaluate(time) + 1;
+
+            //TODO get balls a smarter way,
+            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+            foreach (GameObject ball in balls)
+            {
+                StartCoroutine(ExecuteBlockEffect(speedIncrase, ball.GetComponent<BallController>()));
+            }
+
+            blockGenerator.updateSphereLayers(difficulty);
+        }
+        isDifficultyCRRunning = false;
     }
-
-
 
 
     public void toggleMusic()
@@ -158,6 +190,11 @@ public class GameManager : MonoBehaviour
         //resetting all the objects so the player can play again
         //BlockMeshGen is will reset in the BLockGeneratorScript
         onLevelEvent.Invoke(LevelEvent.LEVEL_START);
+
+        if (!isDifficultyCRRunning)
+        {
+            StartCoroutine(updateDifficulty());
+        }
     }
 
     [ContextMenu("gamePlay()")]
