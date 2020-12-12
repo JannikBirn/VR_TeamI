@@ -118,11 +118,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void toggleMusic()
-    {
-
-    }
-
     public void toggleBottomMenu()
     {
         //TODO work here, -> set events

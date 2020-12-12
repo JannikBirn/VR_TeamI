@@ -132,6 +132,7 @@ public class PlatformController : MonoBehaviour
         {
             case LevelEvent.LEVEL_START:
                 myRenderer.enabled = true;
+                Debug.Log("HIDE PLATFORM!");
                 break;
             case LevelEvent.LEVEL_PLAY:
                 myRenderer.enabled = true;
