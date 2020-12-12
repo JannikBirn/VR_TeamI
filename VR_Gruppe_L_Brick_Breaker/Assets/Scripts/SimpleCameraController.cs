@@ -76,6 +76,15 @@ namespace UnityTemplateProjects
         [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
         public bool invertY = false;
 
+        void Awake()
+        {
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                // When running on Android, automatically turn this script off (use VR controls instead)
+                enabled = false;
+            }
+        }
+
         void OnEnable()
         {
             m_TargetCameraState.SetFromTransform(transform);
