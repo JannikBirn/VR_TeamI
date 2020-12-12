@@ -55,7 +55,6 @@ public class PlatformController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        keyboardInput();
         followGaze();
     }
     void followGaze()
@@ -83,21 +82,6 @@ public class PlatformController : MonoBehaviour
         this.currentScaleY = scaleY;
         
         transform.localScale = new Vector3(scaleX, scaleY, 1);
-    }
-
-    // Keyboard inputs for debugging use only
-    private void keyboardInput()
-    {
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     //Debug.Log("Changing Size!");
-        //     setScale(2, 1);
-        // }
-        // if (Input.GetKeyDown(KeyCode.M))
-        // {
-        //     switchMaterial();
-        // }
-
     }
 
     private void OnCollisionEnter(Collision other)

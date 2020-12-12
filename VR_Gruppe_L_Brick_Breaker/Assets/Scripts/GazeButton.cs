@@ -22,15 +22,21 @@ public class GazeButton : MonoBehaviour
     public string label;
 
     private TextMesh myTextMesh;
+    private Material myMaterial;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //TextMesh textObject = GameObject.Find("object2").GetComponent<TextMesh>();
         myTextMesh = GetComponentInChildren<TextMesh>();
         myTextMesh.text = label;
-        GetComponent<Renderer>().material.color = offColor;
+        
+        myMaterial = GetComponent<Renderer>().material;
+
+        Debug.Log(myTextMesh.text + " " + myMaterial.color);
+        Debug.Log("offColor: " + offColor);
+
+        myMaterial.color = offColor;
 
     }
 
@@ -57,12 +63,12 @@ public class GazeButton : MonoBehaviour
         gaze = false;
         gazeImg.fillAmount = 0;
 
-        GetComponent<Renderer>().material.color = onColor;
+        myMaterial.color = onColor;
         myEvent.Invoke();
     }
     public void Off()
     {
-        GetComponent<Renderer>().material.color = offColor;
+        myMaterial.color = offColor;
 
         if (gaze)
         {
