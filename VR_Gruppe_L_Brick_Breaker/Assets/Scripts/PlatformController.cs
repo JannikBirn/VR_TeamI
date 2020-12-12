@@ -28,6 +28,8 @@ public class PlatformController : MonoBehaviour
 
     private Renderer myRenderer;
 
+    private TextMesh pointText;
+
     void Start()
     {
 
@@ -42,6 +44,11 @@ public class PlatformController : MonoBehaviour
 
         //Hiding this Platform, Showing when level starts
         myRenderer.enabled = true;
+
+        // Get pointText
+        pointText = GetComponentInChildren<TextMesh>();
+        setPointText(0);
+
     }
 
 
@@ -123,6 +130,10 @@ public class PlatformController : MonoBehaviour
             myRenderer.material = hitMaterial;
             hit = true;
         }
+    }
+
+    public void setPointText(int points) {
+        pointText.text = "" + points;
     }
 
 

@@ -157,6 +157,8 @@ public class GameManager : MonoBehaviour
         hits++;
         Debug.Log(hits);
 
+        platform.setPointText(hits);
+
         // Platform shrinks after spicific amount of hits
         if(hits == 3) {
             platform.setScale(0.8F,0.8F);
