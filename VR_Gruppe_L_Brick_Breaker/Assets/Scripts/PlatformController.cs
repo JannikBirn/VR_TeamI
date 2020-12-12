@@ -17,6 +17,9 @@ public class PlatformController : MonoBehaviour
 
     private Transform startTransform;
 
+    // Current Points
+    private TextMesh myTextMesh;
+
 
     // Smooth follow gaze
     //public Transform target;
@@ -44,11 +47,6 @@ public class PlatformController : MonoBehaviour
         myRenderer.enabled = false;
     }
 
-    private void OnBecameVisible()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -62,16 +60,12 @@ public class PlatformController : MonoBehaviour
 
         if (cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25)
         {
-            currentScaleX = 0f;
-            currentScaleY = 0f;
+            // hide
         }
         else
         {
-            currentScaleX = 1f;
-            currentScaleY = 1f;
+            // show
         }
-
-        //setScale(currentScaleX, currentScaleY);
 
         // apply movement
         transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
@@ -83,10 +77,6 @@ public class PlatformController : MonoBehaviour
         this.currentScaleX = scaleX;
         this.currentScaleY = scaleY;
 
-        //Debug.Log("Changing Size!");
-
-        //transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
-        //transform.localScale = Vector3.Scale(startTransform.localScale, new Vector3(scaleX,scaleY,1));
         transform.localScale = new Vector3(scaleX, scaleY, 1);
     }
 

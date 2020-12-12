@@ -93,4 +93,8 @@ public class ScoreManager : MonoBehaviour
         //Saving the highscore
         SaveLoadManager.SaveObject(scoreSavestate);
     }
+
+    public int getCurrentScore() {
+        return currentScore;
+    }
 }

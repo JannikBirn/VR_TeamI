@@ -976,7 +976,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1728387664}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4250656183154512264, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
@@ -1021,7 +1021,7 @@ PrefabInstance:
     - target: {fileID: 4250656183154512265, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4250656183154512265, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
@@ -1060,12 +1060,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c0535e4e22c64a33971bc13139c0bb8, type: 3}
---- !u!4 &1117168374 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4250656183154512265, guid: 8c0535e4e22c64a33971bc13139c0bb8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1117168373}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1117168375 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4250656183154512374, guid: 8c0535e4e22c64a33971bc13139c0bb8,
@@ -1351,7 +1345,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2218
+  m_Name: pb_Mesh-1276
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1833,7 +1827,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1117168374}
   - {fileID: 1398735105}
   m_Father: {fileID: 86736584}
   m_RootOrder: 0
