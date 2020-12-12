@@ -132,8 +132,6 @@ public class GameManager : MonoBehaviour
         if (startMenu.activeSelf == true)
         {
             startMenu.SetActive(false);
-
-
         }
 
         // Hide leaderboards if it was active

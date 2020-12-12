@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4250656183154512269}
   - component: {fileID: 4250656183154512374}
   m_Layer: 0
-  m_Name: proBuilder-platform
+  m_Name: Platform
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 26377afb5fa1b4d0c9a6b2ec7e6527e4, type: 2}
+  - {fileID: 2100000, guid: dfd5d094f8f3144458103c095179ebba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -863,7 +863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43c6cdbd225e5249b0516c73144af94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regularMaterial: {fileID: 2100000, guid: 26377afb5fa1b4d0c9a6b2ec7e6527e4, type: 2}
-  hitMaterial: {fileID: 2100000, guid: 673f1a945ee753843a07a34ae0cbe498, type: 2}
+  regularMaterial: {fileID: 2100000, guid: dfd5d094f8f3144458103c095179ebba, type: 2}
+  hitMaterial: {fileID: 2100000, guid: 1b9eb93ea1d2d8d4cadc21ee162db54b, type: 2}
   cameraTransform: {fileID: 0}
+  distance: 15
   smoothTime: 0.1
