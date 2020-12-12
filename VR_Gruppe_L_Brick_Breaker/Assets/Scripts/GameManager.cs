@@ -77,14 +77,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Plattform shrinks in size after some hits
-        if (hits > 3)
-        {
-            platform.setScale(0.75F, 0.75F);
-        }
-
         Time.timeScale = gameSpeed;
-
     }
 
     public IEnumerator updateDifficulty()
@@ -162,6 +155,16 @@ public class GameManager : MonoBehaviour
     public void hit()
     {
         hits++;
+        Debug.Log(hits);
+
+        // Platform shrinks after spicific amount of hits
+        if(hits == 3) {
+            platform.setScale(0.8F,0.8F);
+        } else if(hits == 6) {
+            platform.setScale(0.6F,0.6F);
+        } else if(hits == 10) {
+            platform.setScale(0.5F,0.5F);
+        }
     }
 
     public float getGameSpeed()
