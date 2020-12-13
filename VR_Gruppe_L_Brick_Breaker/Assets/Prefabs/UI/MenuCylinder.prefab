@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 1174895342905346705}
   - component: {fileID: 1174895342905346704}
   - component: {fileID: 1174895342905346706}
+  - component: {fileID: 3838274528706050195}
   m_Layer: 8
   m_Name: MenuCylinder
   m_TagString: Untagged
@@ -269,3 +270,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   label: Test
+--- !u!114 &3838274528706050195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174895342905346796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b742ea469c327d34a9fa4a77ced8efad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
