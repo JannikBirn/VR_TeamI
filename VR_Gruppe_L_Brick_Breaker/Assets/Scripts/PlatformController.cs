@@ -80,7 +80,7 @@ public class PlatformController : MonoBehaviour
     {
         this.currentScaleX = scaleX;
         this.currentScaleY = scaleY;
-        
+
         transform.localScale = new Vector3(scaleX, scaleY, 1);
     }
 
@@ -116,7 +116,9 @@ public class PlatformController : MonoBehaviour
         }
     }
 
-    public void setPointText(int points) {
+    public void setPointText(int points)
+    {
+        Debug.Log("setPointText:" + points);
         pointText.text = "" + points;
     }
 
@@ -126,18 +128,27 @@ public class PlatformController : MonoBehaviour
         switch (levelEvent)
         {
             case LevelEvent.LEVEL_START:
-                myRenderer.enabled = true;
-                Debug.Log("HIDE PLATFORM!");
+                toggleRenderer(true);
                 break;
             case LevelEvent.LEVEL_PLAY:
-                myRenderer.enabled = true;
+                toggleRenderer(true);
                 break;
             case LevelEvent.LEVEL_PAUSE:
-                myRenderer.enabled = false;
+                toggleRenderer(false);
                 break;
             case LevelEvent.LEVEL_STOP:
-                myRenderer.enabled = false;
+                toggleRenderer(false);
                 break;
+        }
+    }
+
+    private void toggleRenderer(bool isOn)
+    {
+        myRenderer.enabled = isOn;
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.enabled = isOn;
         }
     }
 }
