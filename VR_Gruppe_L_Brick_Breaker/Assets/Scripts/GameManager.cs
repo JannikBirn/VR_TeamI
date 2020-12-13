@@ -161,13 +161,13 @@ public class GameManager : MonoBehaviour
         //refreshLeaderboards();
     
         // Platform shrinks after spicific amount of hits
-        if(hits == 3) {
-            platform.setScale(0.8F,0.8F);
-        } else if(hits == 6) {
-            platform.setScale(0.6F,0.6F);
-        } else if(hits == 10) {
-            platform.setScale(0.5F,0.5F);
-        }
+        // if(hits == 3) {
+        //     platform.setScale(0.8F,0.8F);
+        // } else if(hits == 6) {
+        //     platform.setScale(0.6F,0.6F);
+        // } else if(hits == 10) {
+        //     platform.setScale(0.5F,0.5F);
+        // }
     }
 
     public float getGameSpeed()
