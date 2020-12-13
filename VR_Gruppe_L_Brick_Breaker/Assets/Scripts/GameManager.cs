@@ -77,14 +77,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Plattform shrinks in size after some hits
-        if (hits > 3)
-        {
-            platform.setScale(0.75F, 0.75F);
-        }
-
         Time.timeScale = gameSpeed;
-
     }
 
     public IEnumerator updateDifficulty()
@@ -118,11 +111,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void toggleMusic()
-    {
-
-    }
-
     public void toggleBottomMenu()
     {
         //TODO work here, -> set events
@@ -132,8 +120,6 @@ public class GameManager : MonoBehaviour
         if (startMenu.activeSelf == true)
         {
             startMenu.SetActive(false);
-
-
         }
 
         // Hide leaderboards if it was active
@@ -148,10 +134,6 @@ public class GameManager : MonoBehaviour
         startMenu.SetActive(!startMenu.activeSelf);
     }
 
-    public void quitGame()
-    {
-        // Quit Game and open main menu scene
-    }
 
     public void toggleLeaderboards()
     {
@@ -169,6 +151,18 @@ public class GameManager : MonoBehaviour
     public void hit()
     {
         hits++;
+        Debug.Log(hits);
+
+        platform.setPointText(hits);
+
+        // Platform shrinks after spicific amount of hits
+        if(hits == 3) {
+            platform.setScale(0.8F,0.8F);
+        } else if(hits == 6) {
+            platform.setScale(0.6F,0.6F);
+        } else if(hits == 10) {
+            platform.setScale(0.5F,0.5F);
+        }
     }
 
     public float getGameSpeed()
@@ -224,6 +218,12 @@ public class GameManager : MonoBehaviour
         //stopping the gamplay and opening the scoreboard/menu
         onLevelEvent.Invoke(LevelEvent.LEVEL_STOP);
     }
+
+    public void reload() {
+        SceneManager.LoadScene(1);
+    }
+
+    
 
 
     // This method is connected to the OnDestroyed event of a BrickController

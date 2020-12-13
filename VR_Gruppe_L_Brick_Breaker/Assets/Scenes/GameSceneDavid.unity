@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 4d54820badc228544889f2b61e6cc723, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -196,6 +196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreOfABlock: 10
+  onScoreUpdateEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &236835505
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +491,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  plattform: {fileID: 1117168375}
+  timeToNextDifficulty: 0
+  speedOverTime:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  platform: {fileID: 1117168375}
+  score: {fileID: 133841869}
+  blockGenerator: {fileID: 828474725}
   leaderboards: {fileID: 2139487978}
   bottomMenu: {fileID: 1948103741}
   startMenu: {fileID: 1685659449}
@@ -631,9 +643,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereSettings:
   - {fileID: 11400000, guid: 851eaef2e97e27a419a5eb839ee66ae5, type: 2}
-  - {fileID: 11400000, guid: 2b08a9322c08fff4c8699168b7c30aae, type: 2}
+  - {fileID: 0}
   hullPrefab: {fileID: 6409336482828560441, guid: e48850bcad1bb46edb1d632f3b14acd9,
     type: 3}
+  collisionPlanePrefab: {fileID: 0}
   gizmosDrawClamps: 1
   gizmosDrawBlocks: 1
   OnBlockDestroyed:
@@ -653,17 +666,6 @@ MonoBehaviour:
       - m_Target: {fileID: 516857835}
         m_MethodName: hit
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 391989250}
-        m_MethodName: OnBlockDestroyed
-        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -893,11 +895,26 @@ PrefabInstance:
     - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
         type: 3}
       propertyPath: label
-      value: Nagut
+      value: OK
       objectReference: {fileID: 0}
     - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
         type: 3}
       propertyPath: duration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
+        type: 3}
+      propertyPath: onColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
+        type: 3}
+      propertyPath: offColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
+        type: 3}
+      propertyPath: waitColor.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7119176793448645954, guid: 7a11572f566554366ac0c96799992f9d,
@@ -976,7 +993,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1728387664}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4250656183154512264, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
@@ -1021,7 +1038,7 @@ PrefabInstance:
     - target: {fileID: 4250656183154512265, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4250656183154512265, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
@@ -1043,6 +1060,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 4250656183154512268, guid: 8c0535e4e22c64a33971bc13139c0bb8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4250656183154512269, guid: 8c0535e4e22c64a33971bc13139c0bb8,
         type: 3}
       propertyPath: m_Mesh
@@ -1060,12 +1082,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c0535e4e22c64a33971bc13139c0bb8, type: 3}
---- !u!4 &1117168374 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4250656183154512265, guid: 8c0535e4e22c64a33971bc13139c0bb8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1117168373}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1117168375 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4250656183154512374, guid: 8c0535e4e22c64a33971bc13139c0bb8,
@@ -1220,7 +1236,7 @@ PrefabInstance:
     - target: {fileID: 5738478122463546138, guid: 60d2468ce4749114ba9162fb7cec5963,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5738478122463546138, guid: 60d2468ce4749114ba9162fb7cec5963,
         type: 3}
@@ -1315,7 +1331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.75141597, b: 0.23113209, a: 1}
+  m_Color: {r: 1, g: 0.50339884, b: 0.23137254, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1351,7 +1367,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2218
+  m_Name: pb_Mesh-18530
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1833,7 +1849,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1117168374}
   - {fileID: 1398735105}
   m_Father: {fileID: 86736584}
   m_RootOrder: 0
@@ -1898,12 +1913,17 @@ PrefabInstance:
     - target: {fileID: 7638498584647898264, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: reloadLevel
+      value: reload
       objectReference: {fileID: 0}
     - target: {fileID: 7638498585015250856, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
       propertyPath: m_Name
       value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7638498585015250856, guid: a7fc0fde5022c42cda170d938779ef4f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7638498585015250860, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
@@ -2048,7 +2068,7 @@ PrefabInstance:
     - target: {fileID: 8774637078939209052, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: quitGame
+      value: gameStop
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7fc0fde5022c42cda170d938779ef4f, type: 3}

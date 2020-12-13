@@ -19,6 +19,9 @@ public class ScoreManager : MonoBehaviour
     private float timer;
 
 
+    public Leaderboards leaderboards;
+
+
     private void Awake()
     {
         //Trying to load the scoreSavestate if one was already saved
@@ -30,6 +33,9 @@ public class ScoreManager : MonoBehaviour
     {
         Debug.Log(scoreSavestate.highScore);
         Debug.Log(new DateTime(scoreSavestate.timeStamp).ToString());
+        
+        // set Leaderboards text to current Highscore
+        leaderboards.setText(scoreSavestate.highScore);
     }
 
     private void Update()
@@ -69,12 +75,16 @@ public class ScoreManager : MonoBehaviour
         if (currentScore > scoreSavestate.highScore)
         {
             Debug.Log("ScoreManager : new HighScore");
+
+            // Refresh current highscore since it has changed
+            leaderboards.setText(scoreSavestate.highScore);
+
             //Got a new highscore
             scoreSavestate.highScore = currentScore;
             //Getting the current Time
             scoreSavestate.timeStamp = System.DateTime.Now.Ticks;
             //TODO set time
-
+            
             SaveLoadManager.SaveObject(scoreSavestate);
         }
     }
