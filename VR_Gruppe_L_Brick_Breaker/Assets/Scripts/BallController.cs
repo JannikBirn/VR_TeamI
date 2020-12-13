@@ -7,7 +7,6 @@ public class BallController : MonoBehaviour
     public bool isAutoPilot = false;
     public bool isPiercing = false;
 
-    public bool isPiercing = false;
 
     public Color colorAuto;
     public Color colorPiercing;
@@ -114,14 +113,14 @@ public class BallController : MonoBehaviour
     private void SetColor(){
         if (isAutoPilot)
         {
-            material.color = colorAuto;
+            material.SetColor("_EmissionColor", colorAuto);
         } else if (isPiercing)
         {
-            material.color = colorPiercing;
+            material.SetColor("_EmissionColor", colorPiercing);
         }
         else
         {
-            material.color = original;
+            material.SetColor("_EmissionColor", original);
         }
 
     }
