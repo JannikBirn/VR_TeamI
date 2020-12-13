@@ -25,7 +25,9 @@ public class RotateUI : MonoBehaviour
 
         Debug.Log(angle);
 
-        if(angle > 0.2 || angle < -0.2) {
+        //transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
+
+        if(angle > 0.3 || angle < -0.3) {
             transform.RotateAround(cam.transform.position, axis, angle);
         }
         
