@@ -12,7 +12,7 @@ public class PlatformController : MonoBehaviour
 
     //public Camera cam;
     public Transform cameraTransform;
-    private float distance = 15;
+    public float distance = 15;
     private bool hit = false;
 
     private Transform startTransform;
@@ -26,29 +26,35 @@ public class PlatformController : MonoBehaviour
     private float currentScaleX = 1f;
     private float currentScaleY = 1f;
 
+    private Renderer myRenderer;
+
+    private TextMesh pointText;
+
     void Start()
-    {   
-        //cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        //cameraTransform = cam.transform;
+    {
 
         // Set material
-        GetComponent<Renderer>().material = regularMaterial;
+        myRenderer = GetComponent<Renderer>();
+        myRenderer.material = regularMaterial;
 
         startTransform = transform;
 
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.position = target;
-        
+
+        //Hiding this Platform, Showing when level starts
+        myRenderer.enabled = false;
+
+        // Get pointText
+        pointText = GetComponentInChildren<TextMesh>();
+        setPointText(0);
+
     }
 
-    private void OnBecameVisible() {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
-        keyboardInput();
         followGaze();
     }
     void followGaze()
@@ -58,11 +64,12 @@ public class PlatformController : MonoBehaviour
 
         if (cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25)
         {
-            currentScaleX = 0f;
-            currentScaleY = 0f;
+            // Hide
         }
-
-        setScale(currentScaleX, currentScaleY);
+        else
+        {
+            // Show
+        }
 
         // apply movement
         transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
@@ -73,27 +80,8 @@ public class PlatformController : MonoBehaviour
     {
         this.currentScaleX = scaleX;
         this.currentScaleY = scaleY;
-
-        //Debug.Log("Changing Size!");
-
-        //transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
-        //transform.localScale = Vector3.Scale(startTransform.localScale, new Vector3(scaleX,scaleY,1));
+        
         transform.localScale = new Vector3(scaleX, scaleY, 1);
-    }
-
-    // Keyboard inputs for debugging use only
-    private void keyboardInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //Debug.Log("Changing Size!");
-            setScale(2, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            switchMaterial();
-        }
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -118,13 +106,38 @@ public class PlatformController : MonoBehaviour
     {
         if (hit)
         {
-            GetComponent<Renderer>().material = regularMaterial;
+            myRenderer.material = regularMaterial;
             hit = false;
         }
         else
         {
-            GetComponent<Renderer>().material = hitMaterial;
+            myRenderer.material = hitMaterial;
             hit = true;
+        }
+    }
+
+    public void setPointText(int points) {
+        pointText.text = "" + points;
+    }
+
+
+    public void onLevelEvent(int levelEvent)
+    {
+        switch (levelEvent)
+        {
+            case LevelEvent.LEVEL_START:
+                myRenderer.enabled = true;
+                Debug.Log("HIDE PLATFORM!");
+                break;
+            case LevelEvent.LEVEL_PLAY:
+                myRenderer.enabled = true;
+                break;
+            case LevelEvent.LEVEL_PAUSE:
+                myRenderer.enabled = false;
+                break;
+            case LevelEvent.LEVEL_STOP:
+                myRenderer.enabled = false;
+                break;
         }
     }
 }

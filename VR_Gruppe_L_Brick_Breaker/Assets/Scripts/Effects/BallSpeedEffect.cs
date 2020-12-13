@@ -13,16 +13,12 @@ public class BallSpeedEffect : BrickEffect
     [Range(1f, 60f)]
     public float duration = 10;
 
-    private BallController ballController;
-
     void Start()
     {
-        // Locate the ball in the scene and store a reference to its BallController
-        GameObject ball = GameObject.FindGameObjectWithTag("Ball");
-        ballController = ball.GetComponent<BallController>();
+
     }
 
-    public override IEnumerator Apply()
+    public override IEnumerator Apply(BallController ballController)
     {
         // Scale the ball's direction vector by the given amount to change its speed
         float normalSpeed = ballController.direction.magnitude;

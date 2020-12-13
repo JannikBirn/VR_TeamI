@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 
 [System.Serializable]
-public class BrickDestroyedEvent : UnityEvent<BrickEffect[]> { }
+public class BrickDestroyedEvent : UnityEvent<BrickEffect[], BallController> { }
 
 public class BrickController : MonoBehaviour
 {
@@ -36,7 +36,7 @@ public class BrickController : MonoBehaviour
             }
 
             // Notify listeners about all the destruction
-            OnDestroyed.Invoke(effects);
+            OnDestroyed.Invoke(effects, other.gameObject.GetComponent<BallController>());
 
             // Destroy the brick
             DestroyBlock();

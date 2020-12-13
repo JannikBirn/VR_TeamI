@@ -6,7 +6,7 @@ public class AOEEffect : BrickEffect
 {
     public float effectRadius = 3f;
 
-    public override IEnumerator Apply()
+    public override IEnumerator Apply(BallController ballController)
     {
         // Perform a sphere cast around the center of this effect's object.
         // Any other BrickController in this sphere will be obliterated
