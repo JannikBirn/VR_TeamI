@@ -199,12 +199,12 @@ MonoBehaviour:
   onScoreUpdateEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1117168375}
+        m_MethodName: setPointText
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1379,7 +1379,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-8164
+  m_Name: pb_Mesh-104072
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2410,7 +2410,7 @@ PrefabInstance:
     - target: {fileID: 2932994247718622463, guid: ba5adc8b930cf4ed487b6182ec73ac42,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba5adc8b930cf4ed487b6182ec73ac42, type: 3}
