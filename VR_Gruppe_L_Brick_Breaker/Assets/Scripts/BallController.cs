@@ -1,4 +1,32 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+
+public class BallsHolderSingleton
+{
+    private BallsHolderSingleton() { }
+    private static readonly object padlock = new object();
+    private static BallsHolderSingleton instance = null;
+    public static BallsHolderSingleton Instance
+    {
+        get
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new BallsHolderSingleton();
+                }
+                return instance;
+            }
+        }
+    }
+
+    public List<BallController> balls = new List<BallController>();
+
+}
+
 
 public class BallController : MonoBehaviour
 {
@@ -13,6 +41,7 @@ public class BallController : MonoBehaviour
     {
         // Get the player object (so that we know their position at all times)
         player = GameObject.FindGameObjectWithTag("Player");
+        BallsHolderSingleton.Instance.balls.Add(this);
     }
 
     void FixedUpdate()
@@ -136,5 +165,10 @@ public class BallController : MonoBehaviour
         Vector3 reflection = player.transform.position - contactPoint.point;
         float speed = direction.magnitude;
         this.direction = reflection.normalized * speed;
+    }
+
+    private void OnDisable()
+    {
+        BallsHolderSingleton.Instance.balls.Remove(this);
     }
 }

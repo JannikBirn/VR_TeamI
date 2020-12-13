@@ -101,15 +101,19 @@ public class GameManager : MonoBehaviour
             Debug.Log("Current Time:" + time + " Current Difficulty:" + difficulty);
 
             //Incrase Ball speed over time
-            BallSpeedEffect speedIncrase = new BallSpeedEffect();
+            BallSpeedEffect speedIncrase = this.gameObject.GetComponent<BallSpeedEffect>();
+            if (!speedIncrase)
+            {
+                speedIncrase = this.gameObject.AddComponent<BallSpeedEffect>();
+            }
             speedIncrase.duration = timeToNextDifficulty / 10f;
             speedIncrase.speedFactor = speedOverTime.Evaluate(time) + 1;
 
-            //TODO get balls a smarter way,
-            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-            foreach (GameObject ball in balls)
+
+            BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+            foreach (BallController ballC in balls)
             {
-                StartCoroutine(ExecuteBlockEffect(speedIncrase, ball.GetComponent<BallController>()));
+                StartCoroutine(ExecuteBlockEffect(speedIncrase, ballC));
             }
 
             blockGenerator.updateSphereLayers(difficulty);
