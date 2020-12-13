@@ -43,7 +43,7 @@ public class PlatformController : MonoBehaviour
         transform.position = target;
 
         //Hiding this Platform, Showing when level starts
-        myRenderer.enabled = true;
+        myRenderer.enabled = false;
 
         // Get pointText
         pointText = GetComponentInChildren<TextMesh>();

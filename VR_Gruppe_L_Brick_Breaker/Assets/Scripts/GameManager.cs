@@ -134,10 +134,6 @@ public class GameManager : MonoBehaviour
         startMenu.SetActive(!startMenu.activeSelf);
     }
 
-    public void quitGame()
-    {
-        // Quit Game and open main menu scene
-    }
 
     public void toggleLeaderboards()
     {
@@ -222,6 +218,12 @@ public class GameManager : MonoBehaviour
         //stopping the gamplay and opening the scoreboard/menu
         onLevelEvent.Invoke(LevelEvent.LEVEL_STOP);
     }
+
+    public void reload() {
+        SceneManager.LoadScene(1);
+    }
+
+    
 
 
     // This method is connected to the OnDestroyed event of a BrickController
