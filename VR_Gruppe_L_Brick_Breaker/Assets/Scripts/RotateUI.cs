@@ -23,8 +23,7 @@ public class RotateUI : MonoBehaviour
         
         angle = cam.transform.rotation.y - transform.rotation.y;
 
-        Debug.Log(angle);
-
+        //Debug.Log(angle);
         //transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
 
         if(angle > 0.3 || angle < -0.3) {
