@@ -19,6 +19,8 @@ public class ScoreManager : MonoBehaviour
     private float timer;
 
 
+
+
     private void Awake()
     {
         //Trying to load the scoreSavestate if one was already saved
@@ -38,7 +40,7 @@ public class ScoreManager : MonoBehaviour
         {
             //Adding time to the timer if player is playing
             timer += Time.unscaledDeltaTime;
-        }
+        }        
     }
 
     public void onLevelEvent(int levelEvent)
@@ -69,12 +71,13 @@ public class ScoreManager : MonoBehaviour
         if (currentScore > scoreSavestate.highScore)
         {
             Debug.Log("ScoreManager : new HighScore");
+
             //Got a new highscore
             scoreSavestate.highScore = currentScore;
             //Getting the current Time
             scoreSavestate.timeStamp = System.DateTime.Now.Ticks;
             //TODO set time
-
+            
             SaveLoadManager.SaveObject(scoreSavestate);
         }
     }
@@ -82,6 +85,9 @@ public class ScoreManager : MonoBehaviour
     public ScoreSavestate getHighscore()
     {
         return scoreSavestate;
+    }
+    public int getCurrentScore() {
+        return currentScore;
     }
     public float getTime()
     {

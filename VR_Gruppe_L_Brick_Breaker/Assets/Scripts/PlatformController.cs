@@ -28,6 +28,8 @@ public class PlatformController : MonoBehaviour
 
     private Renderer myRenderer;
 
+    private TextMesh pointText;
+
     void Start()
     {
 
@@ -42,17 +44,17 @@ public class PlatformController : MonoBehaviour
 
         //Hiding this Platform, Showing when level starts
         myRenderer.enabled = false;
+
+        // Get pointText
+        pointText = GetComponentInChildren<TextMesh>();
+        setPointText(0);
+
     }
 
-    private void OnBecameVisible()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
-        keyboardInput();
         followGaze();
     }
     void followGaze()
@@ -62,16 +64,12 @@ public class PlatformController : MonoBehaviour
 
         if (cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25)
         {
-            currentScaleX = 0f;
-            currentScaleY = 0f;
+            // Hide
         }
         else
         {
-            currentScaleX = 1f;
-            currentScaleY = 1f;
+            // Show
         }
-
-        //setScale(currentScaleX, currentScaleY);
 
         // apply movement
         transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
@@ -82,27 +80,8 @@ public class PlatformController : MonoBehaviour
     {
         this.currentScaleX = scaleX;
         this.currentScaleY = scaleY;
-
-        //Debug.Log("Changing Size!");
-
-        //transform.localScale = Vector3.Scale(transform.localScale, new Vector3(scaleX,scaleY,1));
-        //transform.localScale = Vector3.Scale(startTransform.localScale, new Vector3(scaleX,scaleY,1));
+        
         transform.localScale = new Vector3(scaleX, scaleY, 1);
-    }
-
-    // Keyboard inputs for debugging use only
-    private void keyboardInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //Debug.Log("Changing Size!");
-            setScale(2, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            switchMaterial();
-        }
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -137,6 +116,10 @@ public class PlatformController : MonoBehaviour
         }
     }
 
+    public void setPointText(int points) {
+        pointText.text = "" + points;
+    }
+
 
     public void onLevelEvent(int levelEvent)
     {
@@ -144,6 +127,7 @@ public class PlatformController : MonoBehaviour
         {
             case LevelEvent.LEVEL_START:
                 myRenderer.enabled = true;
+                Debug.Log("HIDE PLATFORM!");
                 break;
             case LevelEvent.LEVEL_PLAY:
                 myRenderer.enabled = true;

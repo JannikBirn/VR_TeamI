@@ -60,7 +60,10 @@ public class GameManager : MonoBehaviour
     public PlatformController platform;
     public ScoreManager score;
     public BlockGeneratorScript blockGenerator;
-    public GameObject leaderboards;
+
+    // UI
+    public GameObject leaderboardsObject;
+    public Leaderboards leaderboards;
     public GameObject bottomMenu;
     public GameObject startMenu;
 
@@ -77,14 +80,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Plattform shrinks in size after some hits
-        if (hits > 3)
-        {
-            platform.setScale(0.75F, 0.75F);
-        }
-
         Time.timeScale = gameSpeed;
-
     }
 
     public IEnumerator updateDifficulty()
@@ -122,11 +118,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void toggleMusic()
-    {
-
-    }
-
     public void toggleBottomMenu()
     {
         //TODO work here, -> set events
@@ -136,14 +127,12 @@ public class GameManager : MonoBehaviour
         if (startMenu.activeSelf == true)
         {
             startMenu.SetActive(false);
-
-
         }
 
         // Hide leaderboards if it was active
-        if (leaderboards.activeSelf == true)
+        if (leaderboardsObject.activeSelf == true)
         {
-            leaderboards.SetActive(false);
+            leaderboardsObject.SetActive(false);
         }
     }
 
@@ -152,14 +141,10 @@ public class GameManager : MonoBehaviour
         startMenu.SetActive(!startMenu.activeSelf);
     }
 
-    public void quitGame()
-    {
-        // Quit Game and open main menu scene
-    }
 
     public void toggleLeaderboards()
     {
-        leaderboards.SetActive(!leaderboards.activeSelf);
+        leaderboardsObject.SetActive(!leaderboardsObject.activeSelf);
     }
 
 
@@ -173,11 +158,38 @@ public class GameManager : MonoBehaviour
     public void hit()
     {
         hits++;
+        Debug.Log(hits);
+
+        //platform.setPointText(hits);
+
+        //refreshLeaderboards();
+    
+        // Platform shrinks after spicific amount of hits
+        if(hits == 3) {
+            platform.setScale(0.8F,0.8F);
+        } else if(hits == 6) {
+            platform.setScale(0.6F,0.6F);
+        } else if(hits == 10) {
+            platform.setScale(0.5F,0.5F);
+        }
     }
 
     public float getGameSpeed()
     {
         return gameSpeed;
+    }
+
+    public void refreshLeaderboards() {
+        //TODO: highscore does not refresh within a round
+        // set Leaderboards text to current Highscore
+        if(score.getHighscore().highScore >= score.getCurrentScore()) {
+            leaderboards.setText(score.getHighscore().highScore);
+        } else {
+            
+            leaderboards.setText(score.getCurrentScore());
+        }
+        Debug.Log("Highscore: " + score.getHighscore().highScore);
+        Debug.Log("Currentscore: " + score.getCurrentScore());
     }
 
     public void setGameSpeed(float gameSpeed)
@@ -228,6 +240,12 @@ public class GameManager : MonoBehaviour
         //stopping the gamplay and opening the scoreboard/menu
         onLevelEvent.Invoke(LevelEvent.LEVEL_STOP);
     }
+
+    public void reload() {
+        SceneManager.LoadScene(1);
+    }
+
+    
 
 
     // This method is connected to the OnDestroyed event of a BrickController

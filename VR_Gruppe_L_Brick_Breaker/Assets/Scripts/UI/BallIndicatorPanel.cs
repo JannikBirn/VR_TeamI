@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallIndicatorPanel : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class BallIndicatorPanel : MonoBehaviour
     private int arrowIndex = 0;
     private List<GameObject> arrowPool = new List<GameObject>();
     private Camera mainCamera;
+    private RectTransform parentRect;
 
     void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        parentRect = GetComponentInParent<RectTransform>();
     }
 
     void LateUpdate()
@@ -29,6 +32,7 @@ public class BallIndicatorPanel : MonoBehaviour
         BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
         foreach (BallController ballObject in balls)
         {
+            Vector3 worldPosition = ballObject.transform.position;
             Vector3 screenPosition = mainCamera.WorldToScreenPoint(ballObject.transform.position);
 
             if (screenPosition.z > 0 &&
@@ -51,7 +55,7 @@ public class BallIndicatorPanel : MonoBehaviour
                 screenPosition -= screenCenter;
 
                 // Calculate the correct direction towards the ball in a circular motion
-                float circleRadius = Mathf.Min(screenCenter.x, screenCenter.y) * 0.9f;
+                float circleRadius = Mathf.Min(parentRect.rect.width, parentRect.rect.height) * 0.25f;
                 screenPosition = screenPosition.normalized * circleRadius;
                 float angle = Mathf.Atan2(screenPosition.y, screenPosition.x);
 

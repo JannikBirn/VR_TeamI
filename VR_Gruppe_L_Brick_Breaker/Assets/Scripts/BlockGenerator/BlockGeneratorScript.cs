@@ -11,11 +11,13 @@ public class BlockGeneratorScript : MonoBehaviour
     // (this will be scaled up, so its original form should have size 1)
     public GameObject hullPrefab;
 
+    // The prefab used for the two collision planes, defining the allowed play area
+    // (they will be scaled up, so its original form should have size 1)
+    public GameObject collisionPlanePrefab;
 
     [Header("Gizmos Settings")]
     public bool gizmosDrawClamps = true;
     public bool gizmosDrawBlocks = true;
-
 
     //Private Variables
 
@@ -33,6 +35,8 @@ public class BlockGeneratorScript : MonoBehaviour
     public BrickDestroyedEvent OnBlockDestroyed;
 
     private GameObject hull;
+    private GameObject topCollisionPlane;
+    private GameObject bottomCollisionPlane;
 
     //Representing the count of witch sphere layers should get spawned from inner to outer
     // 0 is most inner sphere layer
@@ -131,16 +135,36 @@ public class BlockGeneratorScript : MonoBehaviour
     //startlayer is included and endLayer is excluded
     private void instantiatePrefabs(int startLayer, int endLayer)
     {
-        // Keep track of the largest layer's radius, as the hull needs to be wrapped around that layer
+        // Keep track of the largest layer's radius & clamp values,
+        // as the hull & collision planes need to be wrapped around that layer
         float largestRadius = 0;
+        float highestClampY = float.MinValue;
+        float lowestClampY = float.MaxValue;
+
+        float centerY = this.transform.position.y;
 
         for (int sphereIndex = startLayer; sphereIndex < endLayer; sphereIndex++)
         {
             SphereSettings currentSettings = sphereSettings[sphereIndex];
 
+            // Check radius of this layer
             if (currentSettings.radius > largestRadius)
             {
                 largestRadius = currentSettings.radius;
+            }
+
+            // Check collision plane adjustments for this layer
+            float bottomY = (centerY - currentSettings.radius) + (currentSettings.clampY.x * currentSettings.radius * 2);
+            float topY = (centerY - currentSettings.radius) + (currentSettings.clampY.y * currentSettings.radius * 2);
+
+            if (bottomY < lowestClampY)
+            {
+                lowestClampY = bottomY;
+            }
+
+            if (topY > highestClampY)
+            {
+                highestClampY = topY;
             }
 
             for (int x = 0; x < currentSettings.blockCount; x++)
@@ -168,12 +192,47 @@ public class BlockGeneratorScript : MonoBehaviour
             }
         }
 
-        // Instantiate the outer hull and scale it up to be as large as the largest layer
+        // Instantiate the outer hull & collision planes,
+        // then scale them up to be as large as the largest layer
+        Vector3 desiredScale = new Vector3(largestRadius, largestRadius, largestRadius);
+
         if (!hull)
         {
             hull = Instantiate(hullPrefab, this.transform.position, this.transform.rotation, this.transform);
         }
-        hull.transform.localScale = new Vector3(largestRadius, largestRadius, largestRadius);
+        hull.transform.localScale = desiredScale;
+
+        if (!topCollisionPlane)
+        {
+            // Rotate the top plane by 180 degrees, otherwise the collisions will be weird
+            topCollisionPlane = Instantiate(
+                collisionPlanePrefab,
+                this.transform.position,
+                Quaternion.Euler(0, 0, 180),
+                this.transform
+            );
+        }
+        topCollisionPlane.transform.localScale = desiredScale;
+        topCollisionPlane.transform.position = new Vector3(
+            topCollisionPlane.transform.position.x,
+            highestClampY,
+            topCollisionPlane.transform.position.z
+        );
+
+        if (!bottomCollisionPlane)
+        {
+            bottomCollisionPlane = Instantiate(
+                collisionPlanePrefab,
+                this.transform.position,
+                Quaternion.identity,
+                this.transform);
+        }
+        bottomCollisionPlane.transform.localScale = desiredScale;
+        bottomCollisionPlane.transform.position = new Vector3(
+            bottomCollisionPlane.transform.position.x,
+            lowestClampY,
+            bottomCollisionPlane.transform.position.z
+        );
     }
 
     private void InstantiateBlock(GameObject prefab, Vector3 position)
