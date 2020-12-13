@@ -15,7 +15,7 @@ public class XRCardboardController : MonoBehaviour
     public LayerMask interactablesLayers = -1;
 
     public UnityEvent OnTriggerPressed = new UnityEvent();
-    
+
     private Camera camera;
     private GameObject _gazedAtObject = null;
     //[SerializeField]private float MAX_DISTANCE = 10;
@@ -136,11 +136,13 @@ public class XRCardboardController : MonoBehaviour
         else
         {
             // No GameObject detected in front of the camera.
-            _gazedAtObject?.SendMessage("PointerExit");
+            // This line is necessary to cancel a pending gaze before it's complete
+            // (when looking at a button only briefly, this line will cancel the gaze)
+            _gazedAtObject?.SendMessage("PointerExit", SendMessageOptions.DontRequireReceiver);
             _gazedAtObject = null;
         }
     }
-    
+
     public bool IsTriggerPressed()
     {
 #if UNITY_EDITOR

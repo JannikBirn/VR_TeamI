@@ -9,16 +9,13 @@ public class AutoPilotEffect : BrickEffect
     [Range(1f, 60f)]
     public float duration = 10;
 
-    private BallController ballController;
 
     void Start()
     {
-        // Locate the ball in the scene and store a reference to its BallController
-        GameObject ball = GameObject.FindGameObjectWithTag("Ball");
-        ballController = ball.GetComponent<BallController>();
+
     }
 
-    public override IEnumerator Apply()
+    public override IEnumerator Apply(BallController ballController)
     {
         // Turn on auto pilot
         ballController.isAutoPilot = true;

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BlockGeneratorScript : MonoBehaviour
 {
-    private static readonly Color SPHERE_COLOR = new Color(1f, 1f, 1f, 0.3f);
-
     [Header("Setting for each Spherelayer")]
     public SphereSettings[] sphereSettings;
 
@@ -13,11 +11,13 @@ public class BlockGeneratorScript : MonoBehaviour
     // (this will be scaled up, so its original form should have size 1)
     public GameObject hullPrefab;
 
+    // The prefab used for the two collision planes, defining the allowed play area
+    // (they will be scaled up, so its original form should have size 1)
+    public GameObject collisionPlanePrefab;
 
     [Header("Gizmos Settings")]
     public bool gizmosDrawClamps = true;
     public bool gizmosDrawBlocks = true;
-
 
     //Private Variables
 
@@ -34,10 +34,46 @@ public class BlockGeneratorScript : MonoBehaviour
     // This event is sent when a block is destroyed by the ball
     public BrickDestroyedEvent OnBlockDestroyed;
 
+    private GameObject hull;
+    private GameObject topCollisionPlane;
+    private GameObject bottomCollisionPlane;
+
+    //Representing the count of witch sphere layers should get spawned from inner to outer
+    // 0 is most inner sphere layer
+    private int initiatedSphereLayers;
+    private bool reachedLastLayer = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        generateSphere();
+        // generateSphere();
+    }
+
+    public void updateSphereLayers(int newSphereLayer)
+    {
+        if (newSphereLayer > initiatedSphereLayers)
+        {
+            if (newSphereLayer < sphereSettings.Length)
+            {
+                instantiatePrefabs(initiatedSphereLayers + 1, newSphereLayer + 1);
+                initiatedSphereLayers = newSphereLayer;
+            }
+            else
+            {
+                reachedLastLayer = true;
+                Debug.LogWarning("Reached last Sphere layer, cant genarate a new one");
+            }
+        }
+    }
+
+    //Event is called by the LevelEvent 
+    public void onLevelEvent(int levelEvent)
+    {
+        if (levelEvent == LevelEvent.LEVEL_START)
+        {
+            //Generatting the sphere when the level starts
+            generateSphere();
+        }
     }
 
     //Public Method to generate the sphere
@@ -46,7 +82,7 @@ public class BlockGeneratorScript : MonoBehaviour
     {
         deleteSphere();
         generateStartingValues();
-        instantiatePrefabs();
+        instantiatePrefabs(0, 1);
     }
 
     //Public Method to delete all generated Prefabs (transform.child's)
@@ -96,18 +132,39 @@ public class BlockGeneratorScript : MonoBehaviour
 
 
     //Private Method for instantiating the prefabs of each sphereLayer
-    private void instantiatePrefabs()
+    //startlayer is included and endLayer is excluded
+    private void instantiatePrefabs(int startLayer, int endLayer)
     {
-        // Keep track of the largest layer's radius, as the hull needs to be wrapped around that layer
+        // Keep track of the largest layer's radius & clamp values,
+        // as the hull & collision planes need to be wrapped around that layer
         float largestRadius = 0;
+        float highestClampY = float.MinValue;
+        float lowestClampY = float.MaxValue;
 
-        for (int sphereIndex = 0; sphereIndex < sphereSettings.Length; sphereIndex++)
+        float centerY = this.transform.position.y;
+
+        for (int sphereIndex = startLayer; sphereIndex < endLayer; sphereIndex++)
         {
             SphereSettings currentSettings = sphereSettings[sphereIndex];
 
+            // Check radius of this layer
             if (currentSettings.radius > largestRadius)
             {
                 largestRadius = currentSettings.radius;
+            }
+
+            // Check collision plane adjustments for this layer
+            float bottomY = (centerY - currentSettings.radius) + (currentSettings.clampY.x * currentSettings.radius * 2);
+            float topY = (centerY - currentSettings.radius) + (currentSettings.clampY.y * currentSettings.radius * 2);
+
+            if (bottomY < lowestClampY)
+            {
+                lowestClampY = bottomY;
+            }
+
+            if (topY > highestClampY)
+            {
+                highestClampY = topY;
             }
 
             for (int x = 0; x < currentSettings.blockCount; x++)
@@ -135,9 +192,47 @@ public class BlockGeneratorScript : MonoBehaviour
             }
         }
 
-        // Instantiate the outer hull and scale it up to be as large as the largest layer
-        GameObject hull = Instantiate(hullPrefab, this.transform.position, this.transform.rotation, this.transform);
-        hull.transform.localScale = new Vector3(largestRadius, largestRadius, largestRadius);
+        // Instantiate the outer hull & collision planes,
+        // then scale them up to be as large as the largest layer
+        Vector3 desiredScale = new Vector3(largestRadius, largestRadius, largestRadius);
+
+        if (!hull)
+        {
+            hull = Instantiate(hullPrefab, this.transform.position, this.transform.rotation, this.transform);
+        }
+        hull.transform.localScale = desiredScale;
+
+        if (!topCollisionPlane)
+        {
+            // Rotate the top plane by 180 degrees, otherwise the collisions will be weird
+            topCollisionPlane = Instantiate(
+                collisionPlanePrefab,
+                this.transform.position,
+                Quaternion.Euler(0, 0, 180),
+                this.transform
+            );
+        }
+        topCollisionPlane.transform.localScale = desiredScale;
+        topCollisionPlane.transform.position = new Vector3(
+            topCollisionPlane.transform.position.x,
+            highestClampY,
+            topCollisionPlane.transform.position.z
+        );
+
+        if (!bottomCollisionPlane)
+        {
+            bottomCollisionPlane = Instantiate(
+                collisionPlanePrefab,
+                this.transform.position,
+                Quaternion.identity,
+                this.transform);
+        }
+        bottomCollisionPlane.transform.localScale = desiredScale;
+        bottomCollisionPlane.transform.position = new Vector3(
+            bottomCollisionPlane.transform.position.x,
+            lowestClampY,
+            bottomCollisionPlane.transform.position.z
+        );
     }
 
     private void InstantiateBlock(GameObject prefab, Vector3 position)
@@ -151,7 +246,7 @@ public class BlockGeneratorScript : MonoBehaviour
         {
             // Forward the event to the generator's own "OnBlockDestroyed" event
             // (the GameManager will listen to it)
-            controller.OnDestroyed.AddListener(effects => OnBlockDestroyed.Invoke(effects));
+            controller.OnDestroyed.AddListener((effects, ballController) => OnBlockDestroyed.Invoke(effects, ballController));
         }
     }
 
@@ -286,10 +381,11 @@ public class BlockGeneratorScript : MonoBehaviour
                 }
             }
         }
+    }
 
-        //Drawing a green sphere in the center
-        Gizmos.color = SPHERE_COLOR;
-        Gizmos.DrawSphere(this.transform.position, blockSize.x * 2);
+    public bool isReachedLastLayer()
+    {
+        return reachedLastLayer;
     }
 
 
@@ -315,5 +411,8 @@ public class BlockGeneratorScript : MonoBehaviour
             }
         }
     }
+
+
+
 
 }
