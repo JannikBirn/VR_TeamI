@@ -29,8 +29,8 @@ public class BallIndicatorPanel : MonoBehaviour
         ResetPool();
 
         // Collect all balls in the scene
-        GameObject[] ballObjects = GameObject.FindGameObjectsWithTag("Ball");
-        foreach (GameObject ballObject in ballObjects)
+        BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+        foreach (BallController ballObject in balls)
         {
             Vector3 worldPosition = ballObject.transform.position;
             Vector3 screenPosition = mainCamera.WorldToScreenPoint(ballObject.transform.position);

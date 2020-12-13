@@ -97,15 +97,19 @@ public class GameManager : MonoBehaviour
             Debug.Log("Current Time:" + time + " Current Difficulty:" + difficulty);
 
             //Incrase Ball speed over time
-            BallSpeedEffect speedIncrase = new BallSpeedEffect();
+            BallSpeedEffect speedIncrase = this.gameObject.GetComponent<BallSpeedEffect>();
+            if (!speedIncrase)
+            {
+                speedIncrase = this.gameObject.AddComponent<BallSpeedEffect>();
+            }
             speedIncrase.duration = timeToNextDifficulty / 10f;
             speedIncrase.speedFactor = speedOverTime.Evaluate(time) + 1;
 
-            //TODO get balls a smarter way,
-            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-            foreach (GameObject ball in balls)
+
+            BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+            foreach (BallController ballC in balls)
             {
-                StartCoroutine(ExecuteBlockEffect(speedIncrase, ball.GetComponent<BallController>()));
+                StartCoroutine(ExecuteBlockEffect(speedIncrase, ballC));
             }
 
             blockGenerator.updateSphereLayers(difficulty);
@@ -118,6 +122,15 @@ public class GameManager : MonoBehaviour
     {
         //TODO work here, -> set events
         bottomMenu.SetActive(!bottomMenu.activeSelf);
+
+        if (bottomMenu.activeSelf)
+        {
+            gamePause();
+        }
+        else
+        {
+            gamePlay();
+        }
 
         // Hide startMenu if it was active
         if (startMenu.activeSelf == true)
@@ -159,33 +172,25 @@ public class GameManager : MonoBehaviour
         //platform.setPointText(hits);
 
         //refreshLeaderboards();
-    
+
         // Platform shrinks after spicific amount of hits
-        // if(hits == 3) {
-        //     platform.setScale(0.8F,0.8F);
-        // } else if(hits == 6) {
-        //     platform.setScale(0.6F,0.6F);
-        // } else if(hits == 10) {
-        //     platform.setScale(0.5F,0.5F);
-        // }
+        if (hits == 3)
+        {
+            platform.setScale(0.8F, 0.8F);
+        }
+        else if (hits == 6)
+        {
+            platform.setScale(0.6F, 0.6F);
+        }
+        else if (hits == 10)
+        {
+            platform.setScale(0.5F, 0.5F);
+        }
     }
 
     public float getGameSpeed()
     {
         return gameSpeed;
-    }
-
-    public void refreshLeaderboards() {
-        //TODO: highscore does not refresh within a round
-        // set Leaderboards text to current Highscore
-        if(score.getHighscore().highScore >= score.getCurrentScore()) {
-            leaderboards.setText(score.getHighscore().highScore);
-        } else {
-            
-            leaderboards.setText(score.getCurrentScore());
-        }
-        Debug.Log("Highscore: " + score.getHighscore().highScore);
-        Debug.Log("Currentscore: " + score.getCurrentScore());
     }
 
     public void setGameSpeed(float gameSpeed)
@@ -237,11 +242,12 @@ public class GameManager : MonoBehaviour
         onLevelEvent.Invoke(LevelEvent.LEVEL_STOP);
     }
 
-    public void reload() {
+    public void reload()
+    {
         SceneManager.LoadScene(1);
     }
 
-    
+
 
 
     // This method is connected to the OnDestroyed event of a BrickController

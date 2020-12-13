@@ -40,7 +40,7 @@ public class ScoreManager : MonoBehaviour
         {
             //Adding time to the timer if player is playing
             timer += Time.unscaledDeltaTime;
-        }        
+        }
     }
 
     public void onLevelEvent(int levelEvent)
@@ -58,14 +58,13 @@ public class ScoreManager : MonoBehaviour
 
 
     //Gets called by the BlockGeneratorScript Event when a block is destroyed
-    public void OnBlockDestroyed(BrickEffect[] effects)
+    public void OnBlockDestroyed(BrickEffect[] effects, BallController ballController)
     {
         Debug.Log("ScoreManager : OnBlockDestroyed() Event call");
         currentScore += scoreOfABlock;
         onScoreUpdateEvent.Invoke(currentScore);
     }
 
-    //TODO needs to be called when a level finished
     private void OnLevelFinished()
     {
         if (currentScore > scoreSavestate.highScore)
@@ -76,8 +75,8 @@ public class ScoreManager : MonoBehaviour
             scoreSavestate.highScore = currentScore;
             //Getting the current Time
             scoreSavestate.timeStamp = System.DateTime.Now.Ticks;
-            //TODO set time
-            
+            scoreSavestate.time = timer;
+
             SaveLoadManager.SaveObject(scoreSavestate);
         }
     }
@@ -86,7 +85,8 @@ public class ScoreManager : MonoBehaviour
     {
         return scoreSavestate;
     }
-    public int getCurrentScore() {
+    public int getCurrentScore()
+    {
         return currentScore;
     }
     public float getTime()

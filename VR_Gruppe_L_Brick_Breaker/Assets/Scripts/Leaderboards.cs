@@ -5,23 +5,36 @@ using UnityEngine.UI;
 
 public class Leaderboards : MonoBehaviour
 {
-    private Text myText;
+    public Text myText;
+    public ScoreManager score;
 
     // Start is called before the first frame update
     void Start()
     {
-        myText  = GameObject.Find("Body").GetComponent<Text>();
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        setText();
     }
-    public void setText(int score) {
+
+    public void setText()
+    {
+        //TODO: highscore does not refresh within a round
+        // set Leaderboards text to current Highscore
+        if (score.getHighscore().highScore >= score.getCurrentScore())
+        {
+            string date = new System.DateTime(score.getHighscore().timeStamp).ToString();
+            myText.text = "The Highscore: " + score.getHighscore().highScore + " \n Seconds Survived : " + Mathf.Round(score.getHighscore().time) + " \n Date: " + date;
+        }
+        else
+        {
+            myText.text = "The Highscore: " + score.getCurrentScore();
+        }
+        // Debug.Log("Highscore: " + score.getHighscore().highScore);
+        // Debug.Log("Currentscore: " + score.getCurrentScore());
         // Load actual Highscores here
-        myText.text = "The Highscore: " + score;
     }
 
 }
