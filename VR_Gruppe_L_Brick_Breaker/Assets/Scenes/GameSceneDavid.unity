@@ -198,8 +198,18 @@ MonoBehaviour:
   scoreOfABlock: 10
   onScoreUpdateEvent:
     m_PersistentCalls:
-      m_Calls: []
-  leaderboards: {fileID: 2139487980}
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &236835505
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +512,8 @@ MonoBehaviour:
   platform: {fileID: 1117168375}
   score: {fileID: 133841869}
   blockGenerator: {fileID: 828474725}
-  leaderboards: {fileID: 2139487978}
+  leaderboardsObject: {fileID: 2139487978}
+  leaderboards: {fileID: 2139487980}
   bottomMenu: {fileID: 1948103741}
   startMenu: {fileID: 1685659449}
 --- !u!4 &516857836
@@ -2299,7 +2310,7 @@ PrefabInstance:
     - target: {fileID: 2932994247718622451, guid: ba5adc8b930cf4ed487b6182ec73ac42,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.75
+      value: 7.41
       objectReference: {fileID: 0}
     - target: {fileID: 2932994247718622451, guid: ba5adc8b930cf4ed487b6182ec73ac42,
         type: 3}
@@ -2395,6 +2406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Leaderboards
+      objectReference: {fileID: 0}
+    - target: {fileID: 2932994247718622463, guid: ba5adc8b930cf4ed487b6182ec73ac42,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba5adc8b930cf4ed487b6182ec73ac42, type: 3}

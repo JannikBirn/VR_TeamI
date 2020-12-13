@@ -19,7 +19,6 @@ public class ScoreManager : MonoBehaviour
     private float timer;
 
 
-    public Leaderboards leaderboards;
 
 
     private void Awake()
@@ -41,12 +40,7 @@ public class ScoreManager : MonoBehaviour
         {
             //Adding time to the timer if player is playing
             timer += Time.unscaledDeltaTime;
-        }
-
-        //TODO: This has to get fixed
-        //TODO: highscore does not refresh within a round
-        // set Leaderboards text to current Highscore
-        //leaderboards.setText(scoreSavestate.highScore);
+        }        
     }
 
     public void onLevelEvent(int levelEvent)
@@ -78,9 +72,6 @@ public class ScoreManager : MonoBehaviour
         {
             Debug.Log("ScoreManager : new HighScore");
 
-            // Refresh current highscore since it has changed
-            leaderboards.setText(scoreSavestate.highScore);
-
             //Got a new highscore
             scoreSavestate.highScore = currentScore;
             //Getting the current Time
@@ -94,6 +85,9 @@ public class ScoreManager : MonoBehaviour
     public ScoreSavestate getHighscore()
     {
         return scoreSavestate;
+    }
+    public int getCurrentScore() {
+        return currentScore;
     }
     public float getTime()
     {

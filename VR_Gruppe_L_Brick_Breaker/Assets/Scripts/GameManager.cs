@@ -60,7 +60,10 @@ public class GameManager : MonoBehaviour
     public PlatformController platform;
     public ScoreManager score;
     public BlockGeneratorScript blockGenerator;
-    public GameObject leaderboards;
+
+    // UI
+    public GameObject leaderboardsObject;
+    public Leaderboards leaderboards;
     public GameObject bottomMenu;
     public GameObject startMenu;
 
@@ -123,9 +126,9 @@ public class GameManager : MonoBehaviour
         }
 
         // Hide leaderboards if it was active
-        if (leaderboards.activeSelf == true)
+        if (leaderboardsObject.activeSelf == true)
         {
-            leaderboards.SetActive(false);
+            leaderboardsObject.SetActive(false);
         }
     }
 
@@ -137,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     public void toggleLeaderboards()
     {
-        leaderboards.SetActive(!leaderboards.activeSelf);
+        leaderboardsObject.SetActive(!leaderboardsObject.activeSelf);
     }
 
 
@@ -153,8 +156,10 @@ public class GameManager : MonoBehaviour
         hits++;
         Debug.Log(hits);
 
-        platform.setPointText(hits);
+        //platform.setPointText(hits);
 
+        //refreshLeaderboards();
+    
         // Platform shrinks after spicific amount of hits
         if(hits == 3) {
             platform.setScale(0.8F,0.8F);
@@ -168,6 +173,19 @@ public class GameManager : MonoBehaviour
     public float getGameSpeed()
     {
         return gameSpeed;
+    }
+
+    public void refreshLeaderboards() {
+        //TODO: highscore does not refresh within a round
+        // set Leaderboards text to current Highscore
+        if(score.getHighscore().highScore >= score.getCurrentScore()) {
+            leaderboards.setText(score.getHighscore().highScore);
+        } else {
+            
+            leaderboards.setText(score.getCurrentScore());
+        }
+        Debug.Log("Highscore: " + score.getHighscore().highScore);
+        Debug.Log("Currentscore: " + score.getCurrentScore());
     }
 
     public void setGameSpeed(float gameSpeed)
