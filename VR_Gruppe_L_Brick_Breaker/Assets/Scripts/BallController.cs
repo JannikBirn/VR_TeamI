@@ -35,19 +35,31 @@ public class BallController : MonoBehaviour
     public bool isAutoPilot = false;
     public bool isPiercing = false;
 
+
+    public Color colorAuto;
+    public Color colorPiercing;
+
     private GameObject player;
+
+    private Material material;
+    private Color original;
 
     void Awake()
     {
         // Get the player object (so that we know their position at all times)
         player = GameObject.FindGameObjectWithTag("Player");
         BallsHolderSingleton.Instance.balls.Add(this);
+
+        material = GetComponent<Renderer>().material;
+        original = material.GetColor("_EmissionColor");
     }
 
     void FixedUpdate()
     {
         // Move along the current direction
         transform.position += direction * Time.deltaTime;
+
+        SetColor();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -127,6 +139,20 @@ public class BallController : MonoBehaviour
         this.direction = reflection;
     }
 
+    private void SetColor(){
+        if (isAutoPilot)
+        {
+            material.SetColor("_EmissionColor", colorAuto);
+        } else if (isPiercing)
+        {
+            material.SetColor("_EmissionColor", colorPiercing);
+        }
+        else
+        {
+            material.SetColor("_EmissionColor", original);
+        }
+
+    }
     private void HandlePlatformCollision(Collider collider, ContactPoint contactPoint)
     {
         // The more off-center the collision with the platform,

@@ -19,7 +19,7 @@ public class AutoPilotEffect : BrickEffect
     {
         // Turn on auto pilot
         ballController.isAutoPilot = true;
-
+        
         // Wait for the effect to stop
         yield return new WaitForSeconds(duration);
 
