@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Leaderboards : MonoBehaviour
 {
+
     public Text myText;
     public ScoreManager score;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     private void OnEnable()
     {
@@ -32,9 +28,6 @@ public class Leaderboards : MonoBehaviour
         {
             myText.text = "The Highscore: " + score.getCurrentScore();
         }
-        // Debug.Log("Highscore: " + score.getHighscore().highScore);
-        // Debug.Log("Currentscore: " + score.getCurrentScore());
-        // Load actual Highscores here
     }
 
 }
