@@ -13,6 +13,10 @@ public class BallSpeedEffect : BrickEffect
     [Range(1f, 60f)]
     public float duration = 10;
 
+    // Whether or not this effect should change the ball's color as well
+    // (this should be reserved to Speed Effect blocks)
+    public bool willChangeColor = false;
+
     void Start()
     {
 
@@ -24,10 +28,20 @@ public class BallSpeedEffect : BrickEffect
         float normalSpeed = ballController.direction.magnitude;
         ballController.direction = ballController.direction * speedFactor;
 
+        if (willChangeColor)
+        {
+            ballController.isSpeedChanged = true;
+        }
+
         // Wait for the effect to stop
         yield return new WaitForSeconds(duration);
 
         // Restore the original speed
         ballController.direction = ballController.direction.normalized * normalSpeed;
+
+        if (willChangeColor)
+        {
+            ballController.isSpeedChanged = false;
+        }
     }
 }

@@ -34,15 +34,23 @@ public class BallController : MonoBehaviour
     public Vector3 direction = new Vector3(0f, 0f, 2.5f);
     public bool isAutoPilot = false;
     public bool isPiercing = false;
+    public bool isSpeedChanged = false;
 
-
+    [ColorUsageAttribute(false, true)]
     public Color colorAuto;
+
+    [ColorUsageAttribute(false, true)]
     public Color colorPiercing;
+
+    [ColorUsageAttribute(false, true)]
+    public Color colorSpeed;
 
     private GameObject player;
 
     private Material material;
-    private Color original;
+    private Color colorOriginal;
+    private Material trailMaterial;
+    private Color colorOriginalTrail;
 
     void Awake()
     {
@@ -51,7 +59,10 @@ public class BallController : MonoBehaviour
         BallsHolderSingleton.Instance.balls.Add(this);
 
         material = GetComponent<Renderer>().material;
-        original = material.GetColor("_EmissionColor");
+        colorOriginal = material.GetColor("_EmissionColor");
+
+        trailMaterial = GetComponent<TrailRenderer>().material;
+        colorOriginalTrail = trailMaterial.GetColor("_EmissionColor");
     }
 
     void FixedUpdate()
@@ -139,17 +150,27 @@ public class BallController : MonoBehaviour
         this.direction = reflection;
     }
 
-    private void SetColor(){
-        if (isAutoPilot)
+    private void SetColor()
+    {
+        if (isSpeedChanged)
+        {
+            material.SetColor("_EmissionColor", colorSpeed);
+            trailMaterial.SetColor("_EmissionColor", colorSpeed);
+        }
+        else if (isAutoPilot)
         {
             material.SetColor("_EmissionColor", colorAuto);
-        } else if (isPiercing)
+            trailMaterial.SetColor("_EmissionColor", colorAuto);
+        }
+        else if (isPiercing)
         {
             material.SetColor("_EmissionColor", colorPiercing);
+            trailMaterial.SetColor("_EmissionColor", colorPiercing);
         }
         else
         {
-            material.SetColor("_EmissionColor", original);
+            material.SetColor("_EmissionColor", colorOriginal);
+            trailMaterial.SetColor("_EmissionColor", colorOriginalTrail);
         }
 
     }

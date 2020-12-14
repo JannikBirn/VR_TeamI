@@ -269,7 +269,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  label: Test
+  label: MENU
 --- !u!114 &3838274528706050195
 MonoBehaviour:
   m_ObjectHideFlags: 0
