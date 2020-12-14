@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Leaderboards : MonoBehaviour
 {
+    public UnityEvent buttonEvent = new UnityEvent();
     public Text myText;
     public ScoreManager score;
 

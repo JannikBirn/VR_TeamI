@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     public GameObject bottomMenu;
     public GameObject startMenu;
 
+
     private bool isDifficultyCRRunning;
 
     // Start is called before the first frame update
@@ -155,6 +156,8 @@ public class GameManager : MonoBehaviour
     {
         leaderboardsObject.SetActive(!leaderboardsObject.activeSelf);
     }
+
+
 
 
     // Getters & Setters
