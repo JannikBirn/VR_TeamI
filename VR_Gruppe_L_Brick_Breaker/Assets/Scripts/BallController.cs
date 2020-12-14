@@ -34,12 +34,16 @@ public class BallController : MonoBehaviour
     public Vector3 direction = new Vector3(0f, 0f, 2.5f);
     public bool isAutoPilot = false;
     public bool isPiercing = false;
+    public bool isSpeedChanged = false;
 
     [ColorUsageAttribute(false, true)]
     public Color colorAuto;
 
     [ColorUsageAttribute(false, true)]
     public Color colorPiercing;
+
+    [ColorUsageAttribute(false, true)]
+    public Color colorSpeed;
 
     private GameObject player;
 
@@ -148,7 +152,12 @@ public class BallController : MonoBehaviour
 
     private void SetColor()
     {
-        if (isAutoPilot)
+        if (isSpeedChanged)
+        {
+            material.SetColor("_EmissionColor", colorSpeed);
+            trailMaterial.SetColor("_EmissionColor", colorSpeed);
+        }
+        else if (isAutoPilot)
         {
             material.SetColor("_EmissionColor", colorAuto);
             trailMaterial.SetColor("_EmissionColor", colorAuto);

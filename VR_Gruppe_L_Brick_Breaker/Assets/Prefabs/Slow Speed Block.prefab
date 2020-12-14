@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedFactor: 0.5
   duration: 10
+  willChangeColor: 1
