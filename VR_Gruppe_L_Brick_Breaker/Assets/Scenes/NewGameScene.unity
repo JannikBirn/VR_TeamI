@@ -2725,12 +2725,17 @@ PrefabInstance:
     - target: {fileID: 7638498584647898264, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: reloadLevel
+      value: reload
       objectReference: {fileID: 0}
     - target: {fileID: 7638498585015250856, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
       propertyPath: m_Name
       value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7638498585015250856, guid: a7fc0fde5022c42cda170d938779ef4f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7638498585015250860, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
@@ -2861,6 +2866,11 @@ PrefabInstance:
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: toggleLeaderboards
+      objectReference: {fileID: 0}
+    - target: {fileID: 8774637078939202214, guid: a7fc0fde5022c42cda170d938779ef4f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8774637078939209052, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}

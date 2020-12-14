@@ -6,10 +6,10 @@ using UnityEngine.Events;
 
 [System.Serializable]
 public class ScoreUpdateEvent : UnityEvent<int> { }
+
 public class ScoreManager : MonoBehaviour
 {
     public int scoreOfABlock;
-
     public ScoreUpdateEvent onScoreUpdateEvent;
 
     //Reference to the Score Savestate
@@ -17,9 +17,6 @@ public class ScoreManager : MonoBehaviour
 
     private int currentScore; //score of the current level
     private float timer;
-
-
-
 
     private void Awake()
     {
@@ -49,6 +46,7 @@ public class ScoreManager : MonoBehaviour
         {
             currentScore = 0;
             timer = 0;
+            onScoreUpdateEvent.Invoke(currentScore);
         }
         else if (levelEvent == LevelEvent.LEVEL_STOP)
         {

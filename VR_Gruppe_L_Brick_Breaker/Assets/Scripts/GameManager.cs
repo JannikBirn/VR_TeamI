@@ -207,11 +207,25 @@ public class GameManager : MonoBehaviour
     public void gameStart()
     {
         Debug.Log("GameManager : gameStart()");
+
+        //Destroying all balls
+        BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+        foreach (BallController ballC in balls)
+        {
+            GameObject.Destroy(ballC.gameObject);
+        }
+
+        bottomMenu.SetActive(false);
+        startMenu.SetActive(false);
+        leaderboardsObject.SetActive(false);
+
+        setGameSpeed(normalGameSpeed);
+
         //resetting all the objects so the player can play again
         //BlockMeshGen is will reset in the BLockGeneratorScript
         onLevelEvent.Invoke(LevelEvent.LEVEL_START);
 
-        // After the initial start, immediately transition into the playing state
+		// After the initial start, immediately transition into the playing state
         gamePlay();
     }
 
@@ -219,8 +233,6 @@ public class GameManager : MonoBehaviour
     public void gamePlay()
     {
         Debug.Log("GameManager : gamePlay()");
-        //unpausing the gampleay if it is paused
-        onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
 
         setGameSpeed(normalGameSpeed);
 
@@ -231,16 +243,19 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(updateDifficulty());
         }
+
+        //unpausing the gampleay if it is paused
+        onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
     }
 
     [ContextMenu("gamePause()")]
     public void gamePause()
     {
         Debug.Log("GameManager : gamePause()");
+        setGameSpeed(0f);
+
         //Pausing the current gameplay
         onLevelEvent.Invoke(LevelEvent.LEVEL_PAUSE);
-
-        setGameSpeed(0f);
     }
 
     [ContextMenu("gameStop()")]
@@ -253,13 +268,9 @@ public class GameManager : MonoBehaviour
 
     public void reload()
     {
-        // Reload the active scene to restart the game
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentScene);
+        gameStop();
+        gameStart();
     }
-
-
-
 
     // This method is connected to the OnDestroyed event of a BrickController
     // generated in the game. When called, it will schedule all of the provided
