@@ -3068,6 +3068,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2139487977}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2932994248108309218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4738870350162322865, guid: 71ec05be7ec8e054aa54e8830649e6aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7599771333925019475}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2932994249363752416 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4738870349412375219, guid: 71ec05be7ec8e054aa54e8830649e6aa,
@@ -3099,6 +3111,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1731513716}
     m_Modifications:
+    - target: {fileID: 3119032629838073879, guid: 71ec05be7ec8e054aa54e8830649e6aa,
+        type: 3}
+      propertyPath: myText
+      value: 
+      objectReference: {fileID: 2932994248108309218}
+    - target: {fileID: 3119032629838073879, guid: 71ec05be7ec8e054aa54e8830649e6aa,
+        type: 3}
+      propertyPath: score
+      value: 
+      objectReference: {fileID: 133841869}
     - target: {fileID: 3804617963469317288, guid: 71ec05be7ec8e054aa54e8830649e6aa,
         type: 3}
       propertyPath: gazeImg
@@ -3223,6 +3245,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EndScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738870349412375231, guid: 71ec05be7ec8e054aa54e8830649e6aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71ec05be7ec8e054aa54e8830649e6aa, type: 3}

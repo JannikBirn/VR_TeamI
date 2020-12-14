@@ -30,6 +30,7 @@ public class MainMenu : MonoBehaviour
         switch (levelEvent)
         {
             case LevelEvent.LEVEL_START:
+                endScreen.SetActive(false);
                 break;
             case LevelEvent.LEVEL_PLAY:
                 break;
