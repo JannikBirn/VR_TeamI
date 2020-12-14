@@ -91,7 +91,7 @@ public class BlockGeneratorScript : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            GameObject.Destroy(child.gameObject);
+            GameObject.DestroyImmediate(child.gameObject);
         }
 
         OnBlockDestroyed.RemoveAllListeners();

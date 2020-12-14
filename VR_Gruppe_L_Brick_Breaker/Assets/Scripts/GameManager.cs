@@ -204,34 +204,48 @@ public class GameManager : MonoBehaviour
     public void gameStart()
     {
         Debug.Log("GameManager : gameStart()");
-        //resetting all the objects so the player can play again
-        //BlockMeshGen is will reset in the BLockGeneratorScript
-        onLevelEvent.Invoke(LevelEvent.LEVEL_START);
 
         if (!isDifficultyCRRunning)
         {
             StartCoroutine(updateDifficulty());
         }
+
+        //Destroying all balls
+        BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+        foreach (BallController ballC in balls)
+        {
+            GameObject.Destroy(ballC.gameObject);
+        }
+
+        bottomMenu.SetActive(false);
+        startMenu.SetActive(false);
+        leaderboardsObject.SetActive(false);
+
+        setGameSpeed(normalGameSpeed);
+
+        //resetting all the objects so the player can play again
+        //BlockMeshGen is will reset in the BLockGeneratorScript
+        onLevelEvent.Invoke(LevelEvent.LEVEL_START);
     }
 
     [ContextMenu("gamePlay()")]
     public void gamePlay()
     {
         Debug.Log("GameManager : gamePlay()");
-        //unpausing the gampleay if it is paused
-        onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
 
         setGameSpeed(normalGameSpeed);
+        //unpausing the gampleay if it is paused
+        onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
     }
 
     [ContextMenu("gamePause()")]
     public void gamePause()
     {
         Debug.Log("GameManager : gamePause()");
+        setGameSpeed(0f);
+
         //Pausing the current gameplay
         onLevelEvent.Invoke(LevelEvent.LEVEL_PAUSE);
-
-        setGameSpeed(0f);
     }
 
     [ContextMenu("gameStop()")]
@@ -244,7 +258,8 @@ public class GameManager : MonoBehaviour
 
     public void reload()
     {
-        SceneManager.LoadScene(1);
+        gameStop();
+        gameStart();
     }
 
 
