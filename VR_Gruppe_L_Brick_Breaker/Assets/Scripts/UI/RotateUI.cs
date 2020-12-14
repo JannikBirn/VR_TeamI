@@ -9,8 +9,8 @@ public class RotateUI : MonoBehaviour
     private GameObject cam;
     private Vector3 axis = new Vector3(0,1,0);
     private float angle;
-    public float smoothTime = 0.1F;
-    private Vector3 velocity = Vector3.zero;
+    // public float smoothTime = 0.1F;
+    // private Vector3 velocity = Vector3.zero;
 
     
     // Start is called before the first frame update
