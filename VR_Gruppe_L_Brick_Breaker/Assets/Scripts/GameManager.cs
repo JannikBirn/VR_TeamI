@@ -207,34 +207,55 @@ public class GameManager : MonoBehaviour
     public void gameStart()
     {
         Debug.Log("GameManager : gameStart()");
+
+        //Destroying all balls
+        BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+        foreach (BallController ballC in balls)
+        {
+            GameObject.Destroy(ballC.gameObject);
+        }
+
+        bottomMenu.SetActive(false);
+        startMenu.SetActive(false);
+        leaderboardsObject.SetActive(false);
+
+        setGameSpeed(normalGameSpeed);
+
         //resetting all the objects so the player can play again
         //BlockMeshGen is will reset in the BLockGeneratorScript
         onLevelEvent.Invoke(LevelEvent.LEVEL_START);
 
-        if (!isDifficultyCRRunning)
-        {
-            StartCoroutine(updateDifficulty());
-        }
+		// After the initial start, immediately transition into the playing state
+        gamePlay();
     }
 
     [ContextMenu("gamePlay()")]
     public void gamePlay()
     {
         Debug.Log("GameManager : gamePlay()");
-        //unpausing the gampleay if it is paused
-        onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
 
         setGameSpeed(normalGameSpeed);
+
+        // Start the coroutine that will make the game harder
+        // (this needs to be in gamePlay() rather than gameStart(),
+        // since otherwise it might not get restarted after closing the menu)
+        if (!isDifficultyCRRunning)
+        {
+            StartCoroutine(updateDifficulty());
+        }
+
+        //unpausing the gampleay if it is paused
+        onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
     }
 
     [ContextMenu("gamePause()")]
     public void gamePause()
     {
         Debug.Log("GameManager : gamePause()");
+        setGameSpeed(0f);
+
         //Pausing the current gameplay
         onLevelEvent.Invoke(LevelEvent.LEVEL_PAUSE);
-
-        setGameSpeed(0f);
     }
 
     [ContextMenu("gameStop()")]
@@ -247,11 +268,9 @@ public class GameManager : MonoBehaviour
 
     public void reload()
     {
-        SceneManager.LoadScene(1);
+        gameStop();
+        gameStart();
     }
-
-
-
 
     // This method is connected to the OnDestroyed event of a BrickController
     // generated in the game. When called, it will schedule all of the provided

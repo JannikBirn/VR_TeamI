@@ -19,6 +19,7 @@ public class BrickController : MonoBehaviour
     // List of effects to trigger when the brick is destroyed
     private BrickEffect[] effects;
 
+
     void Start()
     {
         // Collect all scripts attached to this GameObject, which are a subclass of "BrickEffect"
