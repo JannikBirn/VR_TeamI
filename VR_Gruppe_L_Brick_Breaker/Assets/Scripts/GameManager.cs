@@ -211,10 +211,8 @@ public class GameManager : MonoBehaviour
         //BlockMeshGen is will reset in the BLockGeneratorScript
         onLevelEvent.Invoke(LevelEvent.LEVEL_START);
 
-        if (!isDifficultyCRRunning)
-        {
-            StartCoroutine(updateDifficulty());
-        }
+        // After the initial start, immediately transition into the playing state
+        gamePlay();
     }
 
     [ContextMenu("gamePlay()")]
@@ -225,6 +223,14 @@ public class GameManager : MonoBehaviour
         onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
 
         setGameSpeed(normalGameSpeed);
+
+        // Start the coroutine that will make the game harder
+        // (this needs to be in gamePlay() rather than gameStart(),
+        // since otherwise it might not get restarted after closing the menu)
+        if (!isDifficultyCRRunning)
+        {
+            StartCoroutine(updateDifficulty());
+        }
     }
 
     [ContextMenu("gamePause()")]
@@ -247,7 +253,9 @@ public class GameManager : MonoBehaviour
 
     public void reload()
     {
-        SceneManager.LoadScene(1);
+        // Reload the active scene to restart the game
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
     }
 
 
