@@ -238,6 +238,9 @@ public class GameManager : MonoBehaviour
 
         setGameSpeed(normalGameSpeed);
 
+        //unpausing the gampleay if it is paused
+        onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
+
         // Start the coroutine that will make the game harder
         // (this needs to be in gamePlay() rather than gameStart(),
         // since otherwise it might not get restarted after closing the menu)
@@ -245,9 +248,6 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(updateDifficulty());
         }
-
-        //unpausing the gampleay if it is paused
-        onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
     }
 
     [ContextMenu("gamePause()")]
