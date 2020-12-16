@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6196515, g: 0.3329477, b: 0.8113208, a: 1}
+  m_Color: {r: 0.6156863, g: 0.3254902, b: 0.8627451, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -191,7 +191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b742ea469c327d34a9fa4a77ced8efad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTime: 0.1
 --- !u!114 &7971459773870687312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +518,12 @@ PrefabInstance:
     - target: {fileID: 4615078324986199640, guid: 6fa82081ac17c8040b023f095319545a,
         type: 3}
       propertyPath: m_Text
-      value: Close
+      value: Play Again
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402142084422691198, guid: 6fa82081ac17c8040b023f095319545a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fa82081ac17c8040b023f095319545a, type: 3}
