@@ -29,7 +29,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2932994247718622463}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.75}
+  m_LocalPosition: {x: 0, y: 0, z: 7}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 6754124155349308695}
@@ -41,7 +41,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.2199707}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2932994247718622450
@@ -116,9 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa7071dad18e7d42b96939236543b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonEvent:
-    m_PersistentCalls:
-      m_Calls: []
   myText: {fileID: 0}
   score: {fileID: 0}
 --- !u!114 &200804153326858339
@@ -133,7 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b742ea469c327d34a9fa4a77ced8efad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothTime: 0.1
 --- !u!1 &2932994248641038827
 GameObject:
   m_ObjectHideFlags: 0
