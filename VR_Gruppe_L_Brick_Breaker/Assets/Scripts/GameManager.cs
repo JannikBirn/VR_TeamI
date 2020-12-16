@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     // UI
     public GameObject leaderboardsObject;
     public Leaderboards leaderboards;
+    public GameObject bottomMenuCylinder;
     public GameObject bottomMenu;
     public GameObject startMenu;
 
@@ -218,6 +219,7 @@ public class GameManager : MonoBehaviour
         bottomMenu.SetActive(false);
         startMenu.SetActive(false);
         leaderboardsObject.SetActive(false);
+        bottomMenuCylinder.SetActive(true);
 
         setGameSpeed(normalGameSpeed);
 
@@ -225,7 +227,7 @@ public class GameManager : MonoBehaviour
         //BlockMeshGen is will reset in the BLockGeneratorScript
         onLevelEvent.Invoke(LevelEvent.LEVEL_START);
 
-		// After the initial start, immediately transition into the playing state
+        // After the initial start, immediately transition into the playing state
         gamePlay();
     }
 
