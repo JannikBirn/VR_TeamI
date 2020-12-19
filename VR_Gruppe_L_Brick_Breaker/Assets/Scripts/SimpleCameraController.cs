@@ -9,7 +9,10 @@ using UnityEngine;
 namespace UnityTemplateProjects
 {
     public class SimpleCameraController : MonoBehaviour
-    {
+    {   
+
+        // Dieses Skript dient lediglich zum Bewegen und Rotieren der Kamera im Unity Editor. Es ist wichtig dieses Skript vor einem Build zu deaktivieren, da es sonst zu keinen erfolgreichem Android Build kommt.
+
         class CameraState
         {
             public float yaw;

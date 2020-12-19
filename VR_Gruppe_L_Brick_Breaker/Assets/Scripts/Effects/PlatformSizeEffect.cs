@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlatformSizeEffect : BrickEffect
 {
 
+    // Dieser BrickEffect löst eine Veränderung der Plattformgröße aus. Dabei gibt es Bricks, welche entweder eine Vergrößerung, oder Verkleinerung der Plattform verursachen. Hierzu wird die Funktion setScale des Plattform Controllers aufgerufen
+
     // How much does this effect change the size (1.0 == no change)
     [Range(0.25f, 2f)]
     public float sizeFactor = 2;

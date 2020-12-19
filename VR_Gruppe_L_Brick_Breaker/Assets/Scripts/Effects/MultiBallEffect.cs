@@ -5,6 +5,8 @@ using UnityEngine;
 public class MultiBallEffect : BrickEffect
 {
 
+    // Durch diese BrickEffect spawnen zusätzliche Bälle. Allerdings hat der Spieler erst bei Verlust des letzten Balls verloren
+
     public int newCount = 3;
     public float radius = 1f;
 

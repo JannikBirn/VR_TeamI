@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AOEEffect : BrickEffect
 {
+
+    // Dieser Effekt löst einen Explosionseffekt aus. Bricks im Umkreis des effectRadius werden bei Zerstörung des Bricks mit diesem BrickEffect mit ihm zerstört
+
     public float effectRadius = 3f;
 
     public override IEnumerator Apply(BallController ballController)

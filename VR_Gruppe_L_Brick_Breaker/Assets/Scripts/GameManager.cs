@@ -8,6 +8,9 @@ using UnityEngine.Events;
 [System.Serializable]
 public class LevelEvent : UnityEvent<int>
 {
+
+    // Level Events können über den Inspektor in Unity hinzugefügt werden. Es sind 4 verschiedene Events (Start, Play, Pause und Stopp) verfügbar, welche in den einzelnen Scripts verwendet werden können indem man sie über den Insprektor am GameManager Objekt registiert.
+
     public const int LEVEL_START = 0, //When level is starting, needs to be reset
     LEVEL_PLAY = 1, //When level is playing again, after a pause
     LEVEL_PAUSE = 2, //Pause when level is pausing but not stopping
@@ -45,6 +48,10 @@ public class LevelEvent : UnityEvent<int>
 
 public class GameManager : MonoBehaviour
 {
+
+    // Der GameManager verwaltet den Zustand des Spiels und des User Interfaces. Hier werden die meisten Spielelemente registriert und genutzt. Hier finden sich auch jene Funktionen wieder, welche bei Levelevents ausgelöst werden. 
+    // Zu diesen Funktionen gehören gamePlay() gameStart() gameStop() gamePause(). Ebenfalls wird in diesem Skript auch die steigende Schwierigkeit im Spiel verwaltet
+
     public LevelEvent onLevelEvent;
     private int hits;
     private float normalGameSpeed;
@@ -64,8 +71,10 @@ public class GameManager : MonoBehaviour
     // UI
     public GameObject leaderboardsObject;
     public Leaderboards leaderboards;
+    public GameObject bottomMenuCylinder;
     public GameObject bottomMenu;
     public GameObject startMenu;
+
 
     private bool isDifficultyCRRunning;
 
@@ -149,13 +158,10 @@ public class GameManager : MonoBehaviour
     {
         startMenu.SetActive(!startMenu.activeSelf);
     }
-
-
     public void toggleLeaderboards()
     {
         leaderboardsObject.SetActive(!leaderboardsObject.activeSelf);
     }
-
 
     // Getters & Setters
     public int getHits()
@@ -167,25 +173,6 @@ public class GameManager : MonoBehaviour
     public void hit()
     {
         hits++;
-        Debug.Log(hits);
-
-        //platform.setPointText(hits);
-
-        //refreshLeaderboards();
-
-        // Platform shrinks after spicific amount of hits
-        if (hits == 3)
-        {
-            platform.setScale(0.8F, 0.8F);
-        }
-        else if (hits == 6)
-        {
-            platform.setScale(0.6F, 0.6F);
-        }
-        else if (hits == 10)
-        {
-            platform.setScale(0.5F, 0.5F);
-        }
     }
 
     public float getGameSpeed()
@@ -205,11 +192,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameManager : gameStart()");
 
-        if (!isDifficultyCRRunning)
-        {
-            StartCoroutine(updateDifficulty());
-        }
-
         //Destroying all balls
         BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
         foreach (BallController ballC in balls)
@@ -220,12 +202,16 @@ public class GameManager : MonoBehaviour
         bottomMenu.SetActive(false);
         startMenu.SetActive(false);
         leaderboardsObject.SetActive(false);
+        bottomMenuCylinder.SetActive(true);
 
         setGameSpeed(normalGameSpeed);
 
         //resetting all the objects so the player can play again
         //BlockMeshGen is will reset in the BLockGeneratorScript
         onLevelEvent.Invoke(LevelEvent.LEVEL_START);
+
+        // After the initial start, immediately transition into the playing state
+        gamePlay();
     }
 
     [ContextMenu("gamePlay()")]
@@ -234,8 +220,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameManager : gamePlay()");
 
         setGameSpeed(normalGameSpeed);
+
         //unpausing the gampleay if it is paused
         onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
+
+        // Start the coroutine that will make the game harder
+        // (this needs to be in gamePlay() rather than gameStart(),
+        // since otherwise it might not get restarted after closing the menu)
+        if (!isDifficultyCRRunning)
+        {
+            StartCoroutine(updateDifficulty());
+        }
     }
 
     [ContextMenu("gamePause()")]
@@ -261,9 +256,6 @@ public class GameManager : MonoBehaviour
         gameStop();
         gameStart();
     }
-
-
-
 
     // This method is connected to the OnDestroyed event of a BrickController
     // generated in the game. When called, it will schedule all of the provided

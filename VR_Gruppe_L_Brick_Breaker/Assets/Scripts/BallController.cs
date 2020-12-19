@@ -34,20 +34,43 @@ public class BallController : MonoBehaviour
     public Vector3 direction = new Vector3(0f, 0f, 2.5f);
     public bool isAutoPilot = false;
     public bool isPiercing = false;
+    public bool isSpeedChanged = false;
+
+    [ColorUsageAttribute(false, true)]
+    public Color colorAuto;
+
+    [ColorUsageAttribute(false, true)]
+    public Color colorPiercing;
+
+    [ColorUsageAttribute(false, true)]
+    public Color colorSpeed;
 
     private GameObject player;
+
+    private Material material;
+    private Color colorOriginal;
+    private Material trailMaterial;
+    private Color colorOriginalTrail;
 
     void Awake()
     {
         // Get the player object (so that we know their position at all times)
         player = GameObject.FindGameObjectWithTag("Player");
         BallsHolderSingleton.Instance.balls.Add(this);
+
+        material = GetComponent<Renderer>().material;
+        colorOriginal = material.GetColor("_EmissionColor");
+
+        trailMaterial = GetComponent<TrailRenderer>().material;
+        colorOriginalTrail = trailMaterial.GetColor("_EmissionColor");
     }
 
     void FixedUpdate()
     {
         // Move along the current direction
         transform.position += direction * Time.deltaTime;
+
+        SetColor();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -127,6 +150,30 @@ public class BallController : MonoBehaviour
         this.direction = reflection;
     }
 
+    private void SetColor()
+    {
+        if (isSpeedChanged)
+        {
+            material.SetColor("_EmissionColor", colorSpeed);
+            trailMaterial.SetColor("_EmissionColor", colorSpeed);
+        }
+        else if (isAutoPilot)
+        {
+            material.SetColor("_EmissionColor", colorAuto);
+            trailMaterial.SetColor("_EmissionColor", colorAuto);
+        }
+        else if (isPiercing)
+        {
+            material.SetColor("_EmissionColor", colorPiercing);
+            trailMaterial.SetColor("_EmissionColor", colorPiercing);
+        }
+        else
+        {
+            material.SetColor("_EmissionColor", colorOriginal);
+            trailMaterial.SetColor("_EmissionColor", colorOriginalTrail);
+        }
+
+    }
     private void HandlePlatformCollision(Collider collider, ContactPoint contactPoint)
     {
         // The more off-center the collision with the platform,

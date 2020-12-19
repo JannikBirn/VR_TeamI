@@ -28,7 +28,7 @@ public class BlockGeneratorScript : MonoBehaviour
     private float goldenRatio;
     private float angleIncrement;
 
-    // Size of the block prefab, just for drawing the Gizmos
+    // Size of the block prefab, used for drawing the Gizmos & adjusting the collision planes
     private Vector3 blockSize;
 
     // This event is sent when a block is destroyed by the ball
@@ -196,6 +196,8 @@ public class BlockGeneratorScript : MonoBehaviour
         // then scale them up to be as large as the largest layer
         Vector3 desiredScale = new Vector3(largestRadius, largestRadius, largestRadius);
 
+        float blockPadding = blockSize.y / 2;
+
         if (!hull)
         {
             hull = Instantiate(hullPrefab, this.transform.position, this.transform.rotation, this.transform);
@@ -215,7 +217,7 @@ public class BlockGeneratorScript : MonoBehaviour
         topCollisionPlane.transform.localScale = desiredScale;
         topCollisionPlane.transform.position = new Vector3(
             topCollisionPlane.transform.position.x,
-            highestClampY,
+            highestClampY + blockPadding, // Prevent blocks from partially sticking inside the collision plane
             topCollisionPlane.transform.position.z
         );
 
@@ -230,7 +232,7 @@ public class BlockGeneratorScript : MonoBehaviour
         bottomCollisionPlane.transform.localScale = desiredScale;
         bottomCollisionPlane.transform.position = new Vector3(
             bottomCollisionPlane.transform.position.x,
-            lowestClampY,
+            lowestClampY - blockPadding, // Prevent blocks from partially sticking inside the collision plane
             bottomCollisionPlane.transform.position.z
         );
     }
