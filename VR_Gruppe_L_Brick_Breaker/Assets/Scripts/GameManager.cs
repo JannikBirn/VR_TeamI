@@ -8,6 +8,9 @@ using UnityEngine.Events;
 [System.Serializable]
 public class LevelEvent : UnityEvent<int>
 {
+
+    // Level Events können über den Inspektor in Unity hinzugefügt werden. Es sind 4 verschiedene Events (Start, Play, Pause und Stopp) verfügbar, welche in den einzelnen Scripts verwendet werden können indem man sie über den Insprektor am GameManager Objekt registiert.
+
     public const int LEVEL_START = 0, //When level is starting, needs to be reset
     LEVEL_PLAY = 1, //When level is playing again, after a pause
     LEVEL_PAUSE = 2, //Pause when level is pausing but not stopping
@@ -45,6 +48,10 @@ public class LevelEvent : UnityEvent<int>
 
 public class GameManager : MonoBehaviour
 {
+
+    // Der GameManager verwaltet den Zustand des Spiels und des User Interfaces. Hier werden die meisten Spielelemente registriert und genutzt. Hier finden sich auch jene Funktionen wieder, welche bei Levelevents ausgelöst werden. 
+    // Zu diesen Funktionen gehören gamePlay() gameStart() gameStop() gamePause(). Ebenfalls wird in diesem Skript auch die steigende Schwierigkeit im Spiel verwaltet
+
     public LevelEvent onLevelEvent;
     private int hits;
     private float normalGameSpeed;
@@ -151,15 +158,10 @@ public class GameManager : MonoBehaviour
     {
         startMenu.SetActive(!startMenu.activeSelf);
     }
-
-
     public void toggleLeaderboards()
     {
         leaderboardsObject.SetActive(!leaderboardsObject.activeSelf);
     }
-
-
-
 
     // Getters & Setters
     public int getHits()
@@ -171,25 +173,6 @@ public class GameManager : MonoBehaviour
     public void hit()
     {
         hits++;
-        Debug.Log(hits);
-
-        //platform.setPointText(hits);
-
-        //refreshLeaderboards();
-
-        // Platform shrinks after spicific amount of hits
-        if (hits == 3)
-        {
-            platform.setScale(0.8F, 0.8F);
-        }
-        else if (hits == 6)
-        {
-            platform.setScale(0.6F, 0.6F);
-        }
-        else if (hits == 10)
-        {
-            platform.setScale(0.5F, 0.5F);
-        }
     }
 
     public float getGameSpeed()
