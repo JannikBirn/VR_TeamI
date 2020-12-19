@@ -7,6 +7,8 @@ using UnityEngine.Events;
 public class GazeButton : MonoBehaviour
 {
 
+    // Dieses Script wird für alle Gaze UI Elemente verwendet. Es ruft den Ladeprozess auf, indem es auf ein Image im HUD zugreift. Elemente mit welchen der Spieler interagiert können anschließend, wie bereits im Inspektor sichtbar Events auslösen.
+    // Im Cardboard Interactable Script werden idR die Funktionen StartCount() und Off() registriert. Sobald die im Inspektor anpassbare Duration erreicht wurde wir eine Funktion ausgeführt, welche im Inspektor über ein Event getriggert werden kann.
 
     public Color onColor;
     public Color offColor;

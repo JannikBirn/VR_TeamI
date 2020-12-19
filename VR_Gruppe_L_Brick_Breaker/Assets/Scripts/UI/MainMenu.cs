@@ -6,19 +6,8 @@ using UnityEngine.Events;
 public class MainMenu : MonoBehaviour
 {
 
+    // Das Hauptmenü kann auf Level Events reagieren. Wenn UI Elemente auf diese Level Events reagieren sollen sind diese funktionen hier in der Funktion onLevelEvent zu implementieren
     public GameObject endScreen;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void toggleEndScreen()
     {

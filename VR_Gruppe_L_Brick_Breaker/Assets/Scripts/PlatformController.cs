@@ -5,34 +5,23 @@ using UnityEngine;
 public class PlatformController : MonoBehaviour
 {
 
-    // Scale platform in X direction (width)
-    private float scaleX;
+    // Dieses Skript dient zur Kontrolle der Plattform, welche der Spieler durch seine Kopfbewegungen steuert. Durch Levelevents kann die Plattform auf verschiedene Ergeinisse und zustände während einer Runde reagieren
+
     public Material regularMaterial;
     public Material hitMaterial;
-
-    //public Camera cam;
     public Transform cameraTransform;
     public float distance = 15;
     private bool hit = false;
-
     private Transform startTransform;
-
-
-    // Smooth follow gaze
-    //public Transform target;
     public float smoothTime = 0.1F;
     private Vector3 velocity = Vector3.zero;
-
     private float currentScaleX = 1f;
     private float currentScaleY = 1f;
-
     private Renderer myRenderer;
-
     private TextMesh pointText;
 
     void Start()
     {
-
         // Set material
         myRenderer = GetComponent<Renderer>();
         myRenderer.material = regularMaterial;
@@ -48,7 +37,6 @@ public class PlatformController : MonoBehaviour
         // Get pointText
         pointText = GetComponentInChildren<TextMesh>();
         setPointText(0);
-
     }
 
 
@@ -61,15 +49,6 @@ public class PlatformController : MonoBehaviour
     {
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.rotation = cameraTransform.rotation;
-
-        if (cameraTransform.rotation.x >= 0.25 || cameraTransform.rotation.x <= -0.25)
-        {
-            // Hide
-        }
-        else
-        {
-            // Show
-        }
 
         // apply movement
         transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, smoothTime);
@@ -86,7 +65,7 @@ public class PlatformController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("Platform was hit");
+        //Debug.Log("Platform was hit");
 
         if (other.collider.gameObject.tag == "Ball")
         {
@@ -116,12 +95,12 @@ public class PlatformController : MonoBehaviour
         }
     }
 
+    // This function refreshes the Points indicator on the plattform and is being called by the game manager using an event
     public void setPointText(int points)
     {
         Debug.Log("setPointText:" + points);
         pointText.text = "" + points;
     }
-
 
     public void onLevelEvent(int levelEvent)
     {

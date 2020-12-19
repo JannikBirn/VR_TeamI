@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Leaderboards : MonoBehaviour
 {
-
+    // Diese Klasse dient zum aktualisieren des TextMeshes, welches den aktuellen Highscore in korrekter Formatierung darstellen soll. Hierzu wird der Highscore vom ScoreManager angefragt
     public Text myText;
     public ScoreManager score;
 

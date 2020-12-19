@@ -5,6 +5,9 @@ using UnityEngine;
 public class BallSpeedEffect : BrickEffect
 {
 
+    // Dieser BrickEffect erhöht die Geschwindigkeit des Balls für eine gewisse Zeit
+
+
     // How much does this effect change the speed (1.0 == no change)
     [Range(0.1f, 20f)]
     public float speedFactor = 2;
