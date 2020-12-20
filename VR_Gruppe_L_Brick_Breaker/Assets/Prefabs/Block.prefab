@@ -107,7 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invincible: 0
-  destroyEffectPrefab: {fileID: 0}
+  destroyEffectPrefab: {fileID: 9058958499815385414, guid: 925846b6c60ee4eafb9b6c5f944b0a67,
+    type: 3}
   OnDestroyed:
     m_PersistentCalls:
       m_Calls: []

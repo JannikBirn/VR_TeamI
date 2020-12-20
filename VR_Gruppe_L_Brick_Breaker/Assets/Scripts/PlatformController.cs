@@ -19,12 +19,14 @@ public class PlatformController : MonoBehaviour
     private float currentScaleY = 1f;
     private Renderer myRenderer;
     private TextMesh pointText;
+    private AudioSource hitSound;
 
     void Start()
     {
         // Set material
         myRenderer = GetComponent<Renderer>();
         myRenderer.material = regularMaterial;
+        hitSound = GetComponent<AudioSource>();
 
         startTransform = transform;
 
@@ -45,6 +47,7 @@ public class PlatformController : MonoBehaviour
     {
         followGaze();
     }
+
     void followGaze()
     {
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
@@ -76,6 +79,7 @@ public class PlatformController : MonoBehaviour
 
     private IEnumerator OnPlatformHit()
     {
+        hitSound.Play();
         switchMaterial();
         yield return new WaitForSeconds(0.1f);
         switchMaterial();
