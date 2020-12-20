@@ -52,6 +52,8 @@ public class BallController : MonoBehaviour
     private Material trailMaterial;
     private Color colorOriginalTrail;
 
+    private AudioSource hitSound;
+
     void Awake()
     {
         // Get the player object (so that we know their position at all times)
@@ -63,6 +65,8 @@ public class BallController : MonoBehaviour
 
         trailMaterial = GetComponent<TrailRenderer>().material;
         colorOriginalTrail = trailMaterial.GetColor("_EmissionColor");
+
+        hitSound = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -85,6 +89,8 @@ public class BallController : MonoBehaviour
             }
             else
             {
+                hitSound.Play();
+                
                 // When colliding with a brick, perform some additional calculations
                 bool isBrick = collision.collider.CompareTag("Brick");
                 if (isBrick)
