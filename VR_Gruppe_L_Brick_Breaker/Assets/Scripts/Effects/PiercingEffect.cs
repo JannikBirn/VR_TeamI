@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// This effect will cause a ball not to return to the player when it hits a block.
+// Instead, it will continue flying "through" the block without changing direction
 public class PiercingEffect : BrickEffect
 {
 

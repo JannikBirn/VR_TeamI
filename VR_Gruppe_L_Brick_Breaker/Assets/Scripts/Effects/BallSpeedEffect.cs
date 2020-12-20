@@ -7,7 +7,6 @@ public class BallSpeedEffect : BrickEffect
 
     // Dieser BrickEffect erhöht die Geschwindigkeit des Balls für eine gewisse Zeit
 
-
     // How much does this effect change the speed (1.0 == no change)
     [Range(0.1f, 20f)]
     public float speedFactor = 2;
@@ -19,11 +18,6 @@ public class BallSpeedEffect : BrickEffect
     // Whether or not this effect should change the ball's color as well
     // (this should be reserved to Speed Effect blocks)
     public bool willChangeColor = false;
-
-    void Start()
-    {
-
-    }
 
     public override IEnumerator Apply(BallController ballController)
     {

@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class BallsHolderSingleton
 {
     private BallsHolderSingleton() { }
     private static readonly object padlock = new object();
     private static BallsHolderSingleton instance = null;
+
+    // Accessor for the single instance of the BallsHolder
+    // (used by other scripts to grab all current balls in the scene)
     public static BallsHolderSingleton Instance
     {
         get
@@ -24,14 +26,16 @@ public class BallsHolderSingleton
     }
 
     public List<BallController> balls = new List<BallController>();
-
 }
-
 
 public class BallController : MonoBehaviour
 {
 
+    // This vector describes the direction that ball is moving in;
+    // its length is equal to the ball's speed (the longer, the faster)
     public Vector3 direction = new Vector3(0f, 0f, 2.5f);
+
+    // Effect flags that change the appearance of the ball
     public bool isAutoPilot = false;
     public bool isPiercing = false;
     public bool isSpeedChanged = false;
@@ -60,6 +64,7 @@ public class BallController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         BallsHolderSingleton.Instance.balls.Add(this);
 
+        // Access other components for rendering and sound
         material = GetComponent<Renderer>().material;
         colorOriginal = material.GetColor("_EmissionColor");
 
@@ -75,6 +80,11 @@ public class BallController : MonoBehaviour
         transform.position += direction * Time.deltaTime;
 
         SetColor();
+    }
+
+    private void OnDisable()
+    {
+        BallsHolderSingleton.Instance.balls.Remove(this);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -133,29 +143,6 @@ public class BallController : MonoBehaviour
         }
     }
 
-    private void HandlePlatformCollisionOld(Collider collider, ContactPoint contactPoint)
-    {
-        Vector3 platformCenterPosition = collider.transform.position;
-
-        // When colliding with the player, the reflection axis depends
-        // on where the ball hits the platform. The further away from the center,
-        // the more this axis is twisted
-        Vector3 centerNormal = contactPoint.normal;
-        Vector3 contactPosition = contactPoint.point;
-
-        // From the contact position, move along the platform's normal vector
-        // and use the end point of that vector to create the reflection axis from the center point
-        Vector3 reflectionAxis = (contactPosition + centerNormal) - platformCenterPosition;
-        Vector3 normal = reflectionAxis.normalized;
-
-        // When the ball collides with the platform,
-        // change its direction using accurate physics
-        // (https://math.stackexchange.com/a/13263)
-        // Calculate reflection vector and ball's new direction
-        Vector3 reflection = direction - 2 * (Vector3.Dot(direction, normal)) * normal;
-        this.direction = reflection;
-    }
-
     private void SetColor()
     {
         if (isSpeedChanged)
@@ -178,8 +165,8 @@ public class BallController : MonoBehaviour
             material.SetColor("_EmissionColor", colorOriginal);
             trailMaterial.SetColor("_EmissionColor", colorOriginalTrail);
         }
-
     }
+
     private void HandlePlatformCollision(Collider collider, ContactPoint contactPoint)
     {
         // The more off-center the collision with the platform,
@@ -218,10 +205,5 @@ public class BallController : MonoBehaviour
         Vector3 reflection = player.transform.position - contactPoint.point;
         float speed = direction.magnitude;
         this.direction = reflection.normalized * speed;
-    }
-
-    private void OnDisable()
-    {
-        BallsHolderSingleton.Instance.balls.Remove(this);
     }
 }
