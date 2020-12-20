@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
             speedIncrase.speedFactor = speedOverTime.Evaluate(time) + 1;
 
 
-            BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+            List<BallController> balls = BallsHolderSingleton.Instance.balls;
             foreach (BallController ballC in balls)
             {
                 StartCoroutine(ExecuteBlockEffect(speedIncrase, ballC));
@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameManager : gameStart()");
 
         //Destroying all balls
-        BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+        List<BallController> balls = BallsHolderSingleton.Instance.balls;
         foreach (BallController ballC in balls)
         {
             GameObject.Destroy(ballC.gameObject);

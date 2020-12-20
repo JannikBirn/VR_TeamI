@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// This class defines the UI for visualizing balls outside the player's current view.
+// Arrows appear on the edge of the screen and point towards the current position
+// of any ball that the player is currently not seeing in front of them.
 public class BallIndicatorPanel : MonoBehaviour
 {
 
+    // Prefab for the arrow asset to show in the UI
     public GameObject arrowPrefab;
 
     private int arrowIndex = 0;
@@ -29,7 +33,7 @@ public class BallIndicatorPanel : MonoBehaviour
         ResetPool();
 
         // Collect all balls in the scene
-        BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
+        List<BallController> balls = BallsHolderSingleton.Instance.balls;
         foreach (BallController ballObject in balls)
         {
             Vector3 worldPosition = ballObject.transform.position;
