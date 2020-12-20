@@ -9,6 +9,9 @@ public class ScoreUpdateEvent : UnityEvent<int> { }
 
 public class ScoreManager : MonoBehaviour
 {
+
+    // Der Score Manager verwaltet alles was mit dem Erfassen des Punktestands zutun hat. Er reagiert auf verschiedene LevelEvents, um etwa den Punktestand bei einer neuen Runde zusüsetzen zu können.
+
     public int scoreOfABlock;
     public ScoreUpdateEvent onScoreUpdateEvent;
 
