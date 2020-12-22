@@ -12,21 +12,20 @@ public class Leaderboards : MonoBehaviour
 
     private void OnEnable()
     {
-        setText();
+        SetText();
     }
 
-    public void setText()
+    public void SetText()
     {
-        //TODO: highscore does not refresh within a round
         // set Leaderboards text to current Highscore
-        if (score.getHighscore().highScore >= score.getCurrentScore())
+        if (score.GetHighscore().highScore >= score.GetCurrentScore())
         {
-            string date = new System.DateTime(score.getHighscore().timeStamp).ToString();
-            myText.text = "The Highscore: " + score.getHighscore().highScore + " \n Seconds Survived : " + Mathf.Round(score.getHighscore().time) + " \n Date: " + date;
+            string date = new System.DateTime(score.GetHighscore().timeStamp).ToString();
+            myText.text = "The Highscore: " + score.GetHighscore().highScore + " \n Seconds Survived : " + Mathf.Round(score.GetHighscore().time) + " \n Date: " + date;
         }
         else
         {
-            myText.text = "The Highscore: " + score.getCurrentScore();
+            myText.text = "The Highscore: " + score.GetCurrentScore();
         }
     }
 

@@ -31,7 +31,7 @@ public class GazeButton : MonoBehaviour
         myTextMesh = GetComponentInChildren<TextMesh>();
         myTextMesh.text = label;
         
-        changeColor(offColor);
+        ChangeColor(offColor);
     }
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class GazeButton : MonoBehaviour
         }
     }
 
-    private void changeColor(Color color) {
+    private void ChangeColor(Color color) {
         GetComponent<Renderer>().material.SetColor("_BaseColor", color);
     }
 
@@ -61,12 +61,12 @@ public class GazeButton : MonoBehaviour
         gaze = false;
         gazeImg.fillAmount = 0;
 
-        changeColor(onColor);
+        ChangeColor(onColor);
         myEvent.Invoke();
     }
     public void Off()
     {
-        changeColor(offColor);
+        ChangeColor(offColor);
 
         if (gaze)
         {
@@ -78,7 +78,7 @@ public class GazeButton : MonoBehaviour
     {
         timer = 0;
         gaze = true;
-        changeColor(waitColor);
+        ChangeColor(waitColor);
     }
 }
 

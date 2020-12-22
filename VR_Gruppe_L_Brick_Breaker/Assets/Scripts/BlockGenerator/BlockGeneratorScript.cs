@@ -32,7 +32,7 @@ public class BlockGeneratorScript : MonoBehaviour
     private Vector3 blockSize;
 
     // This event is sent when a block is destroyed by the ball
-    public BrickDestroyedEvent OnBlockDestroyed;
+    public BrickDestroyedEvent onBlockDestroyed;
 
     private GameObject hull;
     private GameObject topCollisionPlane;
@@ -49,13 +49,13 @@ public class BlockGeneratorScript : MonoBehaviour
         // generateSphere();
     }
 
-    public void updateSphereLayers(int newSphereLayer)
+    public void UpdateSphereLayers(int newSphereLayer)
     {
         if (newSphereLayer > initiatedSphereLayers)
         {
             if (newSphereLayer < sphereSettings.Length)
             {
-                instantiatePrefabs(initiatedSphereLayers + 1, newSphereLayer + 1);
+                InstantiatePrefabs(initiatedSphereLayers + 1, newSphereLayer + 1);
                 initiatedSphereLayers = newSphereLayer;
             }
             else
@@ -67,39 +67,39 @@ public class BlockGeneratorScript : MonoBehaviour
     }
 
     //Event is called by the LevelEvent 
-    public void onLevelEvent(int levelEvent)
+    public void OnLevelEvent(int levelEvent)
     {
         if (levelEvent == LevelEvent.LEVEL_START)
         {
             //Generatting the sphere when the level starts
-            generateSphere();
+            GenerateSphere();
         }
     }
 
     //Public Method to generate the sphere
     [ContextMenu("generate Sphere")]
-    public void generateSphere()
+    public void GenerateSphere()
     {
-        deleteSphere();
-        generateStartingValues();
-        instantiatePrefabs(0, 1);
+        DeleteSphere();
+        GenerateStartingValues();
+        InstantiatePrefabs(0, 1);
     }
 
     //Public Method to delete all generated Prefabs (transform.child's)
     [ContextMenu("delete Sphere")]
-    public void deleteSphere()
+    public void DeleteSphere()
     {
         foreach (Transform child in transform)
         {
             GameObject.DestroyImmediate(child.gameObject);
         }
 
-        OnBlockDestroyed.RemoveAllListeners();
+        onBlockDestroyed.RemoveAllListeners();
     }
 
     //Generating some values for calculation and for the gizmos,
     //also generating the transform matrix
-    private void generateStartingValues()
+    private void GenerateStartingValues()
     {
         //These values will be the same 
         if (goldenRatio == 0f)
@@ -133,7 +133,7 @@ public class BlockGeneratorScript : MonoBehaviour
 
     //Private Method for instantiating the prefabs of each sphereLayer
     //startlayer is included and endLayer is excluded
-    private void instantiatePrefabs(int startLayer, int endLayer)
+    private void InstantiatePrefabs(int startLayer, int endLayer)
     {
         // Keep track of the largest layer's radius & clamp values,
         // as the hull & collision planes need to be wrapped around that layer
@@ -170,8 +170,8 @@ public class BlockGeneratorScript : MonoBehaviour
             for (int x = 0; x < currentSettings.blockCount; x++)
             {
                 //Getting the points position on the current Sphere Layer
-                Vector3 v = getPointPosition(x, sphereIndex);
-                if (clampVector(v, sphereIndex))
+                Vector3 v = GetPointPosition(x, sphereIndex);
+                if (ClampVector(v, sphereIndex))
                 {
                     //Setting the randomBlock to a default block with all the same chance
                     GameObject randomBlock = currentSettings.defaultPrefabs[Random.Range(0, currentSettings.defaultPrefabs.Length)];
@@ -187,7 +187,7 @@ public class BlockGeneratorScript : MonoBehaviour
                     }
 
                     //Instantiateing the block and rotating at towards the generator 
-                    InstantiateBlock(randomBlock, applyMatrix(v, sphereIndex));
+                    InstantiateBlock(randomBlock, ApplyMatrix(v, sphereIndex));
                 }
             }
         }
@@ -248,12 +248,12 @@ public class BlockGeneratorScript : MonoBehaviour
         {
             // Forward the event to the generator's own "OnBlockDestroyed" event
             // (the GameManager will listen to it)
-            controller.OnDestroyed.AddListener((effects, ballController) => OnBlockDestroyed.Invoke(effects, ballController));
+            controller.onDestroyed.AddListener((effects, ballController) => onBlockDestroyed.Invoke(effects, ballController));
         }
     }
 
     //return will be between 1 and -1 coordinates
-    private Vector3 getPointPosition(int index, int sphereIndex)
+    private Vector3 GetPointPosition(int index, int sphereIndex)
     {
         SphereSettings currentSettings = sphereSettings[sphereIndex];
         //Genearting Points on the fibonacci Sphere
@@ -273,7 +273,7 @@ public class BlockGeneratorScript : MonoBehaviour
 
 
     //Is the given vector inside the clamp range
-    private bool clampVector(Vector3 input, int sphereIndex)
+    private bool ClampVector(Vector3 input, int sphereIndex)
     {
         SphereSettings currentSettings = sphereSettings[sphereIndex];
         //Clamping the values in x,y,z directions
@@ -309,7 +309,7 @@ public class BlockGeneratorScript : MonoBehaviour
     }
 
     //Applying the radius of the current sphereLayer and the transform matrix of this object
-    private Vector3 applyMatrix(Vector3 input, int sphereIndex)
+    private Vector3 ApplyMatrix(Vector3 input, int sphereIndex)
     {
         input *= sphereSettings[sphereIndex].radius;
         return matrix.MultiplyPoint3x4(input);
@@ -334,31 +334,31 @@ public class BlockGeneratorScript : MonoBehaviour
                     Gizmos.color = Color.red;
                     if (currentSettings.clampX.x > 0)
                     {
-                        Gizmos.DrawWireCube(applyMatrix(new Vector3(currentSettings.clampX.x * 2 - 1, 0, 0), sphereIndex), (applyMatrix(new Vector3(0, 2, 2), sphereIndex)));
+                        Gizmos.DrawWireCube(ApplyMatrix(new Vector3(currentSettings.clampX.x * 2 - 1, 0, 0), sphereIndex), (ApplyMatrix(new Vector3(0, 2, 2), sphereIndex)));
                     }
                     if (currentSettings.clampX.y < 1)
                     {
-                        Gizmos.DrawWireCube(applyMatrix(new Vector3(currentSettings.clampX.y * 2 - 1, 0, 0), sphereIndex), (applyMatrix(new Vector3(0, 2, 2), sphereIndex)));
+                        Gizmos.DrawWireCube(ApplyMatrix(new Vector3(currentSettings.clampX.y * 2 - 1, 0, 0), sphereIndex), (ApplyMatrix(new Vector3(0, 2, 2), sphereIndex)));
                     }
 
                     Gizmos.color = Color.green;
                     if (currentSettings.clampY.x > 0)
                     {
-                        Gizmos.DrawWireCube(applyMatrix(new Vector3(0, currentSettings.clampY.x * 2 - 1, 0), sphereIndex), (applyMatrix(new Vector3(2, 0, 2), sphereIndex)));
+                        Gizmos.DrawWireCube(ApplyMatrix(new Vector3(0, currentSettings.clampY.x * 2 - 1, 0), sphereIndex), (ApplyMatrix(new Vector3(2, 0, 2), sphereIndex)));
                     }
                     if (currentSettings.clampY.y < 1)
                     {
-                        Gizmos.DrawWireCube(applyMatrix(new Vector3(0, currentSettings.clampY.y * 2 - 1, 0), sphereIndex), (applyMatrix(new Vector3(2, 0, 2), sphereIndex)));
+                        Gizmos.DrawWireCube(ApplyMatrix(new Vector3(0, currentSettings.clampY.y * 2 - 1, 0), sphereIndex), (ApplyMatrix(new Vector3(2, 0, 2), sphereIndex)));
                     }
 
                     Gizmos.color = Color.blue;
                     if (currentSettings.clampZ.x > 0)
                     {
-                        Gizmos.DrawWireCube(applyMatrix(new Vector3(0, 0, currentSettings.clampZ.x * 2 - 1), sphereIndex), (applyMatrix(new Vector3(2, 2, 0), sphereIndex)));
+                        Gizmos.DrawWireCube(ApplyMatrix(new Vector3(0, 0, currentSettings.clampZ.x * 2 - 1), sphereIndex), (ApplyMatrix(new Vector3(2, 2, 0), sphereIndex)));
                     }
                     if (currentSettings.clampZ.y < 1)
                     {
-                        Gizmos.DrawWireCube(applyMatrix(new Vector3(0, 0, currentSettings.clampZ.y * 2 - 1), sphereIndex), (applyMatrix(new Vector3(2, 2, 0), sphereIndex)));
+                        Gizmos.DrawWireCube(ApplyMatrix(new Vector3(0, 0, currentSettings.clampZ.y * 2 - 1), sphereIndex), (ApplyMatrix(new Vector3(2, 2, 0), sphereIndex)));
                     }
                 }
             }
@@ -375,17 +375,17 @@ public class BlockGeneratorScript : MonoBehaviour
                 SphereSettings currentSettings = sphereSettings[sphereIndex];
                 for (int x = 0; x < currentSettings.blockCount; x++)
                 {
-                    Vector3 v = getPointPosition(x, sphereIndex);
-                    if (clampVector(v, sphereIndex))
+                    Vector3 v = GetPointPosition(x, sphereIndex);
+                    if (ClampVector(v, sphereIndex))
                     {
-                        Gizmos.DrawWireCube(applyMatrix(v, sphereIndex), blockSize);
+                        Gizmos.DrawWireCube(ApplyMatrix(v, sphereIndex), blockSize);
                     }
                 }
             }
         }
     }
 
-    public bool isReachedLastLayer()
+    public bool IsReachedLastLayer()
     {
         return reachedLastLayer;
     }
@@ -397,7 +397,7 @@ public class BlockGeneratorScript : MonoBehaviour
     {
         if (sphereSettings[0])
         {
-            generateStartingValues();
+            GenerateStartingValues();
         }
 
         //Setting the array length of specialChance as the same as specialPrefabs if its not

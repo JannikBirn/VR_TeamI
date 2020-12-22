@@ -92,14 +92,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = gameSpeed;
     }
 
-    public IEnumerator updateDifficulty()
+    public IEnumerator UpdateDifficulty()
     {
         isDifficultyCRRunning = true;
-        while (!blockGenerator.isReachedLastLayer() && LevelEvent.state == LevelEvent.STATE_PLAYING)
+        while (!blockGenerator.IsReachedLastLayer() && LevelEvent.state == LevelEvent.STATE_PLAYING)
         {
             yield return new WaitForSecondsRealtime(timeToNextDifficulty / 10f);
 
-            float time = score.getTime();
+            float time = score.GetTime();
 
             int difficulty = (int)(time / timeToNextDifficulty);
 
@@ -121,24 +121,23 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(ExecuteBlockEffect(speedIncrase, ballC));
             }
 
-            blockGenerator.updateSphereLayers(difficulty);
+            blockGenerator.UpdateSphereLayers(difficulty);
         }
         isDifficultyCRRunning = false;
     }
 
 
-    public void toggleBottomMenu()
+    public void ToggleBottomMenu()
     {
-        //TODO work here, -> set events
         bottomMenu.SetActive(!bottomMenu.activeSelf);
 
         if (bottomMenu.activeSelf)
         {
-            gamePause();
+            GamePause();
         }
         else
         {
-            gamePlay();
+            GamePlay();
         }
 
         // Hide startMenu if it was active
@@ -154,46 +153,46 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void toggleStartMenu()
+    public void ToggleStartMenu()
     {
         startMenu.SetActive(!startMenu.activeSelf);
     }
-    public void toggleLeaderboards()
+    public void ToggleLeaderboards()
     {
         leaderboardsObject.SetActive(!leaderboardsObject.activeSelf);
     }
 
     // Getters & Setters
-    public int getHits()
+    public int GetHits()
     {
         return hits;
     }
 
     // Call this when the player hit another brick
-    public void hit()
+    public void Hit()
     {
         hits++;
     }
 
-    public float getGameSpeed()
+    public float GetGameSpeed()
     {
         return gameSpeed;
     }
 
-    public void setGameSpeed(float gameSpeed)
+    public void SetGameSpeed(float gameSpeed)
     {
         this.gameSpeed = gameSpeed;
     }
 
     //LEVEL STATES AND STUFF
 
-    [ContextMenu("gameStart()")]
-    public void gameStart()
+    [ContextMenu("GameStart()")]
+    public void GameStart()
     {
-        Debug.Log("GameManager : gameStart()");
+        Debug.Log("GameManager : GameStart()");
 
         //Destroying all balls
-        List<BallController> balls = BallsHolderSingleton.Instance.balls;
+        BallController[] balls = BallsHolderSingleton.Instance.balls.ToArray();
         foreach (BallController ballC in balls)
         {
             GameObject.Destroy(ballC.gameObject);
@@ -204,22 +203,22 @@ public class GameManager : MonoBehaviour
         leaderboardsObject.SetActive(false);
         bottomMenuCylinder.SetActive(true);
 
-        setGameSpeed(normalGameSpeed);
+        SetGameSpeed(normalGameSpeed);
 
         //resetting all the objects so the player can play again
         //BlockMeshGen is will reset in the BLockGeneratorScript
         onLevelEvent.Invoke(LevelEvent.LEVEL_START);
 
         // After the initial start, immediately transition into the playing state
-        gamePlay();
+        GamePlay();
     }
 
-    [ContextMenu("gamePlay()")]
-    public void gamePlay()
+    [ContextMenu("GamePlay()")]
+    public void GamePlay()
     {
-        Debug.Log("GameManager : gamePlay()");
+        Debug.Log("GameManager : GamePlay()");
 
-        setGameSpeed(normalGameSpeed);
+        SetGameSpeed(normalGameSpeed);
 
         //unpausing the gampleay if it is paused
         onLevelEvent.Invoke(LevelEvent.LEVEL_PLAY);
@@ -229,32 +228,32 @@ public class GameManager : MonoBehaviour
         // since otherwise it might not get restarted after closing the menu)
         if (!isDifficultyCRRunning)
         {
-            StartCoroutine(updateDifficulty());
+            StartCoroutine(UpdateDifficulty());
         }
     }
 
-    [ContextMenu("gamePause()")]
-    public void gamePause()
+    [ContextMenu("GamePause()")]
+    public void GamePause()
     {
-        Debug.Log("GameManager : gamePause()");
-        setGameSpeed(0f);
+        Debug.Log("GameManager : GamePause()");
+        SetGameSpeed(0f);
 
         //Pausing the current gameplay
         onLevelEvent.Invoke(LevelEvent.LEVEL_PAUSE);
     }
 
-    [ContextMenu("gameStop()")]
-    public void gameStop()
+    [ContextMenu("GameStop()")]
+    public void GameStop()
     {
-        Debug.Log("GameManager : gameStop()");
+        Debug.Log("GameManager : GameStop()");
         //stopping the gamplay and opening the scoreboard/menu
         onLevelEvent.Invoke(LevelEvent.LEVEL_STOP);
     }
 
-    public void reload()
+    public void Reload()
     {
-        gameStop();
-        gameStart();
+        GameStop();
+        GameStart();
     }
 
     // This method is connected to the OnDestroyed event of a BrickController
@@ -276,8 +275,6 @@ public class GameManager : MonoBehaviour
 
         // TODO Update UI (remove icon for the effect)
     }
-
-
 
     private void OnDestroy()
     {
