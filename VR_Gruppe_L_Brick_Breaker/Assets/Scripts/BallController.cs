@@ -65,9 +65,11 @@ public class BallController : MonoBehaviour
         BallsHolderSingleton.Instance.balls.Add(this);
 
         // Access other components for rendering and sound
+        //get the material and the original color, so that the color can be changed later.
         material = GetComponent<Renderer>().material;
         colorOriginal = material.GetColor("_EmissionColor");
-
+        
+        //gets the trail material and original color
         trailMaterial = GetComponent<TrailRenderer>().material;
         colorOriginalTrail = trailMaterial.GetColor("_EmissionColor");
 
@@ -145,6 +147,8 @@ public class BallController : MonoBehaviour
 
     private void SetColor()
     {
+        //Checks in wich State the Ball is and change the color based on that.
+        //Not the base color is changed, but the emission color
         if (isSpeedChanged)
         {
             material.SetColor("_EmissionColor", colorSpeed);
