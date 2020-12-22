@@ -14,7 +14,7 @@ public class BrickController : MonoBehaviour
     public GameObject destroyEffectPrefab;
 
     // This event is sent when the brick is destroyed by the ball
-    public BrickDestroyedEvent OnDestroyed;
+    public BrickDestroyedEvent onDestroyed;
 
     // List of effects to trigger when the brick is destroyed
     private BrickEffect[] effects;
@@ -37,7 +37,7 @@ public class BrickController : MonoBehaviour
             }
 
             // Notify listeners about all the destruction
-            OnDestroyed.Invoke(effects, other.gameObject.GetComponent<BallController>());
+            onDestroyed.Invoke(effects, other.gameObject.GetComponent<BallController>());
 
             // Destroy the brick
             DestroyBlock();

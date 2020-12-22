@@ -27,12 +27,12 @@ public class PlatformSizeEffect : BrickEffect
     public override IEnumerator Apply(BallController ballController)
     {
         // Update the platform's size
-        platformController.setScale(sizeFactor, sizeFactor);
+        platformController.SetScale(sizeFactor, sizeFactor);
 
         // Wait for the effect to stop
         yield return new WaitForSeconds(duration);
 
         // Reset the platform's size
-        platformController.setScale(1, 1);
+        platformController.SetScale(1, 1);
     }
 }

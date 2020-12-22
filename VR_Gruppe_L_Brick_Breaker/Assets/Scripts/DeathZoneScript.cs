@@ -6,7 +6,6 @@ public class DeathZoneScript : MonoBehaviour
 {
 
     // Sobald der Letzte verfügbare Ball diese Zone kollidiert hat der Spieler die Runde verloren.
-
     private static readonly Color SPHERE_COLOR = new Color(1f, 0f, 0f, 0.3f);
     public GameManager gameManager;
 
@@ -24,12 +23,11 @@ public class DeathZoneScript : MonoBehaviour
             //Ball entered the death zone -> delete ball
             GameObject.Destroy(other.gameObject);
 
-            //TODO fancier way of cheking if there is a ball left
             if (BallsHolderSingleton.Instance.balls.Count < 1)
             {
                 //All balls are dead, call dead event in game manager
                 deathSound.Play();
-                gameManager.gameStop();
+                gameManager.GameStop();
             }
         }
     }

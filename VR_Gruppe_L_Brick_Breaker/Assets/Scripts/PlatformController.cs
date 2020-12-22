@@ -38,17 +38,17 @@ public class PlatformController : MonoBehaviour
 
         // Get pointText
         pointText = GetComponentInChildren<TextMesh>();
-        setPointText(0);
+        SetPointText(0);
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        followGaze();
+        FollowGaze();
     }
 
-    void followGaze()
+    void FollowGaze()
     {
         Vector3 target = cameraTransform.position + cameraTransform.forward * distance;
         transform.rotation = cameraTransform.rotation;
@@ -58,7 +58,7 @@ public class PlatformController : MonoBehaviour
     }
 
     // Change the platform's scale
-    public void setScale(float scaleX, float scaleY)
+    public void SetScale(float scaleX, float scaleY)
     {
         this.currentScaleX = scaleX;
         this.currentScaleY = scaleY;
@@ -80,12 +80,12 @@ public class PlatformController : MonoBehaviour
     private IEnumerator OnPlatformHit()
     {
         hitSound.Play();
-        switchMaterial();
+        SwitchMaterial();
         yield return new WaitForSeconds(0.1f);
-        switchMaterial();
+        SwitchMaterial();
     }
 
-    public void switchMaterial()
+    public void SwitchMaterial()
     {
         if (hit)
         {
@@ -100,32 +100,32 @@ public class PlatformController : MonoBehaviour
     }
 
     // This function refreshes the Points indicator on the plattform and is being called by the game manager using an event
-    public void setPointText(int points)
+    public void SetPointText(int points)
     {
         Debug.Log("setPointText:" + points);
         pointText.text = "" + points;
     }
 
-    public void onLevelEvent(int levelEvent)
+    public void OnLevelEvent(int levelEvent)
     {
         switch (levelEvent)
         {
             case LevelEvent.LEVEL_START:
-                toggleRenderer(true);
+                ToggleRenderer(true);
                 break;
             case LevelEvent.LEVEL_PLAY:
-                toggleRenderer(true);
+                ToggleRenderer(true);
                 break;
             case LevelEvent.LEVEL_PAUSE:
-                toggleRenderer(false);
+                ToggleRenderer(false);
                 break;
             case LevelEvent.LEVEL_STOP:
-                toggleRenderer(false);
+                ToggleRenderer(false);
                 break;
         }
     }
 
-    private void toggleRenderer(bool isOn)
+    private void ToggleRenderer(bool isOn)
     {
         myRenderer.enabled = isOn;
         Renderer[] renderers = GetComponentsInChildren<Renderer>();

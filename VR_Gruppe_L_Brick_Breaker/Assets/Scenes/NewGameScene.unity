@@ -200,7 +200,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1117168375}
-        m_MethodName: setPointText
+        m_MethodName: SetPointText
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -717,7 +717,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 391989250}
-        m_MethodName: onLevelEvent
+        m_MethodName: OnLevelEvent
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -728,7 +728,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 828474725}
-        m_MethodName: onLevelEvent
+        m_MethodName: OnLevelEvent
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -739,7 +739,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1117168375}
-        m_MethodName: onLevelEvent
+        m_MethodName: OnLevelEvent
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -750,7 +750,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 133841869}
-        m_MethodName: onLevelEvent
+        m_MethodName: OnLevelEvent
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -761,7 +761,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1948103744}
-        m_MethodName: onLevelEvent
+        m_MethodName: OnLevelEvent
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -862,7 +862,7 @@ PrefabInstance:
     - target: {fileID: 3804617963469317288, guid: 71ec05be7ec8e054aa54e8830649e6aa,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: reload
+      value: Reload
       objectReference: {fileID: 0}
     - target: {fileID: 4738870349412375218, guid: 71ec05be7ec8e054aa54e8830649e6aa,
         type: 3}
@@ -984,7 +984,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7971459773870687312, guid: 71ec05be7ec8e054aa54e8830649e6aa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 71ec05be7ec8e054aa54e8830649e6aa, type: 3}
 --- !u!1 &828474724
 GameObject:
@@ -1027,7 +1028,7 @@ MonoBehaviour:
     type: 3}
   gizmosDrawClamps: 1
   gizmosDrawBlocks: 1
-  OnBlockDestroyed:
+  onBlockDestroyed:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 516857835}
@@ -1042,7 +1043,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 516857835}
-        m_MethodName: hit
+        m_MethodName: Hit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1150,7 +1151,7 @@ PrefabInstance:
     - target: {fileID: 1174895342905346706, guid: acc379739570cdf43a990427a03014a5,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: toggleBottomMenu
+      value: ToggleBottomMenu
       objectReference: {fileID: 0}
     - target: {fileID: 1174895342905346706, guid: acc379739570cdf43a990427a03014a5,
         type: 3}
@@ -1559,7 +1560,7 @@ PrefabInstance:
     - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: toggleStartMenu
+      value: ToggleStartMenu
       objectReference: {fileID: 0}
     - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
         type: 3}
@@ -1579,7 +1580,7 @@ PrefabInstance:
     - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: gameStart
+      value: GameStart
       objectReference: {fileID: 0}
     - target: {fileID: 3532168782602186835, guid: 7a11572f566554366ac0c96799992f9d,
         type: 3}
@@ -3043,7 +3044,7 @@ PrefabInstance:
     - target: {fileID: 7638498584647898264, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: reload
+      value: Reload
       objectReference: {fileID: 0}
     - target: {fileID: 7638498585015250856, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
@@ -3183,7 +3184,7 @@ PrefabInstance:
     - target: {fileID: 8774637078211411485, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: toggleLeaderboards
+      value: ToggleLeaderboards
       objectReference: {fileID: 0}
     - target: {fileID: 8774637078939202214, guid: a7fc0fde5022c42cda170d938779ef4f,
         type: 3}
@@ -3560,7 +3561,7 @@ PrefabInstance:
     - target: {fileID: 6754124155349363432, guid: ba5adc8b930cf4ed487b6182ec73ac42,
         type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: toggleBottomMenu
+      value: ToggleBottomMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba5adc8b930cf4ed487b6182ec73ac42, type: 3}

@@ -43,11 +43,11 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void onLevelEvent(int levelEvent)
+    public void OnLevelEvent(int levelEvent)
     {
         if (levelEvent == LevelEvent.LEVEL_START)
         {
-            onLevelStart();
+            OnLevelStart();
         }
         else if (levelEvent == LevelEvent.LEVEL_STOP)
         {
@@ -64,7 +64,7 @@ public class ScoreManager : MonoBehaviour
         onScoreUpdateEvent.Invoke(currentScore);
     }
 
-    private void onLevelStart()
+    private void OnLevelStart()
     {
         currentScore = 0;
         timer = 0;
@@ -87,15 +87,15 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public ScoreSavestate getHighscore()
+    public ScoreSavestate GetHighscore()
     {
         return scoreSavestate;
     }
-    public int getCurrentScore()
+    public int GetCurrentScore()
     {
         return currentScore;
     }
-    public float getTime()
+    public float GetTime()
     {
         return timer;
     }

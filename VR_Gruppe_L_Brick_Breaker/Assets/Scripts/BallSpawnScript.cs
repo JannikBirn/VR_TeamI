@@ -6,7 +6,7 @@ public class BallSpawnScript : MonoBehaviour
 {
     public GameObject ballPrefab;
 
-    public void onLevelEvent(int levelEvent)
+    public void OnLevelEvent(int levelEvent)
     {
         if (levelEvent == LevelEvent.LEVEL_START)
         {

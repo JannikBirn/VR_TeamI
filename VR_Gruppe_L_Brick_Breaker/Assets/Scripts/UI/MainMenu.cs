@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     // Das Hauptmenü kann auf Level Events reagieren. Wenn UI Elemente auf diese Level Events reagieren sollen sind diese funktionen hier in der Funktion onLevelEvent zu implementieren
     public GameObject endScreen;
 
-    public void onLevelEvent(int levelEvent)
+    public void OnLevelEvent(int levelEvent)
     {
         switch (levelEvent)
         {
