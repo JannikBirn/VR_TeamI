@@ -9,11 +9,6 @@ public class MainMenu : MonoBehaviour
     // Das Hauptmenü kann auf Level Events reagieren. Wenn UI Elemente auf diese Level Events reagieren sollen sind diese funktionen hier in der Funktion onLevelEvent zu implementieren
     public GameObject endScreen;
 
-    public void toggleEndScreen()
-    {
-        endScreen.SetActive(!endScreen.activeSelf);
-    }
-
     public void onLevelEvent(int levelEvent)
     {
         switch (levelEvent)
@@ -26,7 +21,7 @@ public class MainMenu : MonoBehaviour
             case LevelEvent.LEVEL_PAUSE:
                 break;
             case LevelEvent.LEVEL_STOP:
-                toggleEndScreen();
+                endScreen.SetActive(true);
                 break;
         }
     }

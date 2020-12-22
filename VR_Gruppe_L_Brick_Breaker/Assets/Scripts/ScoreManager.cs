@@ -47,9 +47,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (levelEvent == LevelEvent.LEVEL_START)
         {
-            currentScore = 0;
-            timer = 0;
-            onScoreUpdateEvent.Invoke(currentScore);
+            onLevelStart();
         }
         else if (levelEvent == LevelEvent.LEVEL_STOP)
         {
@@ -63,6 +61,13 @@ public class ScoreManager : MonoBehaviour
     {
         Debug.Log("ScoreManager : OnBlockDestroyed() Event call");
         currentScore += scoreOfABlock;
+        onScoreUpdateEvent.Invoke(currentScore);
+    }
+
+    private void onLevelStart()
+    {
+        currentScore = 0;
+        timer = 0;
         onScoreUpdateEvent.Invoke(currentScore);
     }
 

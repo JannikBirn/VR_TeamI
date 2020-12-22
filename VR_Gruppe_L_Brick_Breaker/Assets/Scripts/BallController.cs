@@ -80,7 +80,10 @@ public class BallController : MonoBehaviour
     {
         // Move along the current direction
         transform.position += direction * Time.deltaTime;
+    }
 
+    private void Update()
+    {
         SetColor();
     }
 
